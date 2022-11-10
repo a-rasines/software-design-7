@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import es.deusto.ingenieria.sd.auctions.server.data.domain.User;
-import es.deusto.ingenieria.sd.auctions.server.services.LoginAppService;
 
 import java.lang.String;
 import java.rmi.RemoteException;
@@ -163,13 +161,13 @@ public class Server implements IServer {
 		}
 	}
 	public String logout(String token) {
-System.out.println(" * RemoteFacade logout: " + token);
+		System.out.println(" * RemoteFacade logout: " + token);
 		
 		if (this.serverState.containsKey(token)) {
 			//Logout means remove the User from Server State
 			this.serverState.remove(token);
 		} else {
-			throw new RemoteException("User is not not logged in!");
+//			throw new RemoteException("User is not not logged in!");
 		}
 	}
 }
