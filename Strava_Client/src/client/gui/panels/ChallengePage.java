@@ -1,8 +1,11 @@
 package client.gui.panels;
 
+import java.awt.Dimension;
+
 import client.gui.ClientPanel;
 
 public class ChallengePage extends ClientPanel {
+	private static final long serialVersionUID = -5807112075284184359L;
 	void callSetupChallenge() {
 		
 	}
@@ -11,5 +14,15 @@ public class ChallengePage extends ClientPanel {
 	}
 	void callAcceptChallenge() {
 		
+	}
+	@Override
+	public void showPanel() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Dimension getPanelPreferedSize() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

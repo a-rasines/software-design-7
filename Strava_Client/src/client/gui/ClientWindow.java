@@ -1,6 +1,7 @@
 package client.gui;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import client.ServerHandler;
 
@@ -19,7 +20,7 @@ public class ClientWindow extends JFrame{
 	private ClientWindow() {
 		
 	}
-	public void show() {
-		
+	public void setPage(ClientPanel newPanel) {
+		this.setContentPane(newPanel);
 	}
 }
