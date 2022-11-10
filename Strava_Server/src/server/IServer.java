@@ -1,5 +1,6 @@
 package server;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 public interface IServer {
@@ -10,5 +11,5 @@ public interface IServer {
 	String loginByEmail(String email, String password);
 	String loginByGoogle(String email, String password);
 	String loginByFacebook(String email, String password);
-	String logout(String token);
+	String logout(String token) throws RemoteException;
 }
