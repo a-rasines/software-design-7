@@ -1,10 +1,9 @@
 package client.gui;
 
 public abstract class ClientPanel {
-	void showPanel() {
-		
+	public static void getInstance() {
 	}
-	void hidePanel() {
+	void showPanel() {
 		
 	}
 }
