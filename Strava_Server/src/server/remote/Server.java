@@ -21,8 +21,8 @@ public class Server extends UnicastRemoteObject implements IServer {
 		super();
 	}
 	
-	 public String registerByEmail(String email, String password) {
-		 System.out.println(" * Email login: " + email + " / " + password);
+	 public String registerByEmail(String email, String password, String name, String birthdate, String weight, String height, int maxHeartRate) {
+		 System.out.println(" * Email register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Heartbeat: " + maxHeartRate);
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
@@ -38,15 +38,15 @@ public class Server extends UnicastRemoteObject implements IServer {
 					return(token);
 				} else {
 					//TODO throw new RemoteException("User is already logged in!");
-					return("UnU");
+					return("Couldn't register");
 				}
 			} else {
 				//TODO throw new RemoteException("Login fails!");
-				return("uNu");
+				return("Couldn't register");
 			}
 	}
-	public String registerByGoogle(String email, String password) {
-		System.out.println(" * Google Register: " + email + " / " + password);
+	public String registerByGoogle(String email, String password, String name, String birthdate, String weight, String height, int maxHeartRate) {
+		System.out.println(" * Google Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Heartbeat: " + maxHeartRate);
 		//TODO cuando haya DB
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session
@@ -62,15 +62,15 @@ public class Server extends UnicastRemoteObject implements IServer {
 				return(token);
 			} else {
 				//TODO throw new RemoteException("User is already logged in!");
-				return("UnU");
+				return("Couldn't Register");
 			}
 		} else {
 			//TODO throw new RemoteException("Login fails!");
-			return("uNu");
+			return("Couldn't Register");
 		}
 	}
-	public String registerByFacebook(String email, String password) {
-		System.out.println(" * FaceBook Register: " + email + " / " + password);
+	public String registerByFacebook(String email, String password, String name, String birthdate, String weight, String height, int maxHeartRate) {
+		System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Heartbeat: " + maxHeartRate);
 		//TODO cuando haya base de datos
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session
@@ -86,11 +86,11 @@ public class Server extends UnicastRemoteObject implements IServer {
 				return(token);
 			} else {
 				//TODO throw new RemoteException("User is already logged in!");
-				return("UnU");
+				return("Couldn't Register");
 			}
 		} else {
 			//TODO throw new RemoteException("Login fails!");
-			return("uNu");
+			return("Couldn't Register");
 		}
 	}
 	public String loginByEmail(String email, String password) {
@@ -110,11 +110,11 @@ public class Server extends UnicastRemoteObject implements IServer {
 						return(token);
 					} else {
 						//TODO throw new RemoteException("User is already logged in!");
-						return("UnU");
+						return("Couldn't Login");
 					}
 				} else {
 					//TODO throw new RemoteException("Login fails!");
-					return("UnU");
+					return("Couldn't Login");
 				}
 	}
 	public String loginByGoogle(String email, String password) {
@@ -134,11 +134,11 @@ public class Server extends UnicastRemoteObject implements IServer {
 						return(token);
 					} else {
 						//TODO throw new RemoteException("User is already logged in!");
-						return("UnU");
+						return("Couldn't Login");
 					}
 				} else {
 					//TODO throw new RemoteException("Login fails!");
-					return("uNu");
+					return("Couldn't Login");
 				}
 	}
 	public String loginByFacebook(String email, String password) {
@@ -158,11 +158,11 @@ public class Server extends UnicastRemoteObject implements IServer {
 				return(token);
 			} else {
 				//TODO throw new RemoteException("User is already logged in!");
-				return("UnU");
+				return("Couldn't Login");
 			}
 		} else {
 			//TODO throw new RemoteException("Login fails!");
-			return("uNu");
+			return("Couldn't Login");
 		}
 	}
 	public String logout(String token) throws RemoteException{
@@ -172,6 +172,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 			//Logout means remove the User from Server State
 			this.serverState.remove(token);
 		} else {
+			System.out.println("Logout failed");
 			throw new RemoteException("User is not not logged in!");
 		}
 		return null;
