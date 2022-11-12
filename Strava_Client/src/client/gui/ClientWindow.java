@@ -1,8 +1,9 @@
 package client.gui;
 
 import javax.swing.JFrame;
-import client.ServerHandler;
+
 import client.gui.panels.LoginPage;
+import client.remote.ServerHandler;
 
 public class ClientWindow extends JFrame{
 	private static final long serialVersionUID = -1115925128322368105L;
