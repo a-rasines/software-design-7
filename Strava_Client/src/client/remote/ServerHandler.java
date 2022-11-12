@@ -10,6 +10,7 @@ import server.remote.IServer;
 public class ServerHandler {
 	String sessionToken;
 	
+	//Da error, pero es normal, se soluciona con el build
 	//Remote Facade reference
 	private IServer service;
 	public ServerHandler() {};
