@@ -40,8 +40,8 @@ public class LoginPage extends ClientPanel{
 		// <>---- Check info ----<>
 		JPanel enterPanel = new JPanel(new FlowLayout());
 		JButton enter = new JButton("Enter");
-		enter.addActionListener(
-			new LoginActionListener(
+		enter.addMouseListener(
+			new LoginMouseListener(
 				p->{
 					if(true) //TODO Ask for approval
 						ClientWindow.getInstance().setPage(HomePage.class);
@@ -60,39 +60,29 @@ public class LoginPage extends ClientPanel{
 										  "Login with Facebook",
 										  40,
 										  40);
-		fbLogin.addMouseListener(new MouseAdapter() {
-			LoginActionListener listener = new LoginActionListener(
+		fbLogin.addMouseListener(new LoginMouseListener(
 				p->{
 					if(true) //TODO Ask for approval
 						ClientWindow.getInstance().setPage(HomePage.class);
 				},
 				username, 
 				pass
-			);
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				listener.actionPerformed(null);
-			}
-		});
+			)
+		);
 		enterPanel.add(fbLogin);
 		JLabel gmailLogin = createImageLabel("https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png",
 											 "Login with Google",
 											 40,
 											 40);
-		gmailLogin.addMouseListener(new MouseAdapter() {
-			LoginActionListener listener = new LoginActionListener(
-					p->{
-						if(true) //TODO Ask for approval
-							ClientWindow.getInstance().setPage(HomePage.class);
-					},
-					username, 
-					pass
-				);
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					listener.actionPerformed(null);
-				}
-			});
+		gmailLogin.addMouseListener(new LoginMouseListener(
+				p->{
+					if(true) //TODO Ask for approval
+						ClientWindow.getInstance().setPage(HomePage.class);
+				},
+				username, 
+				pass
+			)
+		);
 		enterPanel.add(gmailLogin);
 	}
 	protected static final Color TRANSPARENT = new Color(0, 0, 0, 0);

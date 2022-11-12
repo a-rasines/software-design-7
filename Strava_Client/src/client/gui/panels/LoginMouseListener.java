@@ -3,6 +3,8 @@ package client.gui.panels;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
 
 import javax.swing.BorderFactory;
@@ -10,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
-public class LoginActionListener implements ActionListener{
+public class LoginMouseListener extends MouseAdapter{
 	private static final TitledBorder EMPTY_FIELD_BORDER;
 	static {
 		TitledBorder temp = BorderFactory.createTitledBorder("This field needs to be filled");
@@ -19,13 +21,12 @@ public class LoginActionListener implements ActionListener{
 	}
 	JTextComponent[] fields;
 	Consumer<String[]> success;
-	public LoginActionListener(Consumer<String[]> onSuccess, JTextComponent... components) {
+	public LoginMouseListener(Consumer<String[]> onSuccess, JTextComponent... components) {
 		fields = components;
 		success = onSuccess;
 	}
-	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void mouseClicked(MouseEvent e) {
 		String[] args = new String[fields.length];
 		int i = 0;
 		for(JTextComponent field : fields) {
