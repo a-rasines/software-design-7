@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import client.gui.ClientWindow;
+import client.gui.panels.extras.LoginMouseListener;
 
 public class LoginPage extends FieldPage{
 

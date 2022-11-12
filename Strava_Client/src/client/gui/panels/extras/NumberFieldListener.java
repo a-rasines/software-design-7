@@ -1,4 +1,4 @@
-package client.gui.panels;
+package client.gui.panels.extras;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

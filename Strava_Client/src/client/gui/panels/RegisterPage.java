@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 import client.gui.ClientWindow;
+import client.gui.panels.extras.LoginMouseListener;
+import client.gui.panels.extras.NumberFieldListener;
 
 public class RegisterPage extends FieldPage{
 	private static final long serialVersionUID = -6176236894068641990L;

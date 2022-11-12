@@ -17,15 +17,13 @@ import javax.swing.text.JTextComponent;
 import client.gui.ClientPanel;
 
 public abstract class FieldPage extends ClientPanel{
-
+	private static final long serialVersionUID = -8845423676269496329L;
 	@Override
 	public abstract Dimension getPreferredSize();
 
 	@Override
 	public abstract void showPanel();
 	
-	protected static final Color TRANSPARENT = new Color(0, 0, 0, 0);
-	protected static final Color STRAVA_COLOR = new Color(252, 106, 36);
 	protected JPanel createField(String name, JTextComponent field) {
 		JPanel end = new JPanel(new FlowLayout());
 		end.setBackground(TRANSPARENT);
@@ -47,7 +45,7 @@ public abstract class FieldPage extends ClientPanel{
 	        	int size = Math.min(pSize.width, pSize.height);
 				g.drawImage(
 						ImageIO.read(
-								new URL("https://play-lh.googleusercontent.com/j-ZV144PlVuTVsLuBzIKyEw9CbFnmWw9ku2NJ1ef0gZJh-iiIN1nrNPmAtvgAteyDqU")
+								new URL("https://imgur.com/7gVDNZk.png")
 									.openStream())
 							.getScaledInstance(size, size, Image.SCALE_SMOOTH),
 						(getPreferredSize().width - size)/2, 

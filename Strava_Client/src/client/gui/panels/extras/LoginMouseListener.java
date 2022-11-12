@@ -1,4 +1,4 @@
-package client.gui.panels;
+package client.gui.panels.extras;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -24,7 +24,7 @@ public class LoginMouseListener extends MouseAdapter{
 		success = onSuccess;
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		String[] args = new String[fields.length];
 		int i = 0;
 		for(JTextComponent field : fields) {

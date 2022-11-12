@@ -4,22 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,10 +23,13 @@ import javax.swing.JScrollPane;
 
 import client.gui.ClientPanel;
 import client.gui.ClientWindow;
+import client.gui.panels.extras.SessionPanel;
+import client.gui.panels.extras.SessionPanel.SessionType;
 
 public class HomePage extends ClientPanel{
 	private static final long serialVersionUID = 3192046128464182145L;
 	public HomePage() {
+		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		JPanel logoPanel = new JPanel(new BorderLayout());
 		JLabel logoLabel = null;
@@ -43,6 +39,7 @@ public class HomePage extends ClientPanel{
 			logoLabel = new JLabel("STRAVA");
 			e.printStackTrace();
 		}
+		logoPanel.setBackground(TRANSPARENT);
 		logoPanel.add(logoLabel, BorderLayout.CENTER);
 		JButton logoutButton = new JButton("Logout");
 		logoutButton.addActionListener(new ActionListener() {
@@ -64,9 +61,12 @@ public class HomePage extends ClientPanel{
 		JPanel totalPanel = new JPanel();
 		BoxLayout bl = new BoxLayout(totalPanel, BoxLayout.Y_AXIS);
 		totalPanel.setLayout(bl);
+		totalPanel.setBackground(TRANSPARENT);
 		totalPanel.add(new JLabel("\n"));//Little offset
 			JPanel sessionPanel = new JPanel(new BorderLayout());
+			sessionPanel.setBackground(TRANSPARENT);
 				JPanel topPanel = new JPanel(new BorderLayout());
+				topPanel.setBackground(TRANSPARENT);
 					topPanel.add(new JLabel("Your Sessions"), BorderLayout.CENTER);
 					JButton createSession = new JButton("New");
 					topPanel.add(createSession, BorderLayout.EAST);
@@ -74,23 +74,25 @@ public class HomePage extends ClientPanel{
 				
 				JPanel sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				JScrollPane sessionScroll = new JScrollPane(sessionList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.RUNNING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.RUNNING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-					sessionList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
 				sessionPanel.add(sessionScroll, BorderLayout.CENTER);
 		totalPanel.add(sessionPanel);
 		totalPanel.add(new JLabel("\n"));//Little offset
 			JPanel challengePanel = new JPanel(new BorderLayout());
+			challengePanel.setBackground(TRANSPARENT);
 				topPanel = new JPanel(new BorderLayout());
+				topPanel.setBackground(TRANSPARENT);
 				topPanel.add(new JLabel("Your Challenges"), BorderLayout.CENTER);
 				JButton createChallenge = new JButton("New");
 				topPanel.add(createChallenge, BorderLayout.EAST);
@@ -98,18 +100,18 @@ public class HomePage extends ClientPanel{
 			
 			JPanel challengeList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			JScrollPane challengeScroll = new JScrollPane(challengeList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.RUNNING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.RUNNING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.BOTH, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
-				challengeList.add(createSessionPanel(SessionType.CYCLING, new Date(), "Test"));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.BOTH, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
 			challengePanel.add(challengeScroll, BorderLayout.CENTER);
 		totalPanel.add(challengePanel);
 		totalPanel.add(new JLabel("\n"));//Little offset
@@ -120,36 +122,7 @@ public class HomePage extends ClientPanel{
 		// TODO Auto-generated method stub
 		
 	}
-	public enum SessionType{
-		CYCLING("https://imgur.com/Pfwx0nA.png"),
-		RUNNING("https://imgur.com/4xlBRWY.png"),
-		BOTH("https://assets.ifttt.com/images/channels/1055884022/icons/monochrome_large.png");
-		public final BufferedImage image;
-		SessionType(String url){
-			image = javaIsSpecialSometimes(url);
-		}
-		private BufferedImage javaIsSpecialSometimes(String url) {
-			try {
-				return ImageIO.read(new URL(url));
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-	}
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-	private static final Color BACKGROUND_COLOR = new Color(50, 50, 50);
-	private JPanel createSessionPanel(SessionType type, Date date, String title) {
-		JPanel end = new JPanel(new BorderLayout());
-		end.setBackground(BACKGROUND_COLOR);
-		end.add(new JLabel(new ImageIcon(type.image.getScaledInstance(100, 100, Image.SCALE_SMOOTH))), BorderLayout.CENTER);
-		JLabel label = new JLabel(title + " // " + DATE_FORMAT.format(date));
-		label.setForeground(Color.WHITE);
-		end.add(label, BorderLayout.SOUTH);
-		return end;
-		
-	}
-	private static final Dimension PREFERRED_SIZE = new Dimension(700, 480);
+	private static final Dimension PREFERRED_SIZE = new Dimension(700, 530);
 	@Override
 	public Dimension getPreferredSize() {
 		return PREFERRED_SIZE;
