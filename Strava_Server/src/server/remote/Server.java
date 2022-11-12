@@ -21,8 +21,8 @@ public class Server extends UnicastRemoteObject implements IServer {
 		super();
 	}
 	
-	 public String registerByEmail(String email, String password, String name, String birthdate, String weight, String height, int maxHeartRate) {
-		 System.out.println(" * Email register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Heartbeat: " + maxHeartRate);
+	 public String registerByEmail(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) {
+		 System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
@@ -45,8 +45,8 @@ public class Server extends UnicastRemoteObject implements IServer {
 				return("Couldn't register");
 			}
 	}
-	public String registerByGoogle(String email, String password, String name, String birthdate, String weight, String height, int maxHeartRate) {
-		System.out.println(" * Google Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Heartbeat: " + maxHeartRate);
+	public String registerByGoogle(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) {
+		System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
 		//TODO cuando haya DB
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session
@@ -69,8 +69,8 @@ public class Server extends UnicastRemoteObject implements IServer {
 			return("Couldn't Register");
 		}
 	}
-	public String registerByFacebook(String email, String password, String name, String birthdate, String weight, String height, int maxHeartRate) {
-		System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Heartbeat: " + maxHeartRate);
+	public String registerByFacebook(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) {
+		System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
 		//TODO cuando haya base de datos
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session

@@ -2,8 +2,6 @@ package client.remote;
 
 import java.rmi.Naming;
 
-import server.remote.IServer;
-
 /**
  * Handles the connection with the server.
  */
