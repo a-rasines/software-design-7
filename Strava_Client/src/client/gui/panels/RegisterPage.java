@@ -7,7 +7,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -79,12 +78,12 @@ public class RegisterPage extends FieldPage{
 		add(createField("Height(cm)(opt.):", heightField));
 		componentMap.put(Field.HEIGHT, heightField);
 		
-		JTextField mhrField = new JTextField(24);
+		JTextField mhrField = new JTextField(16);
 		heightField.addKeyListener(new NumberFieldListener());
 		add(createField("Max. Hearth Rate(bpm)(opt.):", mhrField));
 		componentMap.put(Field.MAX_HEARTH_RATE, mhrField);
 		
-		JTextField rhrField = new JTextField(24);
+		JTextField rhrField = new JTextField(16);
 		heightField.addKeyListener(new NumberFieldListener());
 		add(createField("Hearth Rate in rest(bpm)(opt.):", rhrField));
 		componentMap.put(Field.REST_HEARTH_RATE, rhrField);
@@ -94,9 +93,11 @@ public class RegisterPage extends FieldPage{
 		enter.addMouseListener(
 			new LoginMouseListener(
 				p->{
-					if(!ClientWindow.getInstance().getService().registerByEmail(p[0], p[1]).equals("UnU"))//TODO Use the rest of fields
+					String token = ClientWindow.getInstance().getService().registerByEmail(p[0], p[1], p[2], p[3], Float.parseFloat(weightField.getText()), Float.parseFloat(heightField.getText()), Float.parseFloat(mhrField.getText()), Float.parseFloat(rhrField.getText()));
+					if(!token.equals("UnU")) {
+						ClientWindow.getInstance().getServerHandler().setToken(token);
 						ClientWindow.getInstance().setPage(HomePage.class);
-					else {
+					}else {
 						JOptionPane.showMessageDialog(null, "Something went wrong in registration");
 					}
 				},
@@ -119,9 +120,11 @@ public class RegisterPage extends FieldPage{
 		fbLogin.addMouseListener(
 				new LoginMouseListener(
 						p->{
-							if(!ClientWindow.getInstance().getService().registerByFacebook(p[0], p[1]).equals("UnU"))//TODO Use the rest of fields
+							String token = ClientWindow.getInstance().getService().registerByFacebook(p[0], p[1], p[2], p[3], Float.parseFloat(weightField.getText()), Float.parseFloat(heightField.getText()), Float.parseFloat(mhrField.getText()), Float.parseFloat(rhrField.getText()));
+							if(!token.equals("UnU")) {
+								ClientWindow.getInstance().getServerHandler().setToken(token);
 								ClientWindow.getInstance().setPage(HomePage.class);
-							else {
+							}else {
 								JOptionPane.showMessageDialog(null, "Something went wrong in registration");
 							}
 						},
@@ -139,9 +142,11 @@ public class RegisterPage extends FieldPage{
 		gmailLogin.addMouseListener(
 				new LoginMouseListener(
 						p->{
-							if(!ClientWindow.getInstance().getService().registerByGoogle(p[0], p[1]).equals("UnU"))//TODO Use the rest of fields
+							String token = ClientWindow.getInstance().getService().registerByGoogle(p[0], p[1], p[2], p[3], Float.parseFloat(weightField.getText()), Float.parseFloat(heightField.getText()), Float.parseFloat(mhrField.getText()), Float.parseFloat(rhrField.getText()));
+							if(!token.equals("UnU")) {
+								ClientWindow.getInstance().getServerHandler().setToken(token);
 								ClientWindow.getInstance().setPage(HomePage.class);
-							else {
+							} else {
 								JOptionPane.showMessageDialog(null, "Something went wrong in registration");
 							}
 						},

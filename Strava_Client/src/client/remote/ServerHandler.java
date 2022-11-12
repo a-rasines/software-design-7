@@ -15,6 +15,12 @@ public class ServerHandler {
 	public ServerHandler(String ip, String port, String serviceName) {
 		setService(ip, port, serviceName);
 	}
+	public String getToken() {
+		return sessionToken;
+	}
+	public void setToken(String token) {
+		sessionToken = token;
+	}
 	public void setService(String ip, String port, String serviceName) {
 		//Activate Security Manager. It is needed for RMI.
 		if (System.getSecurityManager() == null) {
