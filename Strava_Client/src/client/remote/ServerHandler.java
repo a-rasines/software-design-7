@@ -2,6 +2,8 @@ package client.remote;
 
 import java.rmi.Naming;
 
+import server.remote.IServer;
+
 /**
  * Handles the connection with the server.
  */
@@ -11,6 +13,7 @@ public class ServerHandler {
 	//Remote Facade reference
 	private IServer service;
 
+	@SuppressWarnings({ "removal", "deprecation" })
 	public void setService(String ip, String port, String serviceName) {
 		//Activate Security Manager. It is needed for RMI.
 		if (System.getSecurityManager() == null) {
