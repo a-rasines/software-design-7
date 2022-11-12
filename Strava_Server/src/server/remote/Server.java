@@ -8,13 +8,18 @@ import java.util.Map;
 
 import java.lang.String;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class Server implements IServer {
+public class Server extends UnicastRemoteObject implements IServer {
 	List<Session> activeSessions;
 	private static final long serialVersionUID = 1L;
 
 	//Data structure for manage Server State
 	public Map<String, Session> serverState = new HashMap<>();
+	
+	public Server() throws RemoteException {
+		super();
+	}
 	
 	 public String registerByEmail(String email, String password) {
 		 System.out.println(" * Email login: " + email + " / " + password);
