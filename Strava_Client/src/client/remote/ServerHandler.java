@@ -12,8 +12,10 @@ public class ServerHandler {
 	
 	//Remote Facade reference
 	private IServer service;
-
-	@SuppressWarnings({ "removal", "deprecation" })
+	public ServerHandler() {};
+	public ServerHandler(String ip, String port, String serviceName) {
+		setService(ip, port, serviceName);
+	}
 	public void setService(String ip, String port, String serviceName) {
 		//Activate Security Manager. It is needed for RMI.
 		if (System.getSecurityManager() == null) {

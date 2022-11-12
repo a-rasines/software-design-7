@@ -6,18 +6,20 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
 import client.gui.ClientPanel;
@@ -26,7 +28,12 @@ import client.gui.ClientWindow;
 public class LoginPage extends ClientPanel{
 
 	private static final long serialVersionUID = 8120115114670778158L;
-	
+	private static final TitledBorder WRONG_CREDENTIALS;
+	static {
+		TitledBorder temp = BorderFactory.createTitledBorder("Username or password incorrect.");
+		temp.setTitleColor(Color.white);
+		WRONG_CREDENTIALS = temp;
+	}
 	public LoginPage() {
 		setLayout(new GridLayout(4, 1));
 		add(new JLabel());
@@ -43,8 +50,12 @@ public class LoginPage extends ClientPanel{
 		enter.addMouseListener(
 			new LoginMouseListener(
 				p->{
-					if(true) //TODO Ask for approval
+					if(!ClientWindow.getInstance().getService().loginByEmail(p[0], p[1]).equals("UnU"))
 						ClientWindow.getInstance().setPage(HomePage.class);
+					else {
+						username.setBorder(WRONG_CREDENTIALS);
+						pass.setBorder(WRONG_CREDENTIALS);
+					}
 				},
 				username, 
 				pass
@@ -62,8 +73,12 @@ public class LoginPage extends ClientPanel{
 										  40);
 		fbLogin.addMouseListener(new LoginMouseListener(
 				p->{
-					if(true) //TODO Ask for approval
+					if(!ClientWindow.getInstance().getService().loginByFacebook(p[0], p[1]).equals("UnU"))
 						ClientWindow.getInstance().setPage(HomePage.class);
+					else {
+						username.setBorder(WRONG_CREDENTIALS);
+						pass.setBorder(WRONG_CREDENTIALS);
+					}
 				},
 				username, 
 				pass
@@ -76,14 +91,29 @@ public class LoginPage extends ClientPanel{
 											 40);
 		gmailLogin.addMouseListener(new LoginMouseListener(
 				p->{
-					if(true) //TODO Ask for approval
+					if(!ClientWindow.getInstance().getService().loginByGoogle(p[0], p[1]).equals("UnU"))
 						ClientWindow.getInstance().setPage(HomePage.class);
+					else {
+						username.setBorder(WRONG_CREDENTIALS);
+						pass.setBorder(WRONG_CREDENTIALS);
+					}
 				},
 				username, 
 				pass
 			)
 		);
 		enterPanel.add(gmailLogin);
+		
+		JButton registerButton = new JButton("Register");
+		registerButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ClientWindow.getInstance().setPage(RegisterPage.class);
+			}
+			
+		});
+		enterPanel.add(registerButton);
 	}
 	protected static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 	protected static final Color STRAVA_COLOR = new Color(252, 106, 36);
