@@ -42,6 +42,6 @@
 			<delete dir="${dist.dir}"/>
 			<mkdir dir="${dist.dir}"/>
 			<jar destfile="${dist.dir}/${jar.file}" basedir="${build.dir}"/>
-		</target>
+	</target>
 	
 </project>
