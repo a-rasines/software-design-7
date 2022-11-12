@@ -1,4 +1,4 @@
-package server;
+package server.remote;
 
 import server.data.Profile;
 
