@@ -2,9 +2,6 @@ package client;
 
 import java.rmi.Naming;
 
-//TODO Cambiar a nuestro IServer cuando este hacido
-import es.deusto.ingenieria.sd.auctions.client.remote.IRemoteFacade;
-
 /**
  * Handles the connection with the server.
  */

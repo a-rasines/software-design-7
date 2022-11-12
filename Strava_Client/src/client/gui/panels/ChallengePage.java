@@ -21,7 +21,7 @@ public class ChallengePage extends ClientPanel {
 		
 	}
 	@Override
-	public Dimension getPanelPreferedSize() {
+	public Dimension getPreferredSize() {
 		// TODO Auto-generated method stub
 		return null;
 	}

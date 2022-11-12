@@ -1,7 +1,6 @@
 package server;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
 public interface IServer {
 	//List<Session> activeSessions;

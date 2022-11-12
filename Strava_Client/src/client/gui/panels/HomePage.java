@@ -6,6 +6,9 @@ import client.gui.ClientPanel;
 
 public class HomePage extends ClientPanel{
 	private static final long serialVersionUID = 3192046128464182145L;
+	public HomePage() {
+		
+	}
 	void showChallengePage() {
 		
 	}
@@ -21,8 +24,7 @@ public class HomePage extends ClientPanel{
 		
 	}
 	@Override
-	public Dimension getPanelPreferedSize() {
-		// TODO Auto-generated method stub
-		return null;
+	public Dimension getPreferredSize() {
+		return new Dimension(100, 100);
 	}
 }

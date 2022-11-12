@@ -26,6 +26,6 @@ public abstract class ClientPanel extends JPanel{
 		return (T)panel;
 		
 	}
-	public abstract Dimension getPanelPreferedSize();
+	public abstract Dimension getPreferredSize();
 	public abstract void showPanel();
 }
