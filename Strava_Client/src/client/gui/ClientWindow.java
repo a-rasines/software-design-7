@@ -42,7 +42,6 @@ public class ClientWindow extends JFrame{
 	public void setPage(Class<? extends ClientPanel> newPanel) {
 		ClientPanel panel = ClientPanel.getInstanceOf(newPanel);
 		setContentPane(panel);
-		panel.showPanel();
 		repaint();
 		setPreferredSize(panel.getPreferredSize());
 		pack();

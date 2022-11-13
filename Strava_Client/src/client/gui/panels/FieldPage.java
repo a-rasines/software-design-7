@@ -11,10 +11,9 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.text.JTextComponent;
-
 import client.gui.ClientPanel;
 
 public abstract class FieldPage extends ClientPanel{
@@ -22,10 +21,7 @@ public abstract class FieldPage extends ClientPanel{
 	@Override
 	public abstract Dimension getPreferredSize();
 
-	@Override
-	public abstract void showPanel();
-	
-	protected JPanel createField(String name, JTextComponent field) {
+	protected JPanel createField(String name, JComponent field) {
 		JPanel end = new JPanel(new FlowLayout());
 		end.setBackground(TRANSPARENT);
 		JLabel temp = new JLabel(name);

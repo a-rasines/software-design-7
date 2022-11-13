@@ -29,6 +29,9 @@ import client.gui.panels.extras.SessionPanel.SessionType;
 
 public class HomePage extends ClientPanel{
 	private static final long serialVersionUID = 3192046128464182145L;
+	private JPanel sessionList;
+	private JPanel challengeList;
+	
 	public HomePage() {
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
@@ -72,11 +75,19 @@ public class HomePage extends ClientPanel{
 					JPanel buttonOffsetPanel = new JPanel(new FlowLayout());
 					buttonOffsetPanel.setBackground(TRANSPARENT);
 						JButton createSession = new JButton("New");
+						createSession.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								ClientWindow.getInstance().setPage(TrainingPage.class);
+								
+							}
+						});
 						buttonOffsetPanel.add(createSession);
 					topPanel.add(buttonOffsetPanel, BorderLayout.EAST);
 				sessionPanel.add(topPanel, BorderLayout.NORTH);
 				
-				JPanel sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
+				sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				JScrollPane sessionScroll = new JScrollPane(sessionList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 					//TODO Turn this into a for loop with info
 					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
@@ -108,7 +119,7 @@ public class HomePage extends ClientPanel{
 				topPanel.add(buttonPanel, BorderLayout.EAST);
 			challengePanel.add(topPanel, BorderLayout.NORTH);
 			
-			JPanel challengeList = new JPanel(new FlowLayout(FlowLayout.LEFT));
+			challengeList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			JScrollPane challengeScroll = new JScrollPane(challengeList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 				//TODO Turn this into a for loop with info
 				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
@@ -128,10 +139,8 @@ public class HomePage extends ClientPanel{
 		totalPanel.add(new JLabel("\n"));//Little offset
 		add(totalPanel, BorderLayout.CENTER);
 	}
-	@Override
-	public void showPanel() {
-		// TODO Auto-generated method stub
-		
+	public void addTrainingSession(SessionPanel panel) {
+		sessionList.add(panel);
 	}
 	private static final Dimension PREFERRED_SIZE = new Dimension(700, 530);
 	@Override

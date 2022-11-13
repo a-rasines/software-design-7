@@ -170,9 +170,5 @@ public class RegisterPage extends FieldPage{
 		componentMap.get(field).setText(value);
 		componentMap.get(field).setEnabled(false);
 	}
-	@Override
-	public void showPanel() {
-		
-	}
 
 }

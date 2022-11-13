@@ -106,11 +106,6 @@ public class LoginPage extends FieldPage{
 		});
 		enterPanel.add(registerButton);
 	}
-	@Override
-	public void showPanel() {
-		
-		
-	}
 	private static final Dimension PREFERED_SIZE = new Dimension(400, 250);
 	@Override
 	public Dimension getPreferredSize() {

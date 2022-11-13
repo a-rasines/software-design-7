@@ -30,5 +30,4 @@ public abstract class ClientPanel extends JPanel{
 		
 	}
 	public abstract Dimension getPreferredSize();
-	public abstract void showPanel();
 }
