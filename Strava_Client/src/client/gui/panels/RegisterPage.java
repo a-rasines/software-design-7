@@ -3,8 +3,6 @@ package client.gui.panels;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 import client.gui.ClientWindow;
+import client.gui.panels.extras.DateKeyListener;
 import client.gui.panels.extras.LoginMouseListener;
 import client.gui.panels.extras.NumberFieldListener;
 
@@ -57,16 +56,7 @@ public class RegisterPage extends FieldPage{
 		JFormattedTextField birthdateField = new JFormattedTextField(df);
 		birthdateField.setColumns(24);
 		birthdateField.setText(df.format(new Date()));
-		birthdateField.addKeyListener(new KeyAdapter() {
-		    public void keyTyped(KeyEvent e) {
-		      char c = e.getKeyChar();
-		      if (!((c >= '0') && (c <= '9')   ||
-		         (c == KeyEvent.VK_BACK_SPACE) ||
-		         (c == KeyEvent.VK_DELETE)     || 
-		         (c == KeyEvent.VK_SLASH)))
-		    	  e.consume();
-		    }
-		});
+		birthdateField.addKeyListener(new DateKeyListener());
 		add(createField("Date of birth:", birthdateField));
 		componentMap.put(Field.BIRTHDATE, birthdateField);
 		

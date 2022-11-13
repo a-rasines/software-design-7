@@ -22,10 +22,13 @@ public abstract class FieldPage extends ClientPanel{
 	public abstract Dimension getPreferredSize();
 
 	protected JPanel createField(String name, JComponent field) {
+		return createField(name, field, Color.WHITE);
+	}
+	protected JPanel createField(String name, JComponent field, Color c) {
 		JPanel end = new JPanel(new FlowLayout());
 		end.setBackground(TRANSPARENT);
 		JLabel temp = new JLabel(name);
-		temp.setForeground(Color.WHITE);
+		temp.setForeground(c);
 		end.add(temp);
 		end.add(field);
 		return end;

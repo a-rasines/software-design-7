@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
+import client.gui.ClientWindow;
+
 public class LoginMouseListener extends MouseAdapter{
 	private static final TitledBorder EMPTY_FIELD_BORDER;
 	static {
@@ -31,11 +33,12 @@ public class LoginMouseListener extends MouseAdapter{
 		for(JTextComponent field : fields) {
 			if(field.getText().trim().equals("")) {
 				((JPanel)field.getParent()).setBorder(EMPTY_FIELD_BORDER);
-				field.getParent().getParent().repaint();
+				ClientWindow.getInstance().repaint();
 				return;
 			}
-			((JPanel)field.getParent()).setBorder(null);
-			field.getParent().getParent().repaint();
+			if(field.getParent() != null)
+				((JPanel)field.getParent()).setBorder(null);
+			ClientWindow.getInstance().repaint();
 			args[i++] = field.getText();
 		}
 		success.accept(args);

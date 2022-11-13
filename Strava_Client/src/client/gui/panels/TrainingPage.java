@@ -5,8 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +19,7 @@ import javax.swing.JTextField;
 
 import client.gui.ClientPanel;
 import client.gui.ClientWindow;
+import client.gui.panels.extras.DateKeyListener;
 import client.gui.panels.extras.LoginMouseListener;
 import client.gui.panels.extras.NumberFieldListener;
 import client.gui.panels.extras.SessionPanel;
@@ -40,16 +39,7 @@ public class TrainingPage extends FieldPage {
 		JFormattedTextField startDateField = new JFormattedTextField(df);
 		startDateField.setColumns(24);
 		startDateField.setText(df.format(new Date()));
-		startDateField.addKeyListener(new KeyAdapter() {
-		    public void keyTyped(KeyEvent e) {
-		      char c = e.getKeyChar();
-		      if (!((c >= '0') && (c <= '9')   ||
-		         (c == KeyEvent.VK_BACK_SPACE) ||
-		         (c == KeyEvent.VK_DELETE)     || 
-		         (c == KeyEvent.VK_SLASH)))
-		    	  e.consume();
-		    }
-		});
+		startDateField.addKeyListener(new DateKeyListener());
 		add(createField("Start date:", startDateField));
 		JTextField distanceField = new JTextField(24);
 		distanceField.addKeyListener(new NumberFieldListener());
@@ -69,7 +59,7 @@ public class TrainingPage extends FieldPage {
 								titleField.getText(),
 								df.parse(startDateField.getText()),
 								Float.parseFloat(distanceField.getText()),
-								Long.parseLong(durationField.getText())
+								Float.parseFloat(durationField.getText())
 						)
 					);
 					//TODO Register in server the new training session

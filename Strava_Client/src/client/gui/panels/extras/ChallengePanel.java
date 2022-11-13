@@ -30,7 +30,7 @@ public class ChallengePanel extends JPanel {
 	private static final Color BACKGROUND_COLOR = ClientPanel.STRAVA_COLOR;//new Color(50, 50, 50);
 	private static final Color COMPLETED_COLOR = new Color(252, 135, 60);
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-	public ChallengePanel(SessionType type,  String title, Date startDate, Date endDate, long target, boolean isDistance, boolean completed) {
+	public ChallengePanel(SessionType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
 		update(type, title, startDate, endDate, target, isDistance, completed);
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -46,7 +46,7 @@ public class ChallengePanel extends JPanel {
 		this.onComplete = onComplete;
 		return this;
 	}
-	private void update(SessionType type,  String title, Date startDate, Date endDate, long target, boolean isDistance, boolean completed) {
+	private void update(SessionType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
 		setBackground(completed? COMPLETED_COLOR : BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
 		front.setBackground(completed? COMPLETED_COLOR : BACKGROUND_COLOR);
@@ -86,7 +86,8 @@ public class ChallengePanel extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					removeAll();
-					onComplete.accept(instance);
+					if(onComplete != null)
+						onComplete.accept(instance);
 					//TODO Update the server info
 					update(type, title, startDate, endDate, target, isDistance, true);
 					frontShowing = false;

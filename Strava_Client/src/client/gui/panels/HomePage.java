@@ -113,6 +113,14 @@ public class HomePage extends ClientPanel{
 				JPanel buttonPanel = new JPanel(new FlowLayout());
 				buttonPanel.setBackground(TRANSPARENT);
 					JButton createChallenge = new JButton("New");
+					createChallenge.addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							ClientWindow.getInstance().setPage(ChallengePage.class);
+						}
+						
+					});
 					JButton browseChallenge = new JButton("Browse");
 					buttonPanel.add(browseChallenge);
 					buttonPanel.add(createChallenge);
@@ -141,6 +149,9 @@ public class HomePage extends ClientPanel{
 	}
 	public void addTrainingSession(SessionPanel panel) {
 		sessionList.add(panel);
+	}
+	public void addChallenge(ChallengePanel panel) {
+		challengeList.add(panel);
 	}
 	private static final Dimension PREFERRED_SIZE = new Dimension(700, 530);
 	@Override

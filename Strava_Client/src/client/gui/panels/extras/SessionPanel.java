@@ -47,7 +47,7 @@ public class SessionPanel extends JPanel {
 	boolean frontShowing = false;
 	private static final Color BACKGROUND_COLOR = ClientPanel.STRAVA_COLOR;//new Color(50, 50, 50);
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-	public SessionPanel(SessionType type,  String title, Date startDate, float distance, long duration) {
+	public SessionPanel(SessionType type,  String title, Date startDate, float distance, float duration) {
 		setMinimumSize(new Dimension(100, 150));
 		setBackground(BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
