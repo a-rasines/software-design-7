@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
 import client.gui.ClientWindow;
 import client.gui.panels.extras.LoginMouseListener;
 
@@ -41,12 +43,17 @@ public class LoginPage extends FieldPage{
 		enter.addMouseListener(
 			new LoginMouseListener(
 				p->{
-					if(!ClientWindow.getInstance().getService().loginByEmail(p[0], p[1]).equals("UnU"))
-						ClientWindow.getInstance().setPage(HomePage.class);
-					else {
-						username.setBorder(WRONG_CREDENTIALS);
-						pass.setBorder(WRONG_CREDENTIALS);
+					try {
+						if(!ClientWindow.getInstance().getService().loginByEmail(p[0], p[1]).equals("UnU"))
+							ClientWindow.getInstance().setPage(HomePage.class);
+						else {
+							username.setBorder(WRONG_CREDENTIALS);
+							pass.setBorder(WRONG_CREDENTIALS);
+						}
+					} catch(Exception e) {
+						e.printStackTrace();
 					}
+					
 				},
 				username, 
 				pass
@@ -64,12 +71,17 @@ public class LoginPage extends FieldPage{
 										  40);
 		fbLogin.addMouseListener(new LoginMouseListener(
 				p->{
-					if(!ClientWindow.getInstance().getService().loginByFacebook(p[0], p[1]).equals("UnU"))
-						ClientWindow.getInstance().setPage(HomePage.class);
-					else {
-						username.setBorder(WRONG_CREDENTIALS);
-						pass.setBorder(WRONG_CREDENTIALS);
+					try {
+						if(!ClientWindow.getInstance().getService().loginByFacebook(p[0], p[1]).equals("UnU"))
+							ClientWindow.getInstance().setPage(HomePage.class);
+						else {
+							username.setBorder(WRONG_CREDENTIALS);
+							pass.setBorder(WRONG_CREDENTIALS);
+						} 
+					} catch(Exception e) {
+						e.printStackTrace();
 					}
+					
 				},
 				username, 
 				pass
@@ -82,12 +94,17 @@ public class LoginPage extends FieldPage{
 											 40);
 		gmailLogin.addMouseListener(new LoginMouseListener(
 				p->{
-					if(!ClientWindow.getInstance().getService().loginByGoogle(p[0], p[1]).equals("UnU"))
-						ClientWindow.getInstance().setPage(HomePage.class);
-					else {
-						username.setBorder(WRONG_CREDENTIALS);
-						pass.setBorder(WRONG_CREDENTIALS);
+					try {
+						if(!ClientWindow.getInstance().getService().loginByGoogle(p[0], p[1]).equals("UnU"))
+							ClientWindow.getInstance().setPage(HomePage.class);
+						else {
+							username.setBorder(WRONG_CREDENTIALS);
+							pass.setBorder(WRONG_CREDENTIALS);
+						}
+					} catch(Exception e) {
+						e.printStackTrace();
 					}
+					
 				},
 				username, 
 				pass

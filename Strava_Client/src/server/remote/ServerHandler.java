@@ -1,4 +1,4 @@
-package client.remote;
+package server.remote;
 
 import java.rmi.Naming;
 

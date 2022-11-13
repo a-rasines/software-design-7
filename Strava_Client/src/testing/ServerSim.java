@@ -2,7 +2,7 @@ package testing;
 
 import java.rmi.RemoteException;
 
-import client.remote.IServer;
+import server.remote.IServer;
 
 public class ServerSim implements IServer{
 

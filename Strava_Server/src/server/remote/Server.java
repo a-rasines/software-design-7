@@ -21,7 +21,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 		super();
 	}
 	
-	 public String registerByEmail(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) {
+	 public String registerByEmail(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		 System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
@@ -45,7 +45,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 				return("Couldn't register");
 			}
 	}
-	public String registerByGoogle(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) {
+	public String registerByGoogle(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
 		//TODO cuando haya DB
 		//Perform login() using LoginAppService
@@ -69,7 +69,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 			return("Couldn't Register");
 		}
 	}
-	public String registerByFacebook(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) {
+	public String registerByFacebook(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		System.out.println(" * FaceBook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
 		//TODO cuando haya base de datos
 		//Perform login() using LoginAppService
@@ -93,7 +93,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 			return("Couldn't Register");
 		}
 	}
-	public String loginByEmail(String email, String password) {
+	public String loginByEmail(String email, String password) throws RemoteException {
 		System.out.println(" * Email login: " + email + " / " + password);
 				
 				//Perform login() using LoginAppService
@@ -117,7 +117,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 					return("Couldn't Login");
 				}
 	}
-	public String loginByGoogle(String email, String password) {
+	public String loginByGoogle(String email, String password) throws RemoteException {
 		System.out.println(" * Google login: " + email + " / " + password);
 				
 				//Perform login() using LoginAppService
@@ -141,7 +141,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 					return("Couldn't Login");
 				}
 	}
-	public String loginByFacebook(String email, String password) {
+	public String loginByFacebook(String email, String password) throws RemoteException {
 		System.out.println(" * Facebook login: " + email + " / " + password);
 		
 		//Perform login() using LoginAppService
