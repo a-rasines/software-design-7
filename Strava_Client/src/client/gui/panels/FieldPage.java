@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
@@ -33,7 +34,16 @@ public abstract class FieldPage extends ClientPanel{
 		end.add(field);
 		return end;
 	}
-	
+	private static final BufferedImage BACKGROUND_IMAGE;
+	static {
+		BufferedImage javaIsSpecialSometimes = null;
+		try {
+			javaIsSpecialSometimes = ImageIO.read(new URL("https://imgur.com/7gVDNZk.png").openStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		BACKGROUND_IMAGE = javaIsSpecialSometimes;
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 
@@ -41,19 +51,12 @@ public abstract class FieldPage extends ClientPanel{
 		    g.setColor(STRAVA_COLOR);
 		    Dimension pSize = getPreferredSize();
 		    g.fillRect(0, 0, pSize.width, pSize.height);
-	        try {
-	        	int size = Math.min(pSize.width, pSize.height);
-				g.drawImage(
-						ImageIO.read(
-								new URL("https://imgur.com/7gVDNZk.png")
-									.openStream())
-							.getScaledInstance(size, size, Image.SCALE_SMOOTH),
-						(getPreferredSize().width - size)/2, 
-						(getPreferredSize().height - size)/2, 
-						null);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	        int size = Math.min(pSize.width, pSize.height);
+			g.drawImage(
+					BACKGROUND_IMAGE.getScaledInstance(size, size, Image.SCALE_SMOOTH),
+					(getPreferredSize().width - size)/2, 
+					(getPreferredSize().height - size)/2, 
+					null);
 	}
 	protected JLabel createImageLabel(String url, String alternativeText, int sizeX, int sizeY) {
 		ImageIcon icon;

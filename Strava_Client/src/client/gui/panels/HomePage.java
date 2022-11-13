@@ -74,6 +74,7 @@ public class HomePage extends ClientPanel{
 				
 				JPanel sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				JScrollPane sessionScroll = new JScrollPane(sessionList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+					//TODO Turn this into a for loop with info
 					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
 					sessionList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
 					sessionList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
@@ -100,6 +101,7 @@ public class HomePage extends ClientPanel{
 			
 			JPanel challengeList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			JScrollPane challengeScroll = new JScrollPane(challengeList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				//TODO Turn this into a for loop with info
 				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
 				challengeList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
 				challengeList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));

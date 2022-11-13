@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import client.gui.ClientPanel;
 
-public class TrainingPage extends ClientPanel {
+public class TrainingPage extends FieldPage {
 
 	private static final long serialVersionUID = 1885936956130822898L;
 	

@@ -95,7 +95,7 @@ public class RegisterPage extends FieldPage{
 		enter.addMouseListener(
 			new LoginMouseListener(
 				p->{
-					String token = ClientWindow.getInstance().getService().registerByEmail(p[0], p[1], p[2], p[3], Float.parseFloat(weightField.getText()), Float.parseFloat(heightField.getText()), Float.parseFloat(mhrField.getText()), Float.parseFloat(rhrField.getText()));
+					String token = ClientWindow.getInstance().getService().registerByEmail(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 					if(!token.equals("UnU")) {
 						ClientWindow.getInstance().getServerHandler().setToken(token);
 						ClientWindow.getInstance().setPage(HomePage.class);
@@ -122,7 +122,7 @@ public class RegisterPage extends FieldPage{
 		fbLogin.addMouseListener(
 				new LoginMouseListener(
 						p->{
-							String token = ClientWindow.getInstance().getService().registerByFacebook(p[0], p[1], p[2], p[3], Float.parseFloat(weightField.getText()), Float.parseFloat(heightField.getText()), Float.parseFloat(mhrField.getText()), Float.parseFloat(rhrField.getText()));
+							String token = ClientWindow.getInstance().getService().registerByFacebook(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 							if(!token.equals("UnU")) {
 								ClientWindow.getInstance().getServerHandler().setToken(token);
 								ClientWindow.getInstance().setPage(HomePage.class);
@@ -144,7 +144,7 @@ public class RegisterPage extends FieldPage{
 		gmailLogin.addMouseListener(
 				new LoginMouseListener(
 						p->{
-							String token = ClientWindow.getInstance().getService().registerByGoogle(p[0], p[1], p[2], p[3], Float.parseFloat(weightField.getText()), Float.parseFloat(heightField.getText()), Float.parseFloat(mhrField.getText()), Float.parseFloat(rhrField.getText()));
+							String token = ClientWindow.getInstance().getService().registerByGoogle(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 							if(!token.equals("UnU")) {
 								ClientWindow.getInstance().getServerHandler().setToken(token);
 								ClientWindow.getInstance().setPage(HomePage.class);
