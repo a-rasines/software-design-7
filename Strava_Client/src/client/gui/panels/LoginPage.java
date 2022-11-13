@@ -44,9 +44,11 @@ public class LoginPage extends FieldPage{
 			new LoginMouseListener(
 				p->{
 					try {
-						if(!ClientWindow.getInstance().getService().loginByEmail(p[0], p[1]).equals("UnU"))
+						String token = ClientWindow.getInstance().getService().loginByEmail(p[0], p[1])
+						if(!token.equals("UnU")) {
+							ClientWindow.getInstance().getServerHandler().setToken(token);
 							ClientWindow.getInstance().setPage(HomePage.class);
-						else {
+						} else {
 							username.setBorder(WRONG_CREDENTIALS);
 							pass.setBorder(WRONG_CREDENTIALS);
 						}
@@ -72,9 +74,11 @@ public class LoginPage extends FieldPage{
 		fbLogin.addMouseListener(new LoginMouseListener(
 				p->{
 					try {
-						if(!ClientWindow.getInstance().getService().loginByFacebook(p[0], p[1]).equals("UnU"))
+						String token = ClientWindow.getInstance().getService().loginByFacebook(p[0], p[1]);
+						if(!token.equals("UnU")) {
+							ClientWindow.getInstance().getServerHandler().setToken(token);
 							ClientWindow.getInstance().setPage(HomePage.class);
-						else {
+						} else {
 							username.setBorder(WRONG_CREDENTIALS);
 							pass.setBorder(WRONG_CREDENTIALS);
 						} 
@@ -95,9 +99,11 @@ public class LoginPage extends FieldPage{
 		gmailLogin.addMouseListener(new LoginMouseListener(
 				p->{
 					try {
-						if(!ClientWindow.getInstance().getService().loginByGoogle(p[0], p[1]).equals("UnU"))
+						String token = ClientWindow.getInstance().getService().loginByGoogle(p[0], p[1])
+						if(!token.equals("UnU")) {
+							ClientWindow.getInstance().getServerHandler().setToken(token);
 							ClientWindow.getInstance().setPage(HomePage.class);
-						else {
+						} else {
 							username.setBorder(WRONG_CREDENTIALS);
 							pass.setBorder(WRONG_CREDENTIALS);
 						}
