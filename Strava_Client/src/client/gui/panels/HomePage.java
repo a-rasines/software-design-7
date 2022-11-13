@@ -122,6 +122,14 @@ public class HomePage extends ClientPanel{
 						
 					});
 					JButton browseChallenge = new JButton("Browse");
+					browseChallenge.addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							ClientWindow.getInstance().setPage(ChallengeWorkshopPage.class);
+						}
+						
+					});
 					buttonPanel.add(browseChallenge);
 					buttonPanel.add(createChallenge);
 				topPanel.add(buttonPanel, BorderLayout.EAST);

@@ -7,7 +7,6 @@ import server.remote.Server;
 
 public class Main {
 	
-	@SuppressWarnings({ "removal", "deprecation" })
 	public static void main(String[] args) {
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
