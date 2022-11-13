@@ -3,6 +3,7 @@ package client.gui.panels.extras;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.function.Consumer;
 
 import javax.swing.BorderFactory;
@@ -38,6 +39,8 @@ public class LoginMouseListener extends MouseAdapter{
 			args[i++] = field.getText();
 		}
 		success.accept(args);
+		for(MouseListener m : e.getComponent().getMouseListeners())//Reset button appearance
+			m.mouseReleased(e);
 	}
 
 }

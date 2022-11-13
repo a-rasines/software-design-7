@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 
 import client.gui.ClientPanel;
 import client.gui.ClientWindow;
+import client.gui.panels.extras.ChallengePanel;
 import client.gui.panels.extras.SessionPanel;
 import client.gui.panels.extras.SessionPanel.SessionType;
 
@@ -67,9 +68,12 @@ public class HomePage extends ClientPanel{
 			sessionPanel.setBackground(TRANSPARENT);
 				JPanel topPanel = new JPanel(new BorderLayout());
 				topPanel.setBackground(TRANSPARENT);
-					topPanel.add(new JLabel("Your Sessions"), BorderLayout.CENTER);
-					JButton createSession = new JButton("New");
-					topPanel.add(createSession, BorderLayout.EAST);
+					topPanel.add(new JLabel(" Your Sessions"), BorderLayout.CENTER);
+					JPanel buttonOffsetPanel = new JPanel(new FlowLayout());
+					buttonOffsetPanel.setBackground(TRANSPARENT);
+						JButton createSession = new JButton("New");
+						buttonOffsetPanel.add(createSession);
+					topPanel.add(buttonOffsetPanel, BorderLayout.EAST);
 				sessionPanel.add(topPanel, BorderLayout.NORTH);
 				
 				JPanel sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -94,26 +98,31 @@ public class HomePage extends ClientPanel{
 			challengePanel.setBackground(TRANSPARENT);
 				topPanel = new JPanel(new BorderLayout());
 				topPanel.setBackground(TRANSPARENT);
-				topPanel.add(new JLabel("Your Challenges"), BorderLayout.CENTER);
-				JButton createChallenge = new JButton("New");
-				topPanel.add(createChallenge, BorderLayout.EAST);
+				topPanel.add(new JLabel(" Your Challenges"), BorderLayout.CENTER);
+				JPanel buttonPanel = new JPanel(new FlowLayout());
+				buttonPanel.setBackground(TRANSPARENT);
+					JButton createChallenge = new JButton("New");
+					JButton browseChallenge = new JButton("Browse");
+					buttonPanel.add(browseChallenge);
+					buttonPanel.add(createChallenge);
+				topPanel.add(buttonPanel, BorderLayout.EAST);
 			challengePanel.add(topPanel, BorderLayout.NORTH);
 			
 			JPanel challengeList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			JScrollPane challengeScroll = new JScrollPane(challengeList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 				//TODO Turn this into a for loop with info
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.BOTH, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-				challengeList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SessionType.RUNNING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
+				challengeList.add(new ChallengePanel(SessionType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SessionType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, true));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, false, false));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
 			challengePanel.add(challengeScroll, BorderLayout.CENTER);
 		totalPanel.add(challengePanel);
 		totalPanel.add(new JLabel("\n"));//Little offset
