@@ -44,7 +44,7 @@ public class LoginPage extends FieldPage{
 			new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientWindow.getInstance().getService().loginByEmail(p[0], p[1])
+						String token = ClientWindow.getInstance().getService().loginByEmail(p[0], p[1]);
 						if(!token.equals("UnU")) {
 							ClientWindow.getInstance().getServerHandler().setToken(token);
 							ClientWindow.getInstance().setPage(HomePage.class);
@@ -99,7 +99,7 @@ public class LoginPage extends FieldPage{
 		gmailLogin.addMouseListener(new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientWindow.getInstance().getService().loginByGoogle(p[0], p[1])
+						String token = ClientWindow.getInstance().getService().loginByGoogle(p[0], p[1]);
 						if(!token.equals("UnU")) {
 							ClientWindow.getInstance().getServerHandler().setToken(token);
 							ClientWindow.getInstance().setPage(HomePage.class);
