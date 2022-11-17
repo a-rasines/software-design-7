@@ -1,6 +1,6 @@
 package server.data;
 
-public enum Sport {
+public enum SportDTO {
 	CYCLING,
 	RUNNING
 }

@@ -2,6 +2,11 @@ package server.remote;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
+
+import server.data.ChallengeDTO;
+import server.data.SportDTO;
+import server.data.TrainingSessionDTO;
 
 public interface IServer extends Remote {
 	//List<Session> activeSessions;
@@ -12,4 +17,9 @@ public interface IServer extends Remote {
 	String loginByGoogle(String email, String password) throws RemoteException;
 	String loginByFacebook(String email, String password) throws RemoteException;
 	String logout(String token) throws RemoteException;
+	TrainingSessionDTO createTrainingSession(String token, String title, SportDTO sport, float distance, String startDate, float startTime, float duration ) throws RemoteException;
+	ChallengeDTO setUpChallenge(String token, String name, String startDate, String endDate, float distanceTarget, float timeTarget, SportDTO sport) throws RemoteException;
+	boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException;
+	List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException;
+	
 }

@@ -1,8 +1,9 @@
 package server.remote;
 
-import server.data.Profile;
+
+import server.data.ProfileDTO;
 
 public class Session {
-	Profile user;
+	ProfileDTO user;
 	String token;
 }

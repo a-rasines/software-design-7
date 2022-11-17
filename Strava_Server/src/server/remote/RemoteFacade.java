@@ -5,23 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import server.data.ChallengeDTO;
+import server.data.SportDTO;
+import server.data.TrainingSessionDTO;
 
 import java.lang.String;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Server extends UnicastRemoteObject implements IServer {
+public class RemoteFacade extends UnicastRemoteObject implements IServer {
 	List<Session> activeSessions;
 	private static final long serialVersionUID = 1L;
 
 	//Data structure for manage Server State
 	public Map<String, Session> serverState = new HashMap<>();
 	
-	public Server() throws RemoteException {
+	public RemoteFacade() throws RemoteException {
 		super();
 	}
 	
-	 public String registerByEmail(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
+	public String registerByEmail(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		 System.out.println(" * Email Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
@@ -177,4 +180,19 @@ public class Server extends UnicastRemoteObject implements IServer {
 		}
 		return null;
 	}
+	public TrainingSessionDTO createTrainingSession(String token, String title, SportDTO sport, float distance, String startDate, float startTime, float duration ) throws RemoteException{
+		throw new RemoteException();
+		//TODO
+	}
+	public ChallengeDTO setUpChallenge(String token, String name, String startDate, String endDate, float distanceTarget, float timeTarget, SportDTO sport) throws RemoteException{
+		throw new RemoteException();
+	}
+	public boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException{
+		throw new RemoteException();
+	}
+	public List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException{
+		throw new RemoteException();
+	}
+
+
 }
