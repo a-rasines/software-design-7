@@ -5,14 +5,14 @@ import java.rmi.Naming;
 /**
  * Handles the connection with the server.
  */
-public class ServerHandler {
+public class ServiceLocator {
 	String sessionToken;
 	
 	//Da error, pero es normal, se soluciona con el build
 	//Remote Facade reference
 	private IServer service;
-	public ServerHandler() {};
-	public ServerHandler(String ip, String port, String serviceName) {
+	public ServiceLocator() {};
+	public ServiceLocator(String ip, String port, String serviceName) {
 		setService(ip, port, serviceName);
 	}
 	public String getToken() {
@@ -40,7 +40,4 @@ public class ServerHandler {
 		return this.service;
 	}
 	
-	void sendCall() {
-		
-	}
 }

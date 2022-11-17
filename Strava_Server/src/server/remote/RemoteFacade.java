@@ -180,11 +180,11 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 		}
 		return null;
 	}
-	public TrainingSessionDTO createTrainingSession(String token, String title, SportDTO sport, float distance, String startDate, float startTime, float duration ) throws RemoteException{
+	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
 		throw new RemoteException();
 		//TODO
 	}
-	public ChallengeDTO setUpChallenge(String token, String name, String startDate, String endDate, float distanceTarget, float timeTarget, SportDTO sport) throws RemoteException{
+	public ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException{
 		throw new RemoteException();
 	}
 	public boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException{

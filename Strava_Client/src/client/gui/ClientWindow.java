@@ -4,7 +4,8 @@ import javax.swing.JFrame;
 
 import client.gui.panels.LoginPage;
 import server.remote.IServer;
-import server.remote.ServerHandler;
+
+import server.remote.ServiceLocator;
 
 public class ClientWindow extends JFrame{
 	private static final long serialVersionUID = -1115925128322368105L;
@@ -14,12 +15,12 @@ public class ClientWindow extends JFrame{
 		return instance;
 	}
 
-	public void setServerHandler(ServerHandler sv) {
+	public void setServerHandler(ServiceLocator sv) {
 		handler = sv;
 	}
-	ServerHandler handler;
+	ServiceLocator handler;
 	ClientPanel showingPanel;
-	public ClientWindow(ServerHandler handler) {
+	public ClientWindow(ServiceLocator handler) {
 		instance =  this;
 		setPage(LoginPage.class);
 		setResizable(false);
@@ -27,7 +28,7 @@ public class ClientWindow extends JFrame{
 		setServerHandler(handler);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-	public ServerHandler getServerHandler() {
+	public ServiceLocator getServerHandler() {
 		return handler;
 	}
 	public IServer getService() {
