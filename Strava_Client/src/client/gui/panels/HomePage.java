@@ -26,6 +26,7 @@ import client.gui.ClientWindow;
 import client.gui.panels.extras.ChallengePanel;
 import client.gui.panels.extras.SessionPanel;
 import client.gui.panels.extras.SessionPanel.SessionType;
+import server.remote.ClientController;
 
 public class HomePage extends ClientPanel{
 	private static final long serialVersionUID = 3192046128464182145L;
@@ -51,7 +52,7 @@ public class HomePage extends ClientPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ClientWindow.getInstance().getService().logout(ClientWindow.getInstance().getServerHandler().getToken());
+					ClientController.logout();
 					ClientWindow.getInstance().setPage(LoginPage.class);
 				} catch (RemoteException e1) {
 					JOptionPane.showMessageDialog(null, "Something went wrong: " + e1.getMessage());

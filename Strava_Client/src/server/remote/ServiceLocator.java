@@ -6,7 +6,6 @@ import java.rmi.Naming;
  * Handles the connection with the server.
  */
 public class ServiceLocator {
-	String sessionToken;
 	
 	//Da error, pero es normal, se soluciona con el build
 	//Remote Facade reference
@@ -14,12 +13,6 @@ public class ServiceLocator {
 	public ServiceLocator() {};
 	public ServiceLocator(String ip, String port, String serviceName) {
 		setService(ip, port, serviceName);
-	}
-	public String getToken() {
-		return sessionToken;
-	}
-	public void setToken(String token) {
-		sessionToken = token;
 	}
 	public void setService(String ip, String port, String serviceName) {
 		//Activate Security Manager. It is needed for RMI.

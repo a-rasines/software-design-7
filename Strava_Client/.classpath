@@ -12,5 +12,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/Strava_Server"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

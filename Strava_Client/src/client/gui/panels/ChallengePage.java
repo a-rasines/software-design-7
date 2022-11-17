@@ -68,6 +68,7 @@ public class ChallengePage extends FieldPage {
 								false
 						)
 					);
+					
 					//TODO Register in server the new training session
 					ClientWindow.getInstance().setPage(HomePage.class);
 				} catch (NumberFormatException | ParseException e1) {

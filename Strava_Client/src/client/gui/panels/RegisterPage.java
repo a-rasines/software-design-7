@@ -21,6 +21,7 @@ import client.gui.ClientWindow;
 import client.gui.panels.extras.DateKeyListener;
 import client.gui.panels.extras.LoginMouseListener;
 import client.gui.panels.extras.NumberFieldListener;
+import server.remote.ClientController;
 
 public class RegisterPage extends FieldPage{
 	private static final long serialVersionUID = -6176236894068641990L;
@@ -86,9 +87,9 @@ public class RegisterPage extends FieldPage{
 			new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientWindow.getInstance().getService().registerByEmail(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+						String token = ClientController.registerByEmail(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 						if(!token.equals("UnU")) {
-							ClientWindow.getInstance().getServerHandler().setToken(token);
+							ClientController.setToken(token);
 							ClientWindow.getInstance().setPage(HomePage.class);
 						}else {
 							JOptionPane.showMessageDialog(null, "Something went wrong in registration");
@@ -118,9 +119,9 @@ public class RegisterPage extends FieldPage{
 				new LoginMouseListener(
 						p->{
 							try {
-								String token = ClientWindow.getInstance().getService().registerByFacebook(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+								String token = ClientController.registerByFacebook(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 								if(!token.equals("UnU")) {
-									ClientWindow.getInstance().getServerHandler().setToken(token);
+									ClientController.setToken(token);
 									ClientWindow.getInstance().setPage(HomePage.class);
 								}else {
 									JOptionPane.showMessageDialog(null, "Something went wrong in registration");
@@ -144,9 +145,9 @@ public class RegisterPage extends FieldPage{
 				new LoginMouseListener(
 						p->{
 							try {
-								String token = ClientWindow.getInstance().getService().registerByGoogle(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+								String token = ClientController.registerByGoogle(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 								if(!token.equals("UnU")) {
-									ClientWindow.getInstance().getServerHandler().setToken(token);
+									ClientController.setToken(token);
 									ClientWindow.getInstance().setPage(HomePage.class);
 								} else {
 									JOptionPane.showMessageDialog(null, "Something went wrong in registration");
