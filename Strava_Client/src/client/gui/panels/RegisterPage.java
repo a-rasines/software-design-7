@@ -87,7 +87,7 @@ public class RegisterPage extends FieldPage{
 			new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientController.registerByEmail(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+						String token = ClientController.registerByEmail(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 						if(!token.equals("UnU")) {
 							ClientController.setToken(token);
 							ClientWindow.getInstance().setPage(HomePage.class);
@@ -119,7 +119,7 @@ public class RegisterPage extends FieldPage{
 				new LoginMouseListener(
 						p->{
 							try {
-								String token = ClientController.registerByFacebook(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+								String token = ClientController.registerByFacebook(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 								if(!token.equals("UnU")) {
 									ClientController.setToken(token);
 									ClientWindow.getInstance().setPage(HomePage.class);
@@ -145,7 +145,7 @@ public class RegisterPage extends FieldPage{
 				new LoginMouseListener(
 						p->{
 							try {
-								String token = ClientController.registerByGoogle(p[0], p[1], p[2], p[3], weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+								String token = ClientController.registerByGoogle(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
 								if(!token.equals("UnU")) {
 									ClientController.setToken(token);
 									ClientWindow.getInstance().setPage(HomePage.class);

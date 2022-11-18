@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import server.data.AccountTypeDTO;
 import server.data.ChallengeDTO;
-import server.data.SportDTO;
+import server.data.ProfileDTO;
 import server.data.TrainingSessionDTO;
 
 import java.lang.String;
@@ -23,9 +24,9 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 	public RemoteFacade() throws RemoteException {
 		super();
 	}
-	
-	public String registerByEmail(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
-		 System.out.println(" * Email Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
+	@Override
+	public String register(AccountTypeDTO accType, ProfileDTO profile, String password) throws RemoteException {
+		 System.out.println(" * Email Register: " + profile.getEmail() + " / " + password + " name: " + profile.getName() + " weight: " + profile.getWeight() + " Max. Heartbeat: " + profile.getMaxHeartRate() + " Heartbeat in rest position: " + profile.getRestHeartRate());
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
@@ -48,55 +49,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 				return("Couldn't register");
 			}
 	}
-	public String registerByGoogle(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
-		System.out.println(" * Google Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
-		//TODO cuando haya DB
-		//Perform login() using LoginAppService
-//TODO TODO TODO implementar cuando se haga el Session
-		//Session user = LoginAppService.getInstance().login(email, password);
-		Session user = new Session();
-		
-		//If login() success user is stored in the Server State
-		if (user != null) {
-			//If user is not logged in 
-			if (!this.serverState.values().contains(user)) {
-				String token = ""+ Calendar.getInstance().getTimeInMillis();		
-				this.serverState.put(token, user);		
-				return(token);
-			} else {
-				//TODO throw new RemoteException("User is already logged in!");
-				return("Couldn't Register");
-			}
-		} else {
-			//TODO throw new RemoteException("Login fails!");
-			return("Couldn't Register");
-		}
-	}
-	public String registerByFacebook(String email, String password, String name, String birthdate, float weight, float height, float maxHeartRate, float restHeartRate) throws RemoteException {
-		System.out.println(" * Facebook Register: " + email + " / " + password + " name: " + name + " weight: " + weight + " Max. Heartbeat: " + maxHeartRate + " Heartbeat in rest position: " + restHeartRate);
-		//TODO cuando haya base de datos
-		//Perform login() using LoginAppService
-//TODO TODO TODO implementar cuando se haga el Session
-		//Session user = LoginAppService.getInstance().login(email, password);
-		Session user = new Session();
-		
-		//If login() success user is stored in the Server State
-		if (user != null) {
-			//If user is not logged in 
-			if (!this.serverState.values().contains(user)) {
-				String token = ""+ Calendar.getInstance().getTimeInMillis();		
-				this.serverState.put(token, user);		
-				return(token);
-			} else {
-				//TODO throw new RemoteException("User is already logged in!");
-				return("Couldn't Register");
-			}
-		} else {
-			//TODO throw new RemoteException("Login fails!");
-			return("Couldn't Register");
-		}
-	}
-	public String loginByEmail(String email, String password) throws RemoteException {
+	public String login(AccountTypeDTO accType, String email, String password) throws RemoteException {
 		System.out.println(" * Email login: " + email + " / " + password);
 				
 				//Perform login() using LoginAppService
@@ -119,54 +72,6 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 					//TODO throw new RemoteException("Login fails!");
 					return("Couldn't Login");
 				}
-	}
-	public String loginByGoogle(String email, String password) throws RemoteException {
-		System.out.println(" * Google login: " + email + " / " + password);
-				
-				//Perform login() using LoginAppService
-		//TODO TODO TODO implementar cuando se haga el Session
-				//Session user = LoginAppService.getInstance().login(email, password);
-				Session user = new Session();
-				
-				//If login() success user is stored in the Server State
-				if (user != null) {
-					//If user is not logged in 
-					if (!this.serverState.values().contains(user)) {
-						String token = ""+ Calendar.getInstance().getTimeInMillis();		
-						this.serverState.put(token, user);		
-						return(token);
-					} else {
-						//TODO throw new RemoteException("User is already logged in!");
-						return("Couldn't Login");
-					}
-				} else {
-					//TODO throw new RemoteException("Login fails!");
-					return("Couldn't Login");
-				}
-	}
-	public String loginByFacebook(String email, String password) throws RemoteException {
-		System.out.println(" * Facebook login: " + email + " / " + password);
-		
-		//Perform login() using LoginAppService
-//TODO TODO TODO implementar cuando se haga el Session
-		//Session user = LoginAppService.getInstance().login(email, password);
-		Session user = new Session();
-		
-		//If login() success user is stored in the Server State
-		if (user != null) {
-			//If user is not logged in 
-			if (!this.serverState.values().contains(user)) {
-				String token = ""+ Calendar.getInstance().getTimeInMillis();		
-				this.serverState.put(token, user);		
-				return(token);
-			} else {
-				//TODO throw new RemoteException("User is already logged in!");
-				return("Couldn't Login");
-			}
-		} else {
-			//TODO throw new RemoteException("Login fails!");
-			return("Couldn't Login");
-		}
 	}
 	public String logout(String token) throws RemoteException{
 		System.out.println(" * RemoteFacade logout: " + token);
