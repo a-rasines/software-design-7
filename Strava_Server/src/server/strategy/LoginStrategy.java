@@ -9,7 +9,7 @@ public class LoginStrategy {
 	public static String login(AccountTypeDTO accountType, String email, String password) {
 		switch (accountType) {
 		case AccountTypeDTO.GOOGLE: 
-			GServerController.setServerHandler(new GServiceLocator("127.0.0.1", "1100" , "Google_Server"));
+			GServerController.setServerHandler(new GServiceLocator("127.0.0.1", "1099" , "Google_Server"));
 			return GServerController.authenticate(email, password);
 			//TODO register
 			break;
