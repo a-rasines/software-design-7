@@ -9,6 +9,7 @@ import server.data.AccountTypeDTO;
 import server.data.ChallengeDTO;
 import server.data.ProfileDTO;
 import server.data.TrainingSessionDTO;
+import server.strategy.LoginStrategy;
 
 import java.lang.String;
 import java.rmi.RemoteException;
@@ -55,13 +56,14 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 				//Perform login() using LoginAppService
 		//TODO TODO TODO implementar cuando se haga el Session
 				//Session user = LoginAppService.getInstance().login(email, password);
+				
 				Session user = new Session();
 				
 				//If login() success user is stored in the Server State
 				if (user != null) {
 					//If user is not logged in 
 					if (!this.serverState.values().contains(user)) {
-						String token = ""+ Calendar.getInstance().getTimeInMillis();		
+						String token = LoginStrategy.login(accType, email, password);		
 						this.serverState.put(token, user);		
 						return(token);
 					} else {
