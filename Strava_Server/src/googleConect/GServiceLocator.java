@@ -2,6 +2,8 @@ package googleConect;
 
 import java.rmi.Naming;
 
+import gServer.IGoogle_Server;
+
 
 public class GServiceLocator {
 	private IGoogle_Server service;

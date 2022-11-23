@@ -14,5 +14,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/javax.activation-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
+	<classpathentry kind="src" path="/Google_Server"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
