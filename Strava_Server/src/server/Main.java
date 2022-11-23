@@ -12,6 +12,14 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		try {
+			GServerController.setServerHandler(new GServiceLocator("127.0.0.1", "1099" , "Google_Server"));
+			System.out.println("Connected to Google_Server");
+		} catch (Exception e) {
+			System.err.println("Failed to conect to Google_Server");
+			e.printStackTrace();
+		}
+		
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}

@@ -10,6 +10,7 @@ import server.data.ChallengeDTO;
 import server.data.ProfileDTO;
 import server.data.TrainingSessionDTO;
 import server.strategy.LoginStrategy;
+import server.strategy.RegisterStrategy;
 
 import java.lang.String;
 import java.rmi.RemoteException;
@@ -27,7 +28,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 	}
 	@Override
 	public String register(AccountTypeDTO accType, ProfileDTO profile, String password) throws RemoteException {
-		 System.out.println(" * Email Register: " + profile.getEmail() + " / " + password + " name: " + profile.getName() + " weight: " + profile.getWeight() + " Max. Heartbeat: " + profile.getMaxHeartRate() + " Heartbeat in rest position: " + profile.getRestHeartRate());
+		 System.out.println( accType.name() + " Register: " + profile.getEmail() + " / " + password + " name: " + profile.getName() + " weight: " + profile.getWeight() + " Max. Heartbeat: " + profile.getMaxHeartRate() + " Heartbeat in rest position: " + profile.getRestHeartRate());
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
@@ -38,7 +39,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 			if (user != null) {
 				//If user is not logged in 
 				if (!this.serverState.values().contains(user)) {
-					String token = ""+ Calendar.getInstance().getTimeInMillis();		
+					String token = RegisterStrategy.register(accType, profile, password);	
 					this.serverState.put(token, user);		
 					return(token);
 				} else {
@@ -51,7 +52,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 			}
 	}
 	public String login(AccountTypeDTO accType, String email, String password) throws RemoteException {
-		System.out.println(" * Email login: " + email + " / " + password);
+		System.out.println(accType.name() + " login: " + email + " / " + password);
 				
 				//Perform login() using LoginAppService
 		//TODO TODO TODO implementar cuando se haga el Session

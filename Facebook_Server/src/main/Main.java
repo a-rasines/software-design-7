@@ -15,9 +15,10 @@ public class Main {
 			System.out.println("accepted " + s);
 			DataInputStream dis = new DataInputStream(s.getInputStream());
 			String email = (String)dis.readUTF();
+			String password = (String) dis.readUTF();
 			
 			DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-			dos.writeUTF(System.currentTimeMillis()+ "");
+			dos.writeUTF(Facebook_AppService.authenticate(email, password));
 			dos.flush();
 			dos.close();
 			
