@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -101,15 +102,11 @@ public class LoginPage extends FieldPage{
 				p->{
 					try {
 						String token = ClientController.loginByGoogle(p[0], p[1]);
-						if(!token.equals("UnU")) {
-							ClientController.setToken(token);
-							ClientWindow.getInstance().setPage(HomePage.class);
-						} else {
-							username.setBorder(WRONG_CREDENTIALS);
-							pass.setBorder(WRONG_CREDENTIALS);
-						}
-					} catch(Exception e) {
-						e.printStackTrace();
+						ClientController.setToken(token);
+						ClientWindow.getInstance().setPage(HomePage.class);
+					} catch(RemoteException e) {
+						username.setBorder(WRONG_CREDENTIALS);
+						pass.setBorder(WRONG_CREDENTIALS);
 					}
 					
 				},

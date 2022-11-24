@@ -31,14 +31,14 @@ public class ClientController{
 			float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		return handler.getService().register(AccountTypeDTO.FACEBOOK, new ProfileDTO.Builder(AccountTypeDTO.FACEBOOK, name, birthdate, email).weight(weight).height(weight).maxHeartRate(maxHeartRate).build(), password);
 	}
-	public static String loginByEmail(String email, String password) throws RemoteException {
-		return handler.getService().login(AccountTypeDTO.EMAIL, email, password);
+	public static void loginByEmail(String email, String password) throws RemoteException {
+		token= handler.getService().login(AccountTypeDTO.EMAIL, email, password);
 	}
-	public static String loginByGoogle(String email, String password) throws RemoteException {
-		return handler.getService().login(AccountTypeDTO.GOOGLE, email, password);
+	public static void loginByGoogle(String email, String password) throws RemoteException {
+		token= handler.getService().login(AccountTypeDTO.GOOGLE, email, password);
 	}
-	public static String loginByFacebook(String email, String password) throws RemoteException {
-		return handler.getService().login(AccountTypeDTO.FACEBOOK, email, password);
+	public static void loginByFacebook(String email, String password) throws RemoteException {
+		token= handler.getService().login(AccountTypeDTO.FACEBOOK, email, password);
 	}
 	public static String logout() throws RemoteException {
 		return handler.getService().logout(token);

@@ -21,6 +21,7 @@ public class Main {
 			dos.writeUTF(Facebook_AppService.authenticate(email, password));
 			dos.flush();
 			dos.close();
+			ss.close();
 			
 		} catch(Exception e) {
 			System.out.println(":(");
