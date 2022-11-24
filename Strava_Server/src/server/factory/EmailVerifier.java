@@ -1,4 +1,4 @@
-package server.strategy;
+package server.factory;
 
 import server.data.ProfileDTO;
 
