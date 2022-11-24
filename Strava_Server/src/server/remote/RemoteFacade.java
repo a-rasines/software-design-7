@@ -22,8 +22,12 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 	//Data structure for manage Server State
 	public Map<String, Session> serverState = new HashMap<>();
 	
+	LoginStrategy loginStrategy;
+	
 	public RemoteFacade() throws RemoteException {
 		super();
+		loginStrategy = LoginStrategy.getInstance();
+		
 	}
 	@Override
 	public String register(AccountTypeDTO accType, ProfileDTO profile, String password) throws RemoteException {
@@ -63,7 +67,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 				if (user != null) {
 					//If user is not logged in 
 					if (!this.serverState.values().contains(user)) {
-						String token = LoginStrategy.login(accType, email, password);		
+						String token = loginStrategy.getInstance().login(accType, email, password);		
 						this.serverState.put(token, user);		
 						return(token);
 					} else {
