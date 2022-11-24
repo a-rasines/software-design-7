@@ -19,17 +19,17 @@ public class ClientController{
 	public static void setToken(String token) {
 		ClientController.token = token;
 	}
-	public static String registerByEmail(String email, String password, String name, Date birthdate, float weight,
+	public static void registerByEmail(String email, String password, String name, Date birthdate, float weight,
 			float height, float maxHeartRate, float restHeartRate) throws RemoteException {
-		return handler.getService().register(AccountTypeDTO.EMAIL, new ProfileDTO.Builder(AccountTypeDTO.EMAIL, name, birthdate, email).weight(weight).height(weight).maxHeartRate(maxHeartRate).password(password).build(), password);
+		token = handler.getService().register(AccountTypeDTO.EMAIL, new ProfileDTO.Builder(AccountTypeDTO.EMAIL, name, birthdate, email).weight(weight).height(weight).maxHeartRate(maxHeartRate).password(password).build(), password);
 	}
-	public static String registerByGoogle(String email, String password, String name, Date birthdate, float weight,
+	public static void registerByGoogle(String email, String password, String name, Date birthdate, float weight,
 			float height, float maxHeartRate, float restHeartRate) throws RemoteException {
-		return handler.getService().register(AccountTypeDTO.GOOGLE, new ProfileDTO.Builder(AccountTypeDTO.GOOGLE, name, birthdate, email).weight(weight).height(weight).maxHeartRate(maxHeartRate).build(), password);
+		token = handler.getService().register(AccountTypeDTO.GOOGLE, new ProfileDTO.Builder(AccountTypeDTO.GOOGLE, name, birthdate, email).weight(weight).height(weight).maxHeartRate(maxHeartRate).build(), password);
 	}
-	public static String registerByFacebook(String email, String password, String name, Date birthdate, float weight,
+	public static void registerByFacebook(String email, String password, String name, Date birthdate, float weight,
 			float height, float maxHeartRate, float restHeartRate) throws RemoteException {
-		return handler.getService().register(AccountTypeDTO.FACEBOOK, new ProfileDTO.Builder(AccountTypeDTO.FACEBOOK, name, birthdate, email).weight(weight).height(weight).maxHeartRate(maxHeartRate).build(), password);
+		token = handler.getService().register(AccountTypeDTO.FACEBOOK, new ProfileDTO.Builder(AccountTypeDTO.FACEBOOK, name, birthdate, email).weight(weight).height(weight).maxHeartRate(maxHeartRate).build(), password);
 	}
 	public static void loginByEmail(String email, String password) throws RemoteException {
 		token= handler.getService().login(AccountTypeDTO.EMAIL, email, password);
@@ -40,8 +40,8 @@ public class ClientController{
 	public static void loginByFacebook(String email, String password) throws RemoteException {
 		token= handler.getService().login(AccountTypeDTO.FACEBOOK, email, password);
 	}
-	public static String logout() throws RemoteException {
-		return handler.getService().logout(token);
+	public static void logout() throws RemoteException {
+		handler.getService().logout(token);
 	}
 	public TrainingSessionDTO createTrainingSession(TrainingSessionDTO tsDTO) throws RemoteException {
 		return handler.getService().createTrainingSession(token, tsDTO);

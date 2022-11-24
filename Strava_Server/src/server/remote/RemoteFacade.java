@@ -75,7 +75,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 					return("Couldn't Login");
 				}
 	}
-	public String logout(String token) throws RemoteException{
+	public void logout(String token) throws RemoteException{
 		System.out.println(" * RemoteFacade logout: " + token);
 		
 		if (this.serverState.containsKey(token)) {
@@ -85,7 +85,6 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 			System.out.println("Logout failed");
 			throw new RemoteException("User is not not logged in!");
 		}
-		return null;
 	}
 	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
 		throw new RemoteException();

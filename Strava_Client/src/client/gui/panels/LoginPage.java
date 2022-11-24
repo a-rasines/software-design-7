@@ -46,16 +46,10 @@ public class LoginPage extends FieldPage{
 			new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientController.loginByEmail(p[0], p[1]);
-						if(!token.equals("UnU")) {
-							ClientController.setToken(token);
-							ClientWindow.getInstance().setPage(HomePage.class);
-						} else {
-							username.setBorder(WRONG_CREDENTIALS);
-							pass.setBorder(WRONG_CREDENTIALS);
-						}
+						ClientWindow.getInstance().setPage(HomePage.class);	
 					} catch(Exception e) {
-						e.printStackTrace();
+						username.setBorder(WRONG_CREDENTIALS);
+						pass.setBorder(WRONG_CREDENTIALS);
 					}
 					
 				},
@@ -76,16 +70,11 @@ public class LoginPage extends FieldPage{
 		fbLogin.addMouseListener(new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientController.loginByFacebook(p[0], p[1]);
-						if(!token.equals("UnU")) {
-							ClientController.setToken(token);
-							ClientWindow.getInstance().setPage(HomePage.class);
-						} else {
-							username.setBorder(WRONG_CREDENTIALS);
-							pass.setBorder(WRONG_CREDENTIALS);
-						} 
+						ClientController.loginByFacebook(p[0], p[1]);
+						ClientWindow.getInstance().setPage(HomePage.class);
 					} catch(Exception e) {
-						e.printStackTrace();
+						username.setBorder(WRONG_CREDENTIALS);
+						pass.setBorder(WRONG_CREDENTIALS);
 					}
 					
 				},
@@ -101,8 +90,7 @@ public class LoginPage extends FieldPage{
 		gmailLogin.addMouseListener(new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientController.loginByGoogle(p[0], p[1]);
-						ClientController.setToken(token);
+						ClientController.loginByGoogle(p[0], p[1]);
 						ClientWindow.getInstance().setPage(HomePage.class);
 					} catch(RemoteException e) {
 						username.setBorder(WRONG_CREDENTIALS);

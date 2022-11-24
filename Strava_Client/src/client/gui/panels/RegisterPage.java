@@ -3,7 +3,9 @@ package client.gui.panels;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.rmi.RemoteException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -87,14 +89,11 @@ public class RegisterPage extends FieldPage{
 			new LoginMouseListener(
 				p->{
 					try {
-						String token = ClientController.registerByEmail(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
-						if(!token.equals("UnU")) {
-							ClientController.setToken(token);
-							ClientWindow.getInstance().setPage(HomePage.class);
-						}else {
-							JOptionPane.showMessageDialog(null, "Something went wrong in registration");
-						}
-					} catch (Exception e) {
+						ClientController.registerByEmail(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+						ClientWindow.getInstance().setPage(HomePage.class);
+					} catch (RemoteException e) {
+						JOptionPane.showMessageDialog(null, "Something went wrong in registration: "+e.getMessage());
+					} catch (ParseException e) {
 						e.printStackTrace();
 					}
 					
@@ -119,14 +118,11 @@ public class RegisterPage extends FieldPage{
 				new LoginMouseListener(
 						p->{
 							try {
-								String token = ClientController.registerByFacebook(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
-								if(!token.equals("UnU")) {
-									ClientController.setToken(token);
-									ClientWindow.getInstance().setPage(HomePage.class);
-								}else {
-									JOptionPane.showMessageDialog(null, "Something went wrong in registration");
-								}
-							} catch(Exception e) {
+								ClientController.registerByFacebook(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+								ClientWindow.getInstance().setPage(HomePage.class);
+							} catch (RemoteException e) {
+								JOptionPane.showMessageDialog(null, "Something went wrong in registration: "+e.getMessage());
+							} catch (ParseException e) {
 								e.printStackTrace();
 							}
 						},
@@ -145,14 +141,12 @@ public class RegisterPage extends FieldPage{
 				new LoginMouseListener(
 						p->{
 							try {
-								String token = ClientController.registerByGoogle(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
-								if(!token.equals("UnU")) {
-									ClientController.setToken(token);
-									ClientWindow.getInstance().setPage(HomePage.class);
-								} else {
-									JOptionPane.showMessageDialog(null, "Something went wrong in registration");
-								}
-							} catch (Exception e) {
+								ClientController.registerByGoogle(p[0], p[1], p[2], df.parse(p[3]), weightField.getText().equals("")? 0 : Float.parseFloat(weightField.getText()), heightField.getText().equals("")? 0 : Float.parseFloat(heightField.getText()), mhrField.getText().equals("")? 0 : Float.parseFloat(mhrField.getText()), rhrField.getText().equals("")? 0 : Float.parseFloat(rhrField.getText()));
+								ClientWindow.getInstance().setPage(HomePage.class);
+							} catch (RemoteException e) {
+								JOptionPane.showMessageDialog(null, "Something went wrong in registration: "+e.getMessage());
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							
