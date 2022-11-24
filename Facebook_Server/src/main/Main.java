@@ -18,7 +18,7 @@ public class Main {
 			String password = (String) dis.readUTF();
 			
 			DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-			dos.writeUTF(Facebook_AppService.authenticate(email, password));
+			dos.writeUTF(Facebook_AppService.authenticate(email, password) +  "");
 			dos.flush();
 			dos.close();
 			ss.close();

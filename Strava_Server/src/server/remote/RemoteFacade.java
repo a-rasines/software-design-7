@@ -28,11 +28,11 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 	//Data structure for manage Server State
 	public Map<String, Session> serverState = new HashMap<>();
 	
-	LoginStrategy loginStrategy;
+	
 	
 	public RemoteFacade() throws RemoteException {
 		super();
-		loginStrategy = LoginStrategy.getInstance();
+		
 		
 	}
 	@Override
@@ -48,7 +48,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 			if (user != null) {
 				//If user is not logged in 
 				if (!this.serverState.values().contains(user)) {
-					String token = RegisterStrategy.register(accType, profile, password);	
+					String token = RegisterStrategy.getInstance().register(accType, profile, password);	
 					this.serverState.put(token, user);		
 					return(token);
 				} else {
@@ -73,7 +73,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 				if (user != null) {
 					//If user is not logged in 
 					if (!this.serverState.values().contains(user)) {
-						String token = loginStrategy.getInstance().login(accType, email, password);		
+						String token = LoginStrategy.getInstance().login(accType, email, password);		
 						this.serverState.put(token, user);		
 						return(token);
 					} else {
@@ -97,17 +97,21 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 		}
 	}
 	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
-		throw new RemoteException();
+		System.out.println("training session");
+		return tsDTO;
 		//TODO
 	}
 	public ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException{
-		throw new RemoteException();
+		System.out.println("SetUpChallenge");
+		return challengeDTO;
 	}
 	public boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException{
-		throw new RemoteException();
+		System.out.println("accept challenge");
+		return true;
 	}
 	public List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException{
-		throw new RemoteException();
+		System.out.println("Downloading active challenges");
+		return null;
 	}
 
 

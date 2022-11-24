@@ -2,7 +2,7 @@ package main;
 
 public class Facebook_AppService {
 
-	public static String authenticate(String email, String password) {
-		return System.currentTimeMillis() + "";
+	public static boolean authenticate(String email, String password) {
+		return true;
 	}
 }

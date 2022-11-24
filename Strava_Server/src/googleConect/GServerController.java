@@ -9,7 +9,7 @@ public class GServerController {
 	}
 	private static GServiceLocator handler;
 	
-	public static String authenticate(String email, String password) throws RemoteException {
+	public static boolean authenticate(String email, String password) throws RemoteException {
 		return handler.getService().authenticate(email, password);
 	}
 }

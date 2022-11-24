@@ -1,5 +1,7 @@
 package server.strategy;
 
+import java.rmi.RemoteException;
+
 import server.data.AccountTypeDTO;
 
 public class LoginStrategy {
@@ -12,20 +14,28 @@ public class LoginStrategy {
 	
 	private LoginStrategy() {}
 
-	public String login(AccountTypeDTO accountType, String email, String password) {
+	public String login(AccountTypeDTO accountType, String email, String password) throws RemoteException{
+		boolean verified;
 		switch (accountType) {
 		case GOOGLE: 
-			return GoogleGateway.authenticate(email, password);
+			verified =  GoogleGateway.authenticate(email, password);
+			break;
 			
 		case FACEBOOK:
 			//TODO;
-			return FacebookAssembler.authenticate(email, password);
+			verified =  FacebookAssembler.authenticate(email, password);
+			break;
 		case EMAIL:
 			//TODO
-			return EmailVerifier.emailLogin(email, password);
+			verified = EmailVerifier.emailLogin(email, password);
+			break;
 		
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + accountType);
 		}
+		if(verified) {
+			return System.currentTimeMillis() +"";
+		}
+		 throw new RemoteException();
 	}
 }

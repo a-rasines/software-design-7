@@ -20,7 +20,7 @@ public class GServer extends UnicastRemoteObject implements IGoogle_Server{
 		// TODO Auto-generated constructor stub
 	}
 
-	public String authenticate(String email, String password) throws RemoteException{
+	public boolean authenticate(String email, String password) throws RemoteException{
 		
 		if(!userMap.containsKey(email)) {
 			throw new RemoteException("User not found");
@@ -30,6 +30,6 @@ public class GServer extends UnicastRemoteObject implements IGoogle_Server{
 		//TODO hacer cosas
 		System.out.println("EMAIL: " + email + " PASSWORD: "+ password);
 		
-		return System.currentTimeMillis() + "";
+		return true;
 	}
 }
