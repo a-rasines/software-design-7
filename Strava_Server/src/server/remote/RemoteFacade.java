@@ -1,5 +1,6 @@
 package server.remote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,11 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RemoteFacade extends UnicastRemoteObject implements IServer {
 	List<Session> activeSessions;
+	
+	private List<ProfileDTO> userList = new ArrayList<>();//FIXME Remove when SQL
+	static {//FIXME Remove when SQL
+		//TODO Add hardcoded users
+	}
 	private static final long serialVersionUID = 1L;
 
 	//Data structure for manage Server State

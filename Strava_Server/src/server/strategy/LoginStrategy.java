@@ -4,14 +4,10 @@ import server.data.AccountTypeDTO;
 
 public class LoginStrategy {
 	
-	private static LoginStrategy instance;
+	private static final LoginStrategy INSTANCE = new LoginStrategy();
 	
 	public static LoginStrategy getInstance() {
-		if(instance == null) {
-			instance = new LoginStrategy();
-			
-		}
-		return instance;
+		return INSTANCE;
 	}
 	
 	private LoginStrategy() {}
