@@ -13,7 +13,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 //TODO moverlo a otra clase 
 public class RemoteFacade extends UnicastRemoteObject implements IServer {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 	
 	ServerAppService sas = new ServerAppService();
 	
