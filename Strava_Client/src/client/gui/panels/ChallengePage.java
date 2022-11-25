@@ -24,15 +24,13 @@ import client.gui.panels.extras.ChallengePanel;
 import client.gui.panels.extras.DateKeyListener;
 import client.gui.panels.extras.LoginMouseListener;
 import client.gui.panels.extras.NumberFieldListener;
-import client.gui.panels.extras.SessionPanel;
-import client.gui.panels.extras.SessionPanel.SessionType;
 
 public class ChallengePage extends FieldPage {
 	private static final long serialVersionUID = -5807112075284184359L;
 	
 	public ChallengePage() {
 		setLayout(new GridLayout(0, 1));
-		JComboBox<SessionType> trainingType = new JComboBox<SessionType>(SessionType.values());
+		JComboBox<SportType> trainingType = new JComboBox<SportType>(SportType.values());
 		add(createField("Session type:", trainingType, Color.BLACK));
 		JTextField titleField = new JTextField(24);
 		add(createField("Title: ", titleField));
@@ -46,7 +44,7 @@ public class ChallengePage extends FieldPage {
 		endDateField.setText(df.format(new Date()));
 		endDateField.addKeyListener(new DateKeyListener());
 		add(createField("Start date:", startDateField));
-		JComboBox<String> objectiveCombo = new JComboBox(new String[] {"DISTANCE", "DURATION"});
+		JComboBox<String> objectiveCombo = new JComboBox<>(new String[] {"DISTANCE", "DURATION"});
 		add(createField("Target: ", objectiveCombo, Color.BLACK));
 		JTextField targetField = new JTextField(24);
 		targetField.addKeyListener(new NumberFieldListener());
@@ -59,7 +57,7 @@ public class ChallengePage extends FieldPage {
 						.getInstanceOf(HomePage.class)
 						.addChallenge(
 							new ChallengePanel(
-								(SessionType)trainingType.getSelectedItem(),
+								(SportType)trainingType.getSelectedItem(),
 								titleField.getText(),
 								df.parse(startDateField.getText()),
 								df.parse(endDateField.getText()),

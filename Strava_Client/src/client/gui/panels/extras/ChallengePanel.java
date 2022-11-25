@@ -22,7 +22,7 @@ import javax.swing.JSeparator;
 
 import client.gui.ClientPanel;
 import client.gui.panels.HomePage;
-import client.gui.panels.extras.SessionPanel.SessionType;
+import client.gui.panels.SportType;
 
 public class ChallengePanel extends JPanel {
 	private static final long serialVersionUID = -329671660860291231L;
@@ -43,7 +43,7 @@ public class ChallengePanel extends JPanel {
 	 * @param isDistance if true, target is distance, else time
 	 * @param completed if true, the challenge is treated as completed
 	 */
-	public ChallengePanel(SessionType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
+	public ChallengePanel(SportType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
 		update(type, title, startDate, endDate, target, isDistance, completed);
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -85,7 +85,7 @@ public class ChallengePanel extends JPanel {
 	 * @param isDistance
 	 * @param completed
 	 */
-	private void update(SessionType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
+	private void update(SportType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
 		setBackground(completed? COMPLETED_COLOR : BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
 		front.setBackground(completed? COMPLETED_COLOR : BACKGROUND_COLOR);
@@ -149,7 +149,7 @@ public class ChallengePanel extends JPanel {
 	 * @param target Targeted distance or time
 	 * @param isDistance if true, target is distance, else time
 	 */
-	public ChallengePanel(SessionType type,  String title, Date startDate, Date endDate, float target, boolean isDistance) {
+	public ChallengePanel(SportType type,  String title, Date startDate, Date endDate, float target, boolean isDistance) {
 		setBackground(BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
 		front.setBackground(BACKGROUND_COLOR);

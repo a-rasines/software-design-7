@@ -23,7 +23,6 @@ import client.gui.panels.extras.DateKeyListener;
 import client.gui.panels.extras.LoginMouseListener;
 import client.gui.panels.extras.NumberFieldListener;
 import client.gui.panels.extras.SessionPanel;
-import client.gui.panels.extras.SessionPanel.SessionType;
 
 public class TrainingPage extends FieldPage {
 
@@ -31,7 +30,7 @@ public class TrainingPage extends FieldPage {
 	
 	public TrainingPage() {
 		setLayout(new GridLayout(0, 1));
-		JComboBox<SessionType> trainingType = new JComboBox<SessionType>(SessionType.values());
+		JComboBox<SportType> trainingType = new JComboBox<SportType>(SportType.values());
 		add(createField("Session type:", trainingType));
 		JTextField titleField = new JTextField(24);
 		add(createField("Title: ", titleField));
@@ -55,7 +54,7 @@ public class TrainingPage extends FieldPage {
 						.getInstanceOf(HomePage.class)
 						.addTrainingSession(
 							new SessionPanel(
-								(SessionType)trainingType.getSelectedItem(),
+								(SportType)trainingType.getSelectedItem(),
 								titleField.getText(),
 								df.parse(startDateField.getText()),
 								Float.parseFloat(distanceField.getText()),

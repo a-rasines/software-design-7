@@ -25,7 +25,6 @@ import client.gui.ClientPanel;
 import client.gui.ClientWindow;
 import client.gui.panels.extras.ChallengePanel;
 import client.gui.panels.extras.SessionPanel;
-import client.gui.panels.extras.SessionPanel.SessionType;
 import server.remote.ClientController;
 
 public class HomePage extends ClientPanel{
@@ -91,18 +90,18 @@ public class HomePage extends ClientPanel{
 				sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				JScrollPane sessionScroll = new JScrollPane(sessionList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 					//TODO Turn this into a for loop with info
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.RUNNING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SessionType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.RUNNING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.RUNNING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
 				sessionPanel.add(sessionScroll, BorderLayout.CENTER);
 		totalPanel.add(sessionPanel);
 		totalPanel.add(new JLabel("\n"));//Little offset
@@ -139,18 +138,18 @@ public class HomePage extends ClientPanel{
 			challengeList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			JScrollPane challengeScroll = new JScrollPane(challengeList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 				//TODO Turn this into a for loop with info
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SessionType.RUNNING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
-				challengeList.add(new ChallengePanel(SessionType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SessionType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, true));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, false, false));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SessionType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.RUNNING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
+				challengeList.add(new ChallengePanel(SportType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, true));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, false, false));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
 			challengePanel.add(challengeScroll, BorderLayout.CENTER);
 		totalPanel.add(challengePanel);
 		totalPanel.add(new JLabel("\n"));//Little offset

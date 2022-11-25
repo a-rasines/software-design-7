@@ -23,7 +23,6 @@ import javax.swing.JScrollPane;
 import client.gui.ClientPanel;
 import client.gui.ClientWindow;
 import client.gui.panels.extras.ChallengePanel;
-import client.gui.panels.extras.SessionPanel.SessionType;
 
 public class ChallengeWorkshopPage extends ClientPanel {
 	private static final long serialVersionUID = 6597743772330564564L;
@@ -56,46 +55,46 @@ public class ChallengeWorkshopPage extends ClientPanel {
 		allPanel.setLayout(bl);
 		//TODO Get available cycling challenges
 		allPanel.add(createSection("Cycling", 
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SessionType.CYCLING, "Test", new Date(), new Date(), 0, true)
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
+			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true)
 			)
 		);
 		allPanel.add(new JLabel("\n"));
 		//TODO Get available running challenges
 		allPanel.add(createSection("Running", 
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.RUNNING, "Test", new Date(), new Date(), 0, true)
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true)
 				)
 			);
 		allPanel.add(new JLabel("\n"));
 		//TODO Get available running challenges
 		allPanel.add(createSection("Cycling & Running", 
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SessionType.BOTH, "Test", new Date(), new Date(), 0, true)
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
+				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true)
 				)
 			);
 		add(allPanel, BorderLayout.CENTER);

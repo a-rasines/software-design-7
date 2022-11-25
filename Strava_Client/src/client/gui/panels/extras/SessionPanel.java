@@ -8,46 +8,27 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 import client.gui.ClientPanel;
+import client.gui.panels.SportType;
 
 public class SessionPanel extends JPanel {
 
-	public enum SessionType{
-		CYCLING("https://imgur.com/Pfwx0nA.png"),
-		RUNNING("https://imgur.com/4xlBRWY.png"),
-		BOTH("https://assets.ifttt.com/images/channels/1055884022/icons/monochrome_large.png");
-		public final BufferedImage image;
-		SessionType(String url){
-			image = javaIsSpecialSometimes(url);
-		}
-		private BufferedImage javaIsSpecialSometimes(String url) {
-			try {
-				return ImageIO.read(new URL(url));
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-	}
 	private static final long serialVersionUID = -329671660860291231L;
 	JPanel front;
 	JPanel back;
 	boolean frontShowing = false;
 	private static final Color BACKGROUND_COLOR = ClientPanel.STRAVA_COLOR;//new Color(50, 50, 50);
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-	public SessionPanel(SessionType type,  String title, Date startDate, float distance, float duration) {
+	public SessionPanel(SportType type,  String title, Date startDate, float distance, float duration) {
 		setMinimumSize(new Dimension(100, 150));
 		setBackground(BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
