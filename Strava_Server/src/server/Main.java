@@ -4,7 +4,7 @@ import java.rmi.Naming;
 
 import googleConect.GServerController;
 import googleConect.GServiceLocator;
-import server.remote.IServer;
+import server.remote.IRemoteFacade;
 import server.remote.RemoteFacade;
 
 
@@ -25,7 +25,7 @@ public class Main {
 		}
 		String name = "//" + args[0] + ":" + args[1] + "/" + args[2]; // //ip:port/name
 		try {
-			IServer server = new RemoteFacade();
+			IRemoteFacade server = new RemoteFacade();
 			Naming.rebind(name, server);
 			System.out.println("Server started on " +  name);
 		} catch (Exception e) {

@@ -9,7 +9,7 @@ import server.data.TrainingSessionDTO;
 import server.data.temp.login.LoginDTO;
 import server.data.temp.register.RegisterDTO;
 
-public interface IServer extends Remote {
+public interface IRemoteFacade extends Remote {
 	//List<Session> activeSessions;
 	String register(RegisterDTO profile) throws RemoteException;
 	String login(LoginDTO profile) throws RemoteException;

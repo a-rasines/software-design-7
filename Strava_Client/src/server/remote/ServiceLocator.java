@@ -9,7 +9,7 @@ public class ServiceLocator {
 	
 	//Da error, pero es normal, se soluciona con el build
 	//Remote Facade reference
-	private IServer service;
+	private IRemoteFacade service;
 	public ServiceLocator() {};
 	public ServiceLocator(String ip, String port, String serviceName) {
 		setService(ip, port, serviceName);
@@ -23,13 +23,13 @@ public class ServiceLocator {
 		//Get Remote Facade reference using RMIRegistry (IP + Port) and the service name.
 		try {		
 			String URL = "//" + ip + ":" + port + "/" + serviceName;
-			this.service = (IServer) Naming.lookup(URL);
+			this.service = (IRemoteFacade) Naming.lookup(URL);
 		} catch (Exception ex) {
 			System.err.println("# Error locating remote facade: " + ex);
 		}		
 	}
 
-	public IServer getService() {
+	public IRemoteFacade getService() {
 		return this.service;
 	}
 	
