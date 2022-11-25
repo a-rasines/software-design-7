@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 //TODO moverlo a otra clase 
-public class RemoteFacade extends UnicastRemoteObject implements IServer {
+public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 	private static final long serialVersionUID = 1L;
 	
 	ServerAppService sas = new ServerAppService();

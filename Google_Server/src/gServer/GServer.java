@@ -8,7 +8,9 @@ public class GServer extends UnicastRemoteObject implements IGoogle_Server{
 	private static HashMap<String, String> userMap = new HashMap<>();//FIXME Remove when SQL
 	
 	static {//FIXME Remove when SQL
-		//TODO Add hardcoded accounts
+		userMap.put("test@example.com", "securepassword1234");
+		userMap.put("mail@domain.com", "abcdepassword_");
+		userMap.put("deusto@deusto.es", "bilbao123");
 	}
 	/**
 	 * 
