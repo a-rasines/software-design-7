@@ -18,7 +18,6 @@ public class CacheDatabase {
 		private static final long serialVersionUID = 5413245158457635047L;
 		HashMap<Class<? extends ProfileDTO>, UserSet> userMap = new HashMap<>();
 		public boolean add(ProfileDTO profile) {
-			if(profile instanceof RegisterDTO)
 			userMap.putIfAbsent(profile.getClass(), new UserSet());
 			return userMap.get(profile.getClass()).add(profile);
 		}
