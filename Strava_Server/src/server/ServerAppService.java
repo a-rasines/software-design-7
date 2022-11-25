@@ -6,10 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import server.data.AccountTypeDTO;
 import server.data.ChallengeDTO;
 import server.data.ProfileDTO;
 import server.data.TrainingSessionDTO;
+import server.data.temp.login.LoginDTO;
+import server.data.temp.register.RegisterDTO;
 import server.factory.AuthFactory;
 import server.remote.Session;
 
@@ -21,8 +22,6 @@ List<Session> activeSessions;
 	static {//FIXME Remove when SQL
 		//TODO Add hardcoded users
 	}
-	private static final long serialVersionUID = 1L;
-
 	//Data structure for manage Server State
 	public Map<String, Session> serverState = new HashMap<>();
 	
@@ -34,8 +33,8 @@ List<Session> activeSessions;
 		
 	}
 	
-	public String register(AccountTypeDTO accType, ProfileDTO profile, String password) throws RemoteException {
-		 System.out.println( accType.name() + " Register: " + profile.getEmail() + " / " + password + " name: " + profile.getName() + " weight: " + profile.getWeight() + " Max. Heartbeat: " + profile.getMaxHeartRate() + " Heartbeat in rest position: " + profile.getRestHeartRate());
+	public String register(RegisterDTO profile) throws RemoteException {
+		 System.out.println("Register: "+profile.toString());
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
@@ -43,7 +42,7 @@ List<Session> activeSessions;
 			Session user = new Session();
 			
 			//If login() success user is stored in the Server State
-			if(aFactory.getInstance(accType).authenticate(profile.getEmail(), password)) {
+			if(aFactory.getInstance(profile).authenticate()) {
 				return System.currentTimeMillis() +"";
 			}
 			return ":(";
@@ -63,15 +62,15 @@ List<Session> activeSessions;
 //				return("Couldn't register");
 //			}
 	}
-	public String login(AccountTypeDTO accType, String email, String password) throws RemoteException {
-		System.out.println(accType.name() + " login: " + email + " / " + password);
+	public String login(LoginDTO profile) throws RemoteException {
+		System.out.println("Login: "+profile.toString());
 				
 				//Perform login() using LoginAppService
 		//TODO TODO TODO implementar cuando se haga el Session
 				//Session user = LoginAppService.getInstance().login(email, password);
 				
 				Session user = new Session();
-				if(aFactory.getInstance(accType).authenticate(email, password)) {
+				if(aFactory.getInstance(profile).authenticate()) {
 					return System.currentTimeMillis() +"";
 				}
 				return ":(";

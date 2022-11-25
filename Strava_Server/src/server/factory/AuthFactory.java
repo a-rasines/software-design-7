@@ -1,62 +1,26 @@
 package server.factory;
 
-import java.rmi.RemoteException;
-
-import server.data.AccountTypeDTO;
-import server.data.ProfileDTO;
+import server.data.EmailProfileDTO;
+import server.data.temp.AuthDTO;
+import server.data.temp.login.FacebookLoginDTO;
+import server.data.temp.login.GoogleLoginDTO;
+import server.data.temp.login.LoginDTO;
+import server.data.temp.register.RegisterDTO;
 
 public class AuthFactory {
 	
-	public AuthInterface getInstance(AccountTypeDTO accType) {
-		switch (accType) {
-		case GOOGLE: 
-			return new GoogleGateway();
-			
-		case FACEBOOK:
-			return new FacebookAssembler();
-			
-		case EMAIL:
-			return new EmailVerifier();
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + accType);
-		} 
+	public AuthInterface getInstance(AuthDTO profile) {
+		LoginDTO login;
+		if(profile instanceof RegisterDTO)
+			login = ((RegisterDTO)profile).getLoginData();
+		else login = ((LoginDTO) profile);
+		if(profile instanceof GoogleLoginDTO)
+			return new GoogleGateway(login);
+		else if(profile instanceof FacebookLoginDTO)
+			return new FacebookAssembler(login);
+		else if(profile instanceof EmailProfileDTO)
+			return new EmailVerifier(login);
+		else
+			throw new IllegalArgumentException("Unexpected value: " + profile.getClass().getSimpleName());
 	}
-//	
-//	public static String googleLogin(String email, String password) throws RemoteException{
-//		if(GoogleGateway.authenticate(email, password)) {
-//			return System.currentTimeMillis() + "";
-//		}
-//		throw new RemoteException();
-//	}
-//	public static String facebookLogin(String email, String password) throws RemoteException{
-//		if(FacebookAssembler.authenticate(email, password)) {
-//			return System.currentTimeMillis() + "";
-//		}
-//		throw new RemoteException();
-//	}
-//	public static String emailLogin(String email, String password) throws RemoteException{
-//		if(EmailVerifier.emailLogin(email, password)) {
-//			return System.currentTimeMillis() + "";
-//		}
-//		throw new RemoteException();
-//	}
-//	
-//	public static String googleRegister(ProfileDTO pdto, String password) throws RemoteException {
-//		if(GoogleGateway.authenticate(pdto.getEmail(), password)) {
-//			return System.currentTimeMillis() + "";
-//		}
-//		throw new RemoteException();
-//	}
-//	public static String facebookRegister(ProfileDTO pdto, String password) throws RemoteException {
-//		if(FacebookAssembler.authenticate(pdto.getEmail(), password)) {
-//			return System.currentTimeMillis() + "";
-//		}
-//		throw new RemoteException();
-//	}
-//	public static String emailRegister(ProfileDTO pdto, String password) throws RemoteException {
-//		if(EmailVerifier.emailRegister(pdto, password)) {
-//			return System.currentTimeMillis() + "";
-//		}
-//		throw new RemoteException();
-//	}
 }

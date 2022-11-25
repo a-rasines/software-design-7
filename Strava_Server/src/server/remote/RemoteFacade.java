@@ -1,19 +1,11 @@
 package server.remote;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-
-
 import server.ServerAppService;
-import server.data.AccountTypeDTO;
 import server.data.ChallengeDTO;
-import server.data.ProfileDTO;
 import server.data.TrainingSessionDTO;
-
-
+import server.data.temp.login.LoginDTO;
+import server.data.temp.register.RegisterDTO;
 
 import java.lang.String;
 import java.rmi.RemoteException;
@@ -21,16 +13,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 //TODO moverlo a otra clase 
 public class RemoteFacade extends UnicastRemoteObject implements IServer {
-	List<Session> activeSessions;
-	
-	private List<ProfileDTO> userList = new ArrayList<>();//FIXME Remove when SQL
-	static {//FIXME Remove when SQL
-		//TODO Add hardcoded users
-	}
 	private static final long serialVersionUID = 1L;
-
-	//Data structure for manage Server State
-	public Map<String, Session> serverState = new HashMap<>();
 	
 	ServerAppService sas = new ServerAppService();
 	
@@ -40,11 +23,11 @@ public class RemoteFacade extends UnicastRemoteObject implements IServer {
 		
 	}
 	@Override
-	public String register(AccountTypeDTO accType, ProfileDTO profile, String password) throws RemoteException {
-		 return sas.register(accType, profile, password);
+	public String register(RegisterDTO profile) throws RemoteException {
+		 return sas.register(profile);
 	}
-	public String login(AccountTypeDTO accType, String email, String password) throws RemoteException {
-		return sas.login(accType, email, password);
+	public String login(LoginDTO profile) throws RemoteException {
+		return sas.login(profile);
 	}
 	public void logout(String token) throws RemoteException{
 		sas.logout(token);

@@ -9,11 +9,13 @@ import server.data.ChallengeDTO;
 import server.data.ProfileDTO;
 import server.data.SportDTO;
 import server.data.TrainingSessionDTO;
+import server.data.temp.login.LoginDTO;
+import server.data.temp.register.RegisterDTO;
 
 public interface IServer extends Remote {
 	//List<Session> activeSessions;
-	String register(AccountTypeDTO accType, ProfileDTO profile, String password) throws RemoteException;
-	String login(AccountTypeDTO accType, String email, String password) throws RemoteException;
+	String register(RegisterDTO profile) throws RemoteException;
+	String login(LoginDTO profile) throws RemoteException;
 	void logout(String token) throws RemoteException;
 	TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException;
 	ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException;
