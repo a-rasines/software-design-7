@@ -3,6 +3,7 @@ package server.data.temp.register;
 import java.util.ArrayList;
 import java.util.Date;
 import server.data.FacebookProfileDTO;
+import server.data.ProfileDTO;
 import server.data.temp.login.FacebookLoginDTO;
 import server.data.temp.login.LoginDTO;
 
@@ -20,6 +21,10 @@ public class FacebookRegisterDTO extends FacebookProfileDTO implements RegisterD
 	@Override
 	public LoginDTO getLoginData() {
 		return new FacebookLoginDTO(getEmail(), password);
+	}
+	@Override
+	public ProfileDTO getProfile() {
+		return new FacebookProfileDTO(getName(), getBirthdate(), getWeight(), getHeight(), getMaxHeartRate(), getRestHeartRate(), getEmail(), getSessions(), getChallenges());
 	}
 
 }

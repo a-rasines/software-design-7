@@ -1,5 +1,7 @@
 package server.factory;
 
+import server.data.CacheDatabase;
+import server.data.EmailProfileDTO;
 import server.data.temp.login.EmailLoginDTO;
 import server.data.temp.login.LoginDTO;
 
@@ -13,6 +15,6 @@ public class EmailVerifier implements AuthInterface{
 
 	@Override
 	public boolean authenticate() {
-		return true;
+		return CacheDatabase.userMap.contains(EmailProfileDTO.class, profile.email) && CacheDatabase.userMap.get(EmailProfileDTO.class, profile.email).getPassword().equals(profile.password);
 	}
 }

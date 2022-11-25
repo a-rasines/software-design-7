@@ -3,6 +3,7 @@ package server.data.temp.register;
 import java.util.ArrayList;
 import java.util.Date;
 import server.data.GoogleProfileDTO;
+import server.data.ProfileDTO;
 import server.data.temp.login.GoogleLoginDTO;
 import server.data.temp.login.LoginDTO;
 
@@ -20,6 +21,10 @@ public class GoogleRegisterDTO extends GoogleProfileDTO implements RegisterDTO {
 	@Override
 	public LoginDTO getLoginData() {
 		return new GoogleLoginDTO(getEmail(), password);
+	}
+	@Override
+	public ProfileDTO getProfile() {
+		return new GoogleProfileDTO(getName(), getBirthdate(), getWeight(), getHeight(), getMaxHeartRate(), getRestHeartRate(), getEmail(), getSessions(), getChallenges());
 	}
 
 }

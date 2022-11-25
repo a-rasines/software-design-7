@@ -1,11 +1,11 @@
 package server;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import server.data.CacheDatabase;
 import server.data.ChallengeDTO;
 import server.data.ProfileDTO;
 import server.data.TrainingSessionDTO;
@@ -15,13 +15,8 @@ import server.factory.AuthFactory;
 import server.remote.Session;
 
 public class ServerAppService {
-List<Session> activeSessions;
 	
 	private AuthFactory aFactory = new AuthFactory(); 
-	private List<ProfileDTO> userList = new ArrayList<>();//FIXME Remove when SQL
-	static {//FIXME Remove when SQL
-		//TODO Add hardcoded users
-	}
 	//Data structure for manage Server State
 	public Map<String, Session> serverState = new HashMap<>();
 	
@@ -34,18 +29,17 @@ List<Session> activeSessions;
 	}
 	
 	public String register(RegisterDTO profile) throws RemoteException {
-		 System.out.println("Register: "+profile.toString());
+		 System.out.println(profile.getProfile().getClass().getSimpleName().replace("DTO", "").replace("Register", " Register")+": "+profile.getProfile().getEmail());
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
-			//Session user = LoginAppService.getInstance().login(email, password);
-			Session user = new Session();
-			
+			if(!CacheDatabase.userMap.add(profile.getProfile()))
+				throw new RemoteException("The account already exists");
 			//If login() success user is stored in the Server State
 			if(aFactory.getInstance(profile).authenticate()) {
-				return System.currentTimeMillis() +"";
-			}
-			return ":(";
+				return generateToken(profile.getProfile());
+			}else
+				throw new RemoteException("Something went wrong");
 //			if (user != null) {
 //				//If user is not logged in 
 //				if (!this.serverState.values().contains(user)) {
@@ -64,17 +58,15 @@ List<Session> activeSessions;
 	}
 	public String login(LoginDTO profile) throws RemoteException {
 		System.out.println("Login: "+profile.toString());
-				
-				//Perform login() using LoginAppService
-		//TODO TODO TODO implementar cuando se haga el Session
-				//Session user = LoginAppService.getInstance().login(email, password);
-				
-				Session user = new Session();
-				if(aFactory.getInstance(profile).authenticate()) {
-					return System.currentTimeMillis() +"";
-				}
-				return ":(";
-				//If login() success user is stored in the Server State
+		
+		//Perform login() using LoginAppService
+//TODO TODO TODO implementar cuando se haga el Session
+		//Session user = LoginAppService.getInstance().login(email, password);
+		if(aFactory.getInstance(profile).authenticate() && CacheDatabase.userMap.contains(profile.getReferredProfile(), profile.getID())) {
+			return generateToken(CacheDatabase.userMap.get(profile.getReferredProfile(), profile.getID()));
+		}else
+			throw new RemoteException("Authentification error");
+		//If login() success user is stored in the Server State
 //				if (user != null) {
 //					//If user is not logged in 
 //					if (!this.serverState.values().contains(user)) {
@@ -89,6 +81,11 @@ List<Session> activeSessions;
 //					//TODO throw new RemoteException("Login fails!");
 //					return("Couldn't Login");
 //				}
+	}
+	public String generateToken(ProfileDTO profile) {
+		String token = System.currentTimeMillis() + "";
+		serverState.put(token, new Session(profile, token));
+		return token;
 	}
 	public void logout(String token) throws RemoteException{
 		System.out.println(" * RemoteFacade logout: " + token);

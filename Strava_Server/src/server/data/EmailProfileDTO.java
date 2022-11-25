@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class EmailProfileDTO extends ProfileDTO implements Serializable {
-	protected EmailProfileDTO(String name, Date birthdate, double weight, double height, double maxHeartRate,
+	public EmailProfileDTO(String name, Date birthdate, double weight, double height, double maxHeartRate,
 			double restHeartRate, String email, List<TrainingSessionDTO> sessions, List<ChallengeDTO> challenges, String password) {
 		super(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges);
 		this.password = password;
@@ -20,5 +20,9 @@ public class EmailProfileDTO extends ProfileDTO implements Serializable {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof EmailProfileDTO && getEmail().equals(((EmailProfileDTO)obj).email);
 	}
 }
