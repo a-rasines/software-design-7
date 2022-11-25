@@ -4,8 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
-public class FacebookAssembler {
-	public static boolean authenticate(String email, String password) {
+public class FacebookAssembler implements AuthInterface {
+	public boolean authenticate(String email, String password) {
 		try {
 			Socket s = new Socket("localhost", 1101);
 			DataOutputStream dout = new DataOutputStream(s.getOutputStream());

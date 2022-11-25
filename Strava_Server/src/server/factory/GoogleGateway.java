@@ -5,9 +5,9 @@ import java.rmi.RemoteException;
 import googleConect.GServerController;
 
 
-public class GoogleGateway {
+public class GoogleGateway implements AuthInterface{
 
-	public static boolean authenticate(String email, String password) {
+	public boolean authenticate(String email, String password) {
 		
 		try {
 			return GServerController.authenticate(email, password);
