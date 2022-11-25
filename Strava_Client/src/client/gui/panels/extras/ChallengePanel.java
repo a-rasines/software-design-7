@@ -2,7 +2,6 @@ package client.gui.panels.extras;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.GridLayout;
@@ -197,7 +196,7 @@ public class ChallengePanel extends JPanel {
 		});
 		completeLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		clickPanel.add(completeLabel);
-		clickPanel.add(new JLabel(new ImageIcon(new BufferedImage(110, 2, BufferedImage.TYPE_INT_ARGB))));
+		clickPanel.add(new JLabel(new ImageIcon(new BufferedImage(110, 5, BufferedImage.TYPE_INT_ARGB))));
 		back.add(clickPanel);
 		back.setVisible(false);
 		add(back);
