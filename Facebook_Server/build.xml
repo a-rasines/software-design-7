@@ -29,7 +29,7 @@
 	 </target>
 	 
 	 <target name="run" depends="build" description="Runs the Java Mail Sender">
-		<java classname="main.Main" classpathref="classpath" fork="true">
+		<java classname="main.FacebookServer" classpathref="classpath" fork="true">
 			<jvmarg value="-Djava.rmi.server.codebase=file:${build.dir}/"/>
 			<jvmarg value="-Djava.security.policy=${policy.file}"/>
 			<arg value="${rmiregistry.IP}"/> 

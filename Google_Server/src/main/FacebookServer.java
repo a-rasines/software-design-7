@@ -6,7 +6,7 @@ import gServer.GServer;
 import gServer.IGoogle_Server;
 
 
-public class Main {
+public class FacebookServer {
 	public static void main(String[] args) {
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
