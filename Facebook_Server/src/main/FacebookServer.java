@@ -5,10 +5,10 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Main {
+public class FacebookServer {
 	public static void main(String[] args) {
 		//Create socket conection
-		try (ServerSocket ss = new ServerSocket(1101)) {
+		try (ServerSocket ss = new ServerSocket(Integer.parseInt(args[0]))) {
 			System.out.println("created");
 			Socket s = ss.accept(); //Se queda esperando
 			System.out.println("accepted " + s);
