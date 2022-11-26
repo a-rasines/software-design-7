@@ -4,20 +4,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import server.data.temp.login.FacebookLoginDTO;
 import server.data.temp.login.LoginDTO;
 
 public class FacebookAssembler implements AuthInterface {
 	private FacebookLoginDTO profile;
-	private static final Socket s = javaDoesntKnowHowToTreatATryStatement();
-	private static Socket javaDoesntKnowHowToTreatATryStatement() {
-		try {
-			return new Socket("localhost", 1101);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+	private static Socket s = null;
+	public static void setupSocket(String ip, int port) throws UnknownHostException, IOException {
+		if(s != null)
+			s.close();
+		s = new Socket("localhost", 1101);
 	}
 	public FacebookAssembler(LoginDTO profile2) {
 		if(!(profile2 instanceof FacebookLoginDTO))

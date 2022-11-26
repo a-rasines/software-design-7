@@ -7,9 +7,11 @@
 	<property name="lib.dir" location="lib"/>
 	<property name="jar.file" value="server.jar"/>
 	<property name="policy.file" location="security/java.policy"/>	
-	<property name="rmiregistry.IP" value="127.0.0.1"/> 
-	<property name="rmiregistry.port" value="1099"/> 
-	<property name="server.name" value="Strava"/>
+	<property name="google.IP" value="127.0.0.1"/> 
+	<property name="google.port" value="1099"/> 
+	<property name="google.name" value="Google_Server"/>
+	<property name="facebook.IP" value="127.0.0.1"/> 
+	<property name="facebook.port" value="1101"/> 
 	
 	<path id="classpath">
         <fileset dir="${lib.dir}">
@@ -32,9 +34,11 @@
 		<java classname="server.Main" classpathref="classpath" fork="true">
 			<jvmarg value="-Djava.rmi.server.codebase=file:${build.dir}/"/>
 			<jvmarg value="-Djava.security.policy=${policy.file}"/>
-			<arg value="${rmiregistry.IP}"/> 
-			<arg value="${rmiregistry.port}"/> 
-			<arg value="${server.name}"/> 
+			<arg value="${google.IP}"/> 
+			<arg value="${google.port}"/> 
+			<arg value="${google.name}"/>
+			<arg value="${facebook.IP}"/> 
+			<arg value="${facebook.port}"/>
         </java>
     </target>
 	
