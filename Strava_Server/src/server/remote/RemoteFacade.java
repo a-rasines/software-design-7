@@ -15,8 +15,6 @@ import java.rmi.server.UnicastRemoteObject;
 public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 	private static final long serialVersionUID = 1L;
 	
-	ServerAppService sas = new ServerAppService();
-	
 	public RemoteFacade() throws RemoteException {
 		super();
 		
@@ -24,25 +22,25 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 	}
 	@Override
 	public String register(RegisterDTO profile) throws RemoteException {
-		 return sas.register(profile);
+		 return ServerAppService.getInstance().register(profile);
 	}
 	public String login(LoginDTO profile) throws RemoteException {
-		return sas.login(profile);
+		return ServerAppService.getInstance().login(profile);
 	}
 	public void logout(String token) throws RemoteException{
-		sas.logout(token);
+		ServerAppService.getInstance().logout(token);
 	}
 	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
-		return sas.createTrainingSession(token, tsDTO);
+		return ServerAppService.getInstance().createTrainingSession(token, tsDTO);
 	}
 	public ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException{
-		return sas.setUpChallenge(token, challengeDTO);
+		return ServerAppService.getInstance().setUpChallenge(token, challengeDTO);
 	}
 	public boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException{
-		return sas.acceptChallenge(token, challenge);
+		return ServerAppService.getInstance().acceptChallenge(token, challenge);
 	}
 	public List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException{
-		return sas.downloadActiveChallenges(token);
+		return ServerAppService.getInstance().downloadActiveChallenges(token);
 	}
 
 

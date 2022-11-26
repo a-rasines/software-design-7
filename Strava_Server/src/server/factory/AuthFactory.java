@@ -9,7 +9,8 @@ import server.data.temp.register.RegisterDTO;
 
 public class AuthFactory {
 	
-	public AuthInterface getInstance(AuthDTO profile) {
+	private AuthFactory() {}
+	public static AuthInterface getInstance(AuthDTO profile) {
 		LoginDTO login;
 		if(profile instanceof RegisterDTO)
 			login = ((RegisterDTO)profile).getLoginData();

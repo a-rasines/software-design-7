@@ -15,18 +15,17 @@ import server.factory.AuthFactory;
 import server.remote.Session;
 
 public class ServerAppService {
+	private static final ServerAppService instance = new ServerAppService();
+	public static ServerAppService getInstance() {
+		return instance;
+	}
 	
-	private AuthFactory aFactory = new AuthFactory(); 
 	//Data structure for manage Server State
 	public Map<String, Session> serverState = new HashMap<>();
 	
 	
 	
-	public ServerAppService() throws RemoteException {
-		super();
-		
-		
-	}
+	private ServerAppService(){}
 	
 	public String register(RegisterDTO profile) throws RemoteException {
 		 System.out.println(profile.getProfile().getClass().getSimpleName().replace("DTO", "").replace("Register", " Register")+": "+profile.getProfile().getEmail());
@@ -36,7 +35,7 @@ public class ServerAppService {
 			if(!CacheDatabase.userMap.add(profile.getProfile()))
 				throw new RemoteException("The account already exists");
 			//If login() success user is stored in the Server State
-			if(aFactory.getInstance(profile).authenticate()) {
+			if(AuthFactory.getInstance(profile).authenticate()) {
 				return generateToken(profile.getProfile());
 			}else
 				throw new RemoteException("Something went wrong");
@@ -62,7 +61,7 @@ public class ServerAppService {
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session
 		//Session user = LoginAppService.getInstance().login(email, password);
-		if(aFactory.getInstance(profile).authenticate() && CacheDatabase.userMap.contains(profile.getReferredProfileType(), profile.getID())) {
+		if(AuthFactory.getInstance(profile).authenticate() && CacheDatabase.userMap.contains(profile.getReferredProfileType(), profile.getID())) {
 			return generateToken(CacheDatabase.userMap.get(profile.getReferredProfileType(), profile.getID()));
 		}else
 			throw new RemoteException("Authentification error");
