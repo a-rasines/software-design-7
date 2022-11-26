@@ -17,7 +17,7 @@ public class GoogleLoginDTO implements LoginDTO{
 		return null;
 	}
 	@Override
-	public Class<? extends ProfileDTO> getReferredProfile() {
+	public Class<? extends ProfileDTO> getReferredProfileType() {
 		return GoogleProfileDTO.class;
 	}
 

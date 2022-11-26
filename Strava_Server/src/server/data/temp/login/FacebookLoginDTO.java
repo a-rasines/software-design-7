@@ -17,7 +17,7 @@ public class FacebookLoginDTO implements LoginDTO {
 		return email;
 	}
 	@Override
-	public Class<? extends ProfileDTO> getReferredProfile() {
+	public Class<? extends ProfileDTO> getReferredProfileType() {
 		return FacebookProfileDTO.class;
 	}
 

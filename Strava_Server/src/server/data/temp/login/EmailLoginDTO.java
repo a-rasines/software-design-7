@@ -22,7 +22,7 @@ public class EmailLoginDTO implements LoginDTO {
 		return email;
 	}
 	@Override
-	public Class<? extends ProfileDTO> getReferredProfile() {
+	public Class<? extends ProfileDTO> getReferredProfileType() {
 		return EmailProfileDTO.class;
 	}
 }

@@ -62,8 +62,8 @@ public class ServerAppService {
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session
 		//Session user = LoginAppService.getInstance().login(email, password);
-		if(aFactory.getInstance(profile).authenticate() && CacheDatabase.userMap.contains(profile.getReferredProfile(), profile.getID())) {
-			return generateToken(CacheDatabase.userMap.get(profile.getReferredProfile(), profile.getID()));
+		if(aFactory.getInstance(profile).authenticate() && CacheDatabase.userMap.contains(profile.getReferredProfileType(), profile.getID())) {
+			return generateToken(CacheDatabase.userMap.get(profile.getReferredProfileType(), profile.getID()));
 		}else
 			throw new RemoteException("Authentification error");
 		//If login() success user is stored in the Server State
