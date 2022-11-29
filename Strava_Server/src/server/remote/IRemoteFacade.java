@@ -4,10 +4,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import server.data.ChallengeDTO;
-import server.data.TrainingSessionDTO;
-import server.data.temp.login.LoginDTO;
-import server.data.temp.register.RegisterDTO;
+import server.data.dto.ChallengeDTO;
+import server.data.dto.LoginDTO;
+import server.data.dto.RegisterDTO;
+import server.data.dto.TrainingSessionDTO;
 
 public interface IRemoteFacade extends Remote {
 	//List<Session> activeSessions;

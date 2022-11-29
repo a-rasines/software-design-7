@@ -1,15 +1,15 @@
-package server.data;
+package server.data.domain;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class ProfileDTO implements Serializable {
-	private static final long serialVersionUID = -3413613342993346997L;
-	protected ProfileDTO(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
-			String email, List<TrainingSessionDTO> sessions, List<ChallengeDTO> challenges) {
+import server.data.dto.ChallengeDTO;
+import server.data.dto.ProfileTypeDTO;
+import server.data.dto.TrainingSessionDTO;
+
+public class Profile {
+	public Profile(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
+			String email, List<TrainingSessionDTO> sessions, List<ChallengeDTO> challenges, ProfileTypeDTO profileType) {
 		super();
 		this.name = name;
 		this.birthdate = birthdate;
@@ -20,7 +20,9 @@ public class ProfileDTO implements Serializable {
 		this.email = email;
 		this.sessions = sessions;
 		this.challenges = challenges;
+		this.profileType = profileType;
 	}
+	ProfileTypeDTO profileType;
 	String name;
 	Date birthdate;
 	double weight;
@@ -84,6 +86,9 @@ public class ProfileDTO implements Serializable {
 	}
 	public void setRestHeartRate(double restHeartRate) {
 		this.restHeartRate = restHeartRate;
+	}
+	public ProfileTypeDTO getType() {
+		return profileType;
 	}
 	
 	void createTrainingSession() {

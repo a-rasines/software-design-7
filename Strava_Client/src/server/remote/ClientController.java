@@ -4,14 +4,11 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
-import server.data.ChallengeDTO;
-import server.data.TrainingSessionDTO;
-import server.data.temp.login.EmailLoginDTO;
-import server.data.temp.login.FacebookLoginDTO;
-import server.data.temp.login.GoogleLoginDTO;
-import server.data.temp.register.EmailRegisterDTO;
-import server.data.temp.register.FacebookRegisterDTO;
-import server.data.temp.register.GoogleRegisterDTO;
+import server.data.dto.ChallengeDTO;
+import server.data.dto.LoginDTO;
+import server.data.dto.ProfileTypeDTO;
+import server.data.dto.RegisterDTO;
+import server.data.dto.TrainingSessionDTO;
 
 public class ClientController{
 
@@ -26,50 +23,56 @@ public class ClientController{
 	public static void registerByEmail(String email, String password, String name, Date birthdate, float weight,
 			float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		token = handler.getService().register(
-				new EmailRegisterDTO(
-						name, 
-						birthdate, 
+				new RegisterDTO(
+						password, 
+						ProfileTypeDTO.EMAIL, 
+						name,
+						birthdate,
 						weight, 
-						height,
+						height,  
 						maxHeartRate, 
 						restHeartRate, 
-						email, 
-						password));
+						email
+					));
 	}
 	public static void registerByGoogle(String email, String password, String name, Date birthdate, float weight,
 			float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		token = handler.getService().register(
-				new GoogleRegisterDTO(
-						name, 
+				new RegisterDTO(
+						password,
+						ProfileTypeDTO.GOOGLE,
+						name,
 						birthdate, 
 						weight,
 						height,
 						maxHeartRate, 
 						restHeartRate,
-						email, 
-						password));
+						email
+					));
 	}
 	public static void registerByFacebook(String email, String password, String name, Date birthdate, float weight,
 			float height, float maxHeartRate, float restHeartRate) throws RemoteException {
 		token = handler.getService().register(
-				new FacebookRegisterDTO(
+				new RegisterDTO(
+						password,
+						ProfileTypeDTO.FACEBOOK,
 						name, 
 						birthdate, 
 						weight, 
 						height, 
 						maxHeartRate,
 						restHeartRate, 
-						email, 
-						password));
+						email
+					));
 	}
 	public static void loginByEmail(String email, String password) throws RemoteException {
-		token= handler.getService().login(new EmailLoginDTO(email, password));
+		token= handler.getService().login(new LoginDTO(email, password, ProfileTypeDTO.EMAIL));
 	}
 	public static void loginByGoogle(String email, String password) throws RemoteException {
-		token= handler.getService().login(new GoogleLoginDTO(email, password));
+		token= handler.getService().login(new LoginDTO(email, password, ProfileTypeDTO.GOOGLE));
 	}
 	public static void loginByFacebook(String email, String password) throws RemoteException {
-		token= handler.getService().login(new FacebookLoginDTO(email, password));
+		token= handler.getService().login(new LoginDTO(email, password, ProfileTypeDTO.FACEBOOK));
 	}
 	public static void logout() throws RemoteException {
 		handler.getService().logout(token);

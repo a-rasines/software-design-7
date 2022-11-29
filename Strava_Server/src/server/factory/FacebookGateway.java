@@ -6,21 +6,21 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import server.data.temp.login.FacebookLoginDTO;
-import server.data.temp.login.LoginDTO;
+import server.data.dto.LoginDTO;
+import server.data.dto.ProfileTypeDTO;
 
-public class FacebookAssembler implements AuthInterface {
-	private FacebookLoginDTO profile;
+public class FacebookGateway implements AuthInterface {
+	private LoginDTO profile;
 	private static Socket s = null;
 	public static void setupSocket(String ip, int port) throws UnknownHostException, IOException {
 		if(s != null)
 			s.close();
 		s = new Socket("localhost", 1101);
 	}
-	public FacebookAssembler(LoginDTO profile2) {
-		if(!(profile2 instanceof FacebookLoginDTO))
+	public FacebookGateway(LoginDTO profile) {
+		if(profile.profileType != ProfileTypeDTO.FACEBOOK)
 			throw new IllegalArgumentException();
-		this.profile = (FacebookLoginDTO) profile2;
+		this.profile = profile;
 	}
 	public boolean authenticate() {
 		try {

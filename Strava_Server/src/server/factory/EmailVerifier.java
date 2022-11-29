@@ -1,20 +1,19 @@
 package server.factory;
 
 import server.data.CacheDatabase;
-import server.data.EmailProfileDTO;
-import server.data.temp.login.EmailLoginDTO;
-import server.data.temp.login.LoginDTO;
+import server.data.domain.EmailProfile;
+import server.data.dto.LoginDTO;
+import server.data.dto.ProfileTypeDTO;
 
 public class EmailVerifier implements AuthInterface{
-	private EmailLoginDTO profile;
+	private LoginDTO profile;
 	public EmailVerifier(LoginDTO profile) {
-		if(!(profile instanceof EmailLoginDTO))
+		if(profile.profileType != ProfileTypeDTO.EMAIL)
 			throw new IllegalArgumentException();
-		this.profile = (EmailLoginDTO) profile;
 	}
 
 	@Override
 	public boolean authenticate() {
-		return CacheDatabase.userMap.contains(EmailProfileDTO.class, profile.email) && CacheDatabase.userMap.get(EmailProfileDTO.class, profile.email).getPassword().equals(profile.password);
+		return CacheDatabase.userMap.contains(ProfileTypeDTO.EMAIL, profile.email) && ((EmailProfile)CacheDatabase.userMap.get(ProfileTypeDTO.EMAIL, profile.email)).getPassword().equals(profile.password);
 	}
 }

@@ -3,16 +3,16 @@ package server.factory;
 import java.rmi.RemoteException;
 
 import googleConect.GServerController;
-import server.data.temp.login.GoogleLoginDTO;
-import server.data.temp.login.LoginDTO;
+import server.data.dto.LoginDTO;
+import server.data.dto.ProfileTypeDTO;
 
 
 public class GoogleGateway implements AuthInterface{
-	private GoogleLoginDTO profile;
-	public GoogleGateway(LoginDTO profile2) {
-		if((profile2 instanceof GoogleLoginDTO))
+	private LoginDTO profile;
+	public GoogleGateway(LoginDTO profile) {
+		if(profile.profileType != ProfileTypeDTO.GOOGLE)
 			throw new IllegalArgumentException();
-		this.profile = (GoogleLoginDTO) profile2;
+		this.profile = profile;
 	}
 	public boolean authenticate() {
 		

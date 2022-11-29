@@ -5,7 +5,7 @@ import java.rmi.Naming;
 
 import googleConect.GServerController;
 import googleConect.GServiceLocator;
-import server.factory.FacebookAssembler;
+import server.factory.FacebookGateway;
 import server.remote.IRemoteFacade;
 import server.remote.RemoteFacade;
 
@@ -24,7 +24,7 @@ public class Main {
 		}
 		System.out.println("Connecting to Facebook_Server");
 		try {
-			FacebookAssembler.setupSocket(args[3], Integer.parseInt(args[4]));
+			FacebookGateway.setupSocket(args[3], Integer.parseInt(args[4]));
 			System.out.println("Connected to Facebook_Server");
 		} catch (NumberFormatException | IOException e1) {
 			System.err.println("Failed to conect to Facebook_Server\t\t\t▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");

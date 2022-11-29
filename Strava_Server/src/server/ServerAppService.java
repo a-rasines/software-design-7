@@ -1,18 +1,16 @@
 package server;
 
 import java.rmi.RemoteException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import server.data.CacheDatabase;
-import server.data.ChallengeDTO;
-import server.data.ProfileDTO;
-import server.data.TrainingSessionDTO;
-import server.data.temp.login.LoginDTO;
-import server.data.temp.register.RegisterDTO;
+import server.data.domain.DomainAssembler;
+import server.data.dto.ChallengeDTO;
+import server.data.dto.LoginDTO;
+import server.data.dto.ProfileTypeDTO;
+import server.data.dto.RegisterDTO;
+import server.data.dto.TrainingSessionDTO;
 import server.factory.AuthFactory;
-import server.remote.Session;
+import server.factory.EmailVerifier;
 
 public class ServerAppService {
 	private static final ServerAppService instance = new ServerAppService();
@@ -21,24 +19,15 @@ public class ServerAppService {
 	}
 	
 	//Data structure for manage Server State
-	public Map<String, Session> serverState = new HashMap<>();
-	
-	
 	
 	private ServerAppService(){}
 	
-	public String register(RegisterDTO profile) throws RemoteException {
-		 System.out.println(profile.getProfile().getClass().getSimpleName().replace("DTO", "").replace("Register", " Register")+": "+profile.getProfile().getEmail());
+	public boolean register(RegisterDTO profile) throws RemoteException {
+		 System.out.println(profile.getType().toString()+" Register: "+profile.getEmail());
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
-			if(!CacheDatabase.userMap.add(profile.getProfile()))
-				throw new RemoteException("The account already exists");
-			//If login() success user is stored in the Server State
-			if(AuthFactory.getInstance(profile).authenticate()) {
-				return generateToken(profile.getProfile());
-			}else
-				throw new RemoteException("Something went wrong");
+			return !CacheDatabase.userMap.add(DomainAssembler.profileFromRegisterDTO(profile)) && AuthFactory.createGateway(profile.toLoginDTO()).authenticate();
 //			if (user != null) {
 //				//If user is not logged in 
 //				if (!this.serverState.values().contains(user)) {
@@ -55,16 +44,16 @@ public class ServerAppService {
 //				return("Couldn't register");
 //			}
 	}
-	public String login(LoginDTO profile) throws RemoteException {
+	public boolean login(LoginDTO profile) throws RemoteException {
 		System.out.println("Login: "+profile.toString());
 		
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session
 		//Session user = LoginAppService.getInstance().login(email, password);
-		if(AuthFactory.getInstance(profile).authenticate() && CacheDatabase.userMap.contains(profile.getReferredProfileType(), profile.getID())) {
-			return generateToken(CacheDatabase.userMap.get(profile.getReferredProfileType(), profile.getID()));
-		}else
-			throw new RemoteException("Authentification error");
+		return((profile.profileType == ProfileTypeDTO.EMAIL && new EmailVerifier(profile).authenticate()) || 
+				(AuthFactory.createGateway(profile).authenticate() && CacheDatabase.userMap.contains(profile.profileType, profile.getID())));
+			
+			
 		//If login() success user is stored in the Server State
 //				if (user != null) {
 //					//If user is not logged in 
@@ -80,22 +69,6 @@ public class ServerAppService {
 //					//TODO throw new RemoteException("Login fails!");
 //					return("Couldn't Login");
 //				}
-	}
-	public String generateToken(ProfileDTO profile) {
-		String token = System.currentTimeMillis() + "";
-		serverState.put(token, new Session(profile, token));
-		return token;
-	}
-	public void logout(String token) throws RemoteException{
-		System.out.println(" * RemoteFacade logout: " + token);
-		
-		if (this.serverState.containsKey(token)) {
-			//Logout means remove the User from Server State
-			this.serverState.remove(token);
-		} else {
-			System.out.println("Logout failed");
-			throw new RemoteException("User is not not logged in!");
-		}
 	}
 	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
 		System.out.println("training session");

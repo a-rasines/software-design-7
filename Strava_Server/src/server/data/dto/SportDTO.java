@@ -1,4 +1,4 @@
-package server.data;
+package server.data.dto;
 
 public enum SportDTO {
 	CYCLING,

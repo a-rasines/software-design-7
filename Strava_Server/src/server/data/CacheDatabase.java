@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import server.data.temp.register.RegisterDTO;
+import server.data.domain.Profile;
+import server.data.dto.ProfileDTO;
+import server.data.dto.ProfileTypeDTO;
 /**
  * Temporal database
  * FIXME Delete when SQL or replace
@@ -16,25 +18,25 @@ public class CacheDatabase {
 	}
 	public static class UserMap implements Serializable{
 		private static final long serialVersionUID = 5413245158457635047L;
-		HashMap<Class<? extends ProfileDTO>, UserSet> userMap = new HashMap<>();
-		public boolean add(ProfileDTO profile) {
-			userMap.putIfAbsent(profile.getClass(), new UserSet());
-			return userMap.get(profile.getClass()).add(profile);
+		HashMap<ProfileTypeDTO, UserSet> userMap = new HashMap<>();
+		public boolean add(Profile profile) {
+			userMap.putIfAbsent(profile.getType(), new UserSet());
+			return userMap.get(profile.getType()).add(profile);
 		}
-		public boolean contains(ProfileDTO profile) {
-			return userMap.get(profile.getClass()).contains(profile);
+		public boolean contains(Profile profile) {
+			return userMap.get(profile.getType()).contains(profile);
 		}
 		@SuppressWarnings("unlikely-arg-type")
-		public boolean contains(Class<? extends ProfileDTO> type, String email) {
+		public boolean contains(ProfileTypeDTO type, String email) {
 			return userMap.get(type).contains(email);
 		}
 		@SuppressWarnings("unchecked")
-		public <T extends ProfileDTO> T get(Class<T> type, String email) {
+		public <T extends Profile> T get(ProfileTypeDTO type, String email) {
 			return (T)userMap.get(type).get(email);
 		}
 		
 	}
-	public static class UserSet extends HashSet<ProfileDTO>{
+	public static class UserSet extends HashSet<Profile>{
 		private static final long serialVersionUID = 6812698332818013908L;
 		public boolean contains(Object o) {
 			if(o instanceof ProfileDTO)
@@ -43,8 +45,8 @@ public class CacheDatabase {
 				return get((String)o) != null;
 			return false;
 		}
-		public ProfileDTO get(String email) {
-			for(ProfileDTO profile : this) 
+		public Profile get(String email) {
+			for(Profile profile : this) 
 				if(profile.getEmail().equals(email))
 					return profile;
 			return null;

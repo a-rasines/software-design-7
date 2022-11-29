@@ -1,4 +1,4 @@
-package server.data;
+package server.data.dto;
 
 import java.io.Serializable;
 import java.util.Date;

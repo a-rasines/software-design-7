@@ -6,7 +6,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import server.data.SportDTO;
+import server.data.dto.SportDTO;
 
 public enum SportType {
 	CYCLING("https://imgur.com/Pfwx0nA.png", SportDTO.CYCLING),
