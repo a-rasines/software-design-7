@@ -20,7 +20,7 @@ public class Profile extends AbstractProfile{
 				return new Profile(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, profileType);
 		}
 	}
-	private Profile(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
+	protected Profile(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
 			String email, List<TrainingSessionDTO> sessions, List<ChallengeDTO> challenges,
 			ProfileTypeDTO profileType) {
 		super(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, profileType);

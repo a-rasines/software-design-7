@@ -14,7 +14,6 @@ public class ProfileDTO extends AbstractProfile implements Serializable {
 			double restHeartRate, String email, List<TrainingSessionDTO> sessions, List<ChallengeDTO> challenges,
 			ProfileTypeDTO profileType) {
 		super(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, profileType);
-		// TODO Auto-generated constructor stub
 	}
 
 }
