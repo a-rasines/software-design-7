@@ -15,7 +15,7 @@ public class Main {
 		
 		System.out.println("Connecting to Google_Server");
 		try {
-			GoogleGateway.setService(args[0], args[1] , args[2]);
+			GoogleGateway.setService(args[3], args[4] , args[5]);
 			System.out.println("Connected to Google_Server");
 		} catch (Exception e) {
 			System.err.println("Failed to conect to Google_Server\t\t\t▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
@@ -23,7 +23,7 @@ public class Main {
 		}
 		System.out.println("Connecting to Facebook_Server");
 		try {
-			FacebookGateway.setupSocket(args[3], Integer.parseInt(args[4]));
+			FacebookGateway.setupSocket(args[6], Integer.parseInt(args[7]));
 			System.out.println("Connected to Facebook_Server");
 		} catch (NumberFormatException | IOException e1) {
 			System.err.println("Failed to conect to Facebook_Server\t\t\t▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
