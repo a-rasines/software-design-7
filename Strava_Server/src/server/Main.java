@@ -3,9 +3,8 @@ package server;
 import java.io.IOException;
 import java.rmi.Naming;
 
-import googleConect.GServerController;
-import googleConect.GServiceLocator;
 import server.factory.FacebookGateway;
+import server.factory.GoogleGateway;
 import server.remote.IRemoteFacade;
 import server.remote.RemoteFacade;
 
@@ -16,7 +15,7 @@ public class Main {
 		
 		System.out.println("Connecting to Google_Server");
 		try {
-			GServerController.setServerHandler(new GServiceLocator(args[0], args[1] , args[2]));
+			GoogleGateway.setService(args[0], args[1] , args[2]);
 			System.out.println("Connected to Google_Server");
 		} catch (Exception e) {
 			System.err.println("Failed to conect to Google_Server\t\t\t▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
