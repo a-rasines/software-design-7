@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import server.data.AbstractProfile;
+import server.data.abstracts.AbstractProfile;
+import server.data.enums.ProfileType;
 
 public class ProfileDTO extends AbstractProfile implements Serializable {
 
@@ -12,7 +13,7 @@ public class ProfileDTO extends AbstractProfile implements Serializable {
 
 	protected ProfileDTO(String name, Date birthdate, double weight, double height, double maxHeartRate,
 			double restHeartRate, String email, List<TrainingSessionDTO> sessions, List<ChallengeDTO> challenges,
-			ProfileTypeDTO profileType) {
+			ProfileType profileType) {
 		super(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, profileType);
 	}
 

@@ -6,9 +6,9 @@ import java.util.List;
 
 import server.data.dto.ChallengeDTO;
 import server.data.dto.LoginDTO;
-import server.data.dto.ProfileTypeDTO;
 import server.data.dto.RegisterDTO;
 import server.data.dto.TrainingSessionDTO;
+import server.data.enums.ProfileType;
 
 public class ClientController{
 
@@ -25,7 +25,7 @@ public class ClientController{
 		token = handler.getService().register(
 				new RegisterDTO(
 						password, 
-						ProfileTypeDTO.EMAIL, 
+						ProfileType.EMAIL, 
 						name,
 						birthdate,
 						weight, 
@@ -40,7 +40,7 @@ public class ClientController{
 		token = handler.getService().register(
 				new RegisterDTO(
 						password,
-						ProfileTypeDTO.GOOGLE,
+						ProfileType.GOOGLE,
 						name,
 						birthdate, 
 						weight,
@@ -55,7 +55,7 @@ public class ClientController{
 		token = handler.getService().register(
 				new RegisterDTO(
 						password,
-						ProfileTypeDTO.FACEBOOK,
+						ProfileType.FACEBOOK,
 						name, 
 						birthdate, 
 						weight, 
@@ -66,13 +66,13 @@ public class ClientController{
 					));
 	}
 	public static void loginByEmail(String email, String password) throws RemoteException {
-		token= handler.getService().login(new LoginDTO(email, password, ProfileTypeDTO.EMAIL));
+		token= handler.getService().login(new LoginDTO(email, password, ProfileType.EMAIL));
 	}
 	public static void loginByGoogle(String email, String password) throws RemoteException {
-		token= handler.getService().login(new LoginDTO(email, password, ProfileTypeDTO.GOOGLE));
+		token= handler.getService().login(new LoginDTO(email, password, ProfileType.GOOGLE));
 	}
 	public static void loginByFacebook(String email, String password) throws RemoteException {
-		token= handler.getService().login(new LoginDTO(email, password, ProfileTypeDTO.FACEBOOK));
+		token= handler.getService().login(new LoginDTO(email, password, ProfileType.FACEBOOK));
 	}
 	public static void logout() throws RemoteException {
 		handler.getService().logout(token);

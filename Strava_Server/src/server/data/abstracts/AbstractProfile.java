@@ -1,15 +1,13 @@
-package server.data;
+package server.data.abstracts;
 
 import java.util.Date;
 import java.util.List;
 
-import server.data.dto.ChallengeDTO;
-import server.data.dto.ProfileTypeDTO;
-import server.data.dto.TrainingSessionDTO;
+import server.data.enums.ProfileType;
 
 public abstract class AbstractProfile {
 	protected AbstractProfile(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
-			String email, List<TrainingSessionDTO> sessions, List<ChallengeDTO> challenges, ProfileTypeDTO profileType) {
+			String email, List<? extends AbstractTrainingSession> sessions, List<? extends AbstractChallenge> challenges, ProfileType profileType) {
 		super();
 		this.name = name;
 		this.birthdate = birthdate;
@@ -22,7 +20,7 @@ public abstract class AbstractProfile {
 		this.challenges = challenges;
 		this.profileType = profileType;
 	}
-	ProfileTypeDTO profileType;
+	ProfileType profileType;
 	String name;
 	Date birthdate;
 	double weight;
@@ -30,8 +28,8 @@ public abstract class AbstractProfile {
 	double maxHeartRate;
 	double restHeartRate;
 	String email;
-	List<TrainingSessionDTO> sessions;
-	List<ChallengeDTO> challenges;
+	List<? extends AbstractTrainingSession> sessions;
+	List<? extends AbstractChallenge> challenges;
 	
 	public String getName() {
 		return name;
@@ -69,16 +67,16 @@ public abstract class AbstractProfile {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public List<TrainingSessionDTO> getSessions() {
+	public List<? extends AbstractTrainingSession> getSessions() {
 		return sessions;
 	}
-	public void setSessions(List<TrainingSessionDTO> sessions) {
+	public void setSessions(List<? extends AbstractTrainingSession> sessions) {
 		this.sessions = sessions;
 	}
-	public List<ChallengeDTO> getChallenges() {
+	public List<? extends AbstractChallenge> getChallenges() {
 		return challenges;
 	}
-	public void setChallenges(List<ChallengeDTO> challenges) {
+	public void setChallenges(List<? extends AbstractChallenge> challenges) {
 		this.challenges = challenges;
 	}
 	public double getRestHeartRate() {
@@ -87,7 +85,7 @@ public abstract class AbstractProfile {
 	public void setRestHeartRate(double restHeartRate) {
 		this.restHeartRate = restHeartRate;
 	}
-	public ProfileTypeDTO getType() {
+	public ProfileType getType() {
 		return profileType;
 	}
 }

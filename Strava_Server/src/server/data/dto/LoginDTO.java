@@ -1,16 +1,16 @@
 package server.data.dto;
 
-public class LoginDTO {
-	public final String email;
-	public final String password;
-	public final ProfileTypeDTO profileType;
-	public LoginDTO(String email, String password, ProfileTypeDTO profileType) {
-		super();
-		this.profileType = profileType;
-		this.email = email;
-		this.password = password;
+import java.io.Serializable;
+
+import server.data.abstracts.AbstractLogin;
+import server.data.enums.ProfileType;
+
+public class LoginDTO extends AbstractLogin implements Serializable {
+	public LoginDTO(String email, String password, ProfileType profileType) {
+		super(email, password, profileType);
+		// TODO Auto-generated constructor stub
 	}
-	public String getID() {
-		return email;
-	}
+
+	private static final long serialVersionUID = 8349364869312846347L;
+	
 }

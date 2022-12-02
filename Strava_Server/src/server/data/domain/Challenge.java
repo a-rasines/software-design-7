@@ -1,6 +1,6 @@
 package server.data.domain;
 
-import server.data.AbstractChallenge;
+import server.data.abstracts.AbstractChallenge;
 
 public class Challenge extends AbstractChallenge{
 

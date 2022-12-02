@@ -6,9 +6,9 @@ import server.data.CacheDatabase;
 import server.data.domain.DomainAssembler;
 import server.data.dto.ChallengeDTO;
 import server.data.dto.LoginDTO;
-import server.data.dto.ProfileTypeDTO;
 import server.data.dto.RegisterDTO;
 import server.data.dto.TrainingSessionDTO;
+import server.data.enums.ProfileType;
 import server.factory.AuthFactory;
 import server.factory.EmailVerifier;
 
@@ -27,7 +27,7 @@ public class ServerAppService {
 			//TODO DataBase hacer cuando
 			//Perform login() using LoginAppService
 	//TODO TODO TODO implementar cuando se haga el Session
-			return !CacheDatabase.userMap.add(DomainAssembler.profileFromRegisterDTO(profile)) && AuthFactory.createGateway(profile.toLoginDTO()).authenticate();
+			return !CacheDatabase.userMap.add(DomainAssembler.profileFromRegisterDTO(profile)) && AuthFactory.createGateway(DomainAssembler.loginFromRegisterDTO(profile)).authenticate();
 //			if (user != null) {
 //				//If user is not logged in 
 //				if (!this.serverState.values().contains(user)) {
@@ -50,8 +50,8 @@ public class ServerAppService {
 		//Perform login() using LoginAppService
 //TODO TODO TODO implementar cuando se haga el Session
 		//Session user = LoginAppService.getInstance().login(email, password);
-		return((profile.profileType == ProfileTypeDTO.EMAIL && new EmailVerifier(profile).authenticate()) || 
-				(AuthFactory.createGateway(profile).authenticate() && CacheDatabase.userMap.contains(profile.profileType, profile.getID())));
+		return((profile.profileType == ProfileType.EMAIL && new EmailVerifier(profile).authenticate()) || 
+				(AuthFactory.createGateway(DomainAssembler.loginFromLoginDTO(profile)).authenticate() && CacheDatabase.userMap.contains(profile.profileType, profile.getID())));
 			
 			
 		//If login() success user is stored in the Server State

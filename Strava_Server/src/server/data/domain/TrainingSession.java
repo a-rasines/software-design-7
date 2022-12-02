@@ -1,5 +1,7 @@
 package server.data.domain;
 
-public class TrainingSession {
+import server.data.abstracts.AbstractTrainingSession;
+
+public class TrainingSession extends AbstractTrainingSession{
 
 }

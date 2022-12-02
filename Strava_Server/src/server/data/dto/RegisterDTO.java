@@ -3,10 +3,12 @@ package server.data.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import server.data.enums.ProfileType;
+
 public class RegisterDTO implements Serializable{
 	private static final long serialVersionUID = -538083309581185155L;
 	private String password;
-	ProfileTypeDTO profileType;
+	ProfileType profileType;
 	String name;
 	Date birthdate;
 	double weight;
@@ -14,7 +16,7 @@ public class RegisterDTO implements Serializable{
 	double maxHeartRate;
 	double restHeartRate;
 	String email;
-	public ProfileTypeDTO getType() {
+	public ProfileType getType() {
 		return profileType;
 	}
 	public String getName() {
@@ -41,7 +43,7 @@ public class RegisterDTO implements Serializable{
 	public String getPassword() {
 		return password;
 	}
-	public RegisterDTO(String password, ProfileTypeDTO profileType, String name, Date birthdate, double weight,
+	public RegisterDTO(String password, ProfileType profileType, String name, Date birthdate, double weight,
 			double height, double maxHeartRate, double restHeartRate, String email) {
 		super();
 		this.password = password;
@@ -53,9 +55,6 @@ public class RegisterDTO implements Serializable{
 		this.maxHeartRate = maxHeartRate;
 		this.restHeartRate = restHeartRate;
 		this.email = email;
-	}
-	public LoginDTO toLoginDTO() {
-		return new LoginDTO(email, password, profileType);
 	}
 
 }

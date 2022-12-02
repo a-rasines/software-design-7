@@ -1,11 +1,11 @@
 package server.factory;
 
-import server.data.dto.LoginDTO;
+import server.data.domain.Login;
 
 public class AuthFactory {
 	
 	private AuthFactory() {}
-	public static AuthInterface createGateway(LoginDTO profile) {
+	public static AuthInterface createGateway(Login profile) {
 
 		switch (profile.profileType) {
 			case GOOGLE:

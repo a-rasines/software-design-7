@@ -6,15 +6,15 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import server.data.dto.SportDTO;
+import server.data.enums.Sport;
 
 public enum SportType {
-	CYCLING("https://imgur.com/Pfwx0nA.png", SportDTO.CYCLING),
-	RUNNING("https://imgur.com/4xlBRWY.png", SportDTO.RUNNING),
-	BOTH("https://assets.ifttt.com/images/channels/1055884022/icons/monochrome_large.png", SportDTO.values());
+	CYCLING("https://imgur.com/Pfwx0nA.png", Sport.CYCLING),
+	RUNNING("https://imgur.com/4xlBRWY.png", Sport.RUNNING),
+	BOTH("https://assets.ifttt.com/images/channels/1055884022/icons/monochrome_large.png", Sport.values());
 	public final BufferedImage image;
-	public final SportDTO[] dtos;
-	SportType(String url, SportDTO... dtos){
+	public final Sport[] dtos;
+	SportType(String url, Sport... dtos){
 		image = javaIsSpecialSometimes(url);
 		this.dtos = dtos;
 	}

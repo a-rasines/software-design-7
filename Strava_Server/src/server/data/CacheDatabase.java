@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 import server.data.domain.Profile;
 import server.data.dto.ProfileDTO;
-import server.data.dto.ProfileTypeDTO;
+import server.data.enums.ProfileType;
 /**
  * Temporal database
  * FIXME Delete when SQL or replace
@@ -18,7 +18,7 @@ public class CacheDatabase {
 	}
 	public static class UserMap implements Serializable{
 		private static final long serialVersionUID = 5413245158457635047L;
-		HashMap<ProfileTypeDTO, UserSet> userMap = new HashMap<>();
+		HashMap<ProfileType, UserSet> userMap = new HashMap<>();
 		public boolean add(Profile profile) {
 			userMap.putIfAbsent(profile.getType(), new UserSet());
 			return userMap.get(profile.getType()).add(profile);
@@ -27,11 +27,11 @@ public class CacheDatabase {
 			return userMap.get(profile.getType()).contains(profile);
 		}
 		@SuppressWarnings("unlikely-arg-type")
-		public boolean contains(ProfileTypeDTO type, String email) {
+		public boolean contains(ProfileType type, String email) {
 			return userMap.get(type).contains(email);
 		}
 		@SuppressWarnings("unchecked")
-		public <T extends Profile> T get(ProfileTypeDTO type, String email) {
+		public <T extends Profile> T get(ProfileType type, String email) {
 			return (T)userMap.get(type).get(email);
 		}
 		
