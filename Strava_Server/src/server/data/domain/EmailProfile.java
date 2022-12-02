@@ -11,6 +11,10 @@ public class EmailProfile extends Profile {
 		super(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, ProfileType.EMAIL);
 	}
 	String password;
+	public EmailProfile(long id, String name, Date birthdate, double weight, double height, double maxHeartRate,
+			double restHeartRate, String email, List<TrainingSession> sessions, List<Challenge> challenges) {
+		super(id, name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, ProfileType.EMAIL);
+	}
 	public String getPassword() {
 		return password;
 	}
