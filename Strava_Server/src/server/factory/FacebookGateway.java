@@ -15,7 +15,7 @@ public class FacebookGateway implements AuthInterface {
 	public static void setupSocket(String ip, int port) throws UnknownHostException, IOException {
 		if(s != null)
 			s.close();
-		s = new Socket("localhost", 1101);
+		s = new Socket("localhost", port);
 	}
 	public FacebookGateway(Login profile2) {
 		if(profile2.profileType != ProfileType.FACEBOOK)
