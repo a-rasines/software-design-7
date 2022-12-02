@@ -21,7 +21,7 @@ public class CacheDatabase {
 		HashMap<ProfileType, UserSet> userMap = new HashMap<>();
 		public boolean add(Profile profile) {
 			userMap.putIfAbsent(profile.getType(), new UserSet());
-			return userMap.get(profile.getType()).add(profile);
+			return !userMap.get(profile.getType()).add(profile);
 		}
 		public boolean contains(Profile profile) {
 			return userMap.get(profile.getType()).contains(profile);

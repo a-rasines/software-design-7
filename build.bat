@@ -10,7 +10,7 @@ cd dist
 move server.jar ../../Strava_Client/lib
 cd ../../Strava_Client
 call ant build
-cd ../../Facebook_Server
+cd ../Facebook_Server
 call ant build
 cd ..
 pause

@@ -7,7 +7,7 @@
 	<property name="lib.dir" location="lib"/>
 	<property name="jar.file" value="server.jar"/>
 	<property name="policy.file" location="security/java.policy"/>	 
-	<property name="port" value="1099"/> 
+	<property name="port" value="1101"/> 
 	
 	<path id="classpath">
         <fileset dir="${lib.dir}">
