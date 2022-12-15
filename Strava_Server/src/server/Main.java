@@ -12,7 +12,6 @@ import server.remote.RemoteFacade;
 public class Main {
 	
 	public static void main(String[] args) {
-		
 		System.out.println("Connecting to Google_Server");
 		try {
 			GoogleGateway.setService(args[3], args[4] , args[5]);
