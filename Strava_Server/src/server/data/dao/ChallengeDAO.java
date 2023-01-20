@@ -1,5 +1,8 @@
 package server.data.dao;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +12,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import server.data.domain.Challenge;
+import server.data.enums.Sport;
 
 
 public class ChallengeDAO extends DataAccessObjectBase implements IDataAccessObject<Challenge>{
@@ -69,7 +73,7 @@ public class ChallengeDAO extends DataAccessObjectBase implements IDataAccessObj
 		try {
 			tx.begin();
 						
-			Query<?> query = pm.newQuery("SELECT FROM " + Challenge.class.getName() + " WHERE email == " + param.replace("'", "''"));
+			Query<?> query = pm.newQuery("SELECT FROM " + Challenge.class.getName() + " WHERE id == " + param.replace("'", "''"));
 			query.setUnique(true);
 			result = (Challenge) query.execute();
 			
@@ -92,14 +96,16 @@ public class ChallengeDAO extends DataAccessObjectBase implements IDataAccessObj
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		
-		List<Challenge> result = null; 
+		List<Challenge> result = new ArrayList<>(); 
 
 		try {
 			tx.begin();
-						
-			Query<?> query = pm.newQuery("SELECT FROM " + Challenge.class.getName() + " limit 20");
-			query.setUnique(true);
-			result = (List<Challenge>) query.execute();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			for(Sport st: Sport.values()){
+				Query<?> query = pm.newQuery("SELECT FROM " + Challenge.class.getName() + "WHERE startDate > "+sdf.format(Date.valueOf(LocalDate.now()))+" AND sport = "+st.toString()+" Limit 10");
+				query.setUnique(true);
+				result.addAll((List<Challenge>) query.execute());
+			}
 			
 			tx.commit();
 		} catch (Exception ex) {

@@ -1,14 +1,14 @@
 package server.data.abstracts;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import server.data.enums.ProfileType;
 
 public abstract class AbstractProfile {
 	protected AbstractProfile(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
-			String email, List<? extends AbstractTrainingSession> sessions, HashMap<? extends AbstractChallenge, Integer> challenges, ProfileType profileType) {
+			String email, List<? extends AbstractTrainingSession> sessions, Map<? extends AbstractChallenge, Byte> challenges, ProfileType profileType) {
 		super();
 		this.name = name;
 		this.birthdate = birthdate;
@@ -30,7 +30,7 @@ public abstract class AbstractProfile {
 	double restHeartRate;
 	String email;
 	List<? extends AbstractTrainingSession> sessions;
-	HashMap<? extends AbstractChallenge, Integer> challenges;
+	Map<? extends AbstractChallenge, Byte> challenges;
 	
 	public String getName() {
 		return name;
@@ -74,10 +74,10 @@ public abstract class AbstractProfile {
 	public void setSessions(List<? extends AbstractTrainingSession> sessions) {
 		this.sessions = sessions;
 	}
-	public HashMap<? extends AbstractChallenge, Integer> getChallenges() {
+	public Map<? extends AbstractChallenge, Byte> getChallenges() {
 		return challenges;
 	}
-	public void setChallenges(HashMap<? extends AbstractChallenge,Integer> challenges) {
+	public void setChallenges(Map<? extends AbstractChallenge, Byte> challenges) {
 		this.challenges = challenges;
 	}
 	public double getRestHeartRate() {

@@ -1,9 +1,10 @@
 package server.data.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
@@ -17,7 +18,7 @@ import server.data.enums.ProfileType;
 @PersistenceCapable(detachable="true")
 public class Profile extends AbstractProfile{
 	public static Profile of(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
-			String email, List<TrainingSession> sessions, HashMap<Challenge,Integer> challenges,
+			String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges,
 			ProfileType profileType) {
 		switch(profileType) {
 			case EMAIL:
@@ -27,7 +28,7 @@ public class Profile extends AbstractProfile{
 		}
 	}
 	public static Profile of(long id, String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
-			String email, List<TrainingSession> sessions, HashMap<Challenge,Integer> challenges,
+			String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges,
 			ProfileType profileType) {
 		switch(profileType) {
 			case EMAIL:
@@ -44,20 +45,21 @@ public class Profile extends AbstractProfile{
 	List<TrainingSession> sessions;
 	@Join
 	@Persistent(mappedBy="profile", dependentElement="true", defaultFetchGroup="true")
-	HashMap<Challenge, Integer> challenges;
+	Map<Challenge, Byte> challenges;
 	protected Profile(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
-			String email, List<TrainingSession> sessions, HashMap<Challenge, Integer> challenges,
+			String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges,
 			ProfileType profileType) {
 		super(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, profileType);
 		this.sessions = sessions;
 		this.challenges = challenges;
 	}
 	protected Profile(Long id, String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
-			String email, List<TrainingSession> sessions, HashMap<Challenge,Integer> challenges,
+			String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges,
 			ProfileType profileType) {
 		super(name, birthdate, weight, height, maxHeartRate, restHeartRate, email, sessions, challenges, profileType);
 		this.id = id;
-		// TODO Auto-generated constructor stub
+		this.sessions = sessions;
+		this.challenges = challenges;
 	}
 	
 	public long getId() {
@@ -65,19 +67,38 @@ public class Profile extends AbstractProfile{
 	}
 	public void createTrainingSession(TrainingSession e) {
 		this.sessions.add(e);
+		new HashMap<Challenge, Byte>(challenges).forEach((k, v)->{
+			if(k.getDistanceTarget() != 0) {
+				challenges.put(k, (byte) (v + e.getDistance()/k.getDistanceTarget()));
+			}else if(k.getTimeTarget() != 0) {
+				challenges.put(k, (byte) (v + e.getDuration()/k.getTimeTarget()));
+			}
+		});
 		TrainingSessionDAO.getInstance().save(e);
 	}
 	public void setupChallenge(Challenge e) {
 		ChallengeDAO.getInstance().save(e);
 	}
 	public boolean acceptChallenge(Challenge e) {
-		return this.challenges.putIfAbsent(e, 0) == null;
+		return this.challenges.putIfAbsent(e, (byte)0) == null;
 	}
 	public List<Challenge> downloadChallenge() {
 		return ChallengeDAO.getInstance().getSomeChallenges();
 	}
+	public List<Challenge> downloadAcceptedChallenges(){
+		List<Challenge> res = new ArrayList<>();
+		challenges.forEach((k, v) ->{
+			res.add(k);
+		});
+		return res;
+	}
 	
 	public List<Challenge> downloadActiveChallenges(){
-		return null;
+		List<Challenge> res = new ArrayList<>();
+		challenges.forEach((k, v) ->{
+			if(v < 100)
+				res.add(k);
+		});
+		return res;
 	}
 }

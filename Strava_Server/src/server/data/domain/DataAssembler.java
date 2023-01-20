@@ -28,7 +28,7 @@ public class DataAssembler {
 			dto.getRestHeartRate(), 
 			dto.getEmail(), 
 			new ArrayList<>(), 
-			new HashMap<Challenge, Integer>(), 
+			new HashMap<Challenge, Byte>(), 
 			dto.getType()
 		);
 		if(dto.getType() == ProfileType.EMAIL)

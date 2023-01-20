@@ -7,7 +7,6 @@ import server.data.domain.Challenge;
 import server.data.domain.DataAssembler;
 import server.data.domain.Profile;
 import server.data.domain.TrainingSession;
-import server.data.dto.ChallengeDTO;
 import server.data.dto.LoginDTO;
 import server.data.dto.RegisterDTO;
 import server.data.enums.ProfileType;
