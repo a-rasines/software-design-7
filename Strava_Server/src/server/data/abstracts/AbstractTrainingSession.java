@@ -6,6 +6,15 @@ import server.data.enums.Sport;
 
 public class AbstractTrainingSession {
 	String name;
+	
+	public AbstractTrainingSession(String name, Sport sport, Date startDate, double distance, long duration) {
+		super();
+		this.name = name;
+		this.sport = sport;
+		this.startDate = startDate;
+		this.distance = distance;
+		this.duration = duration;
+	}
 	public String getName() {
 		return name;
 	}

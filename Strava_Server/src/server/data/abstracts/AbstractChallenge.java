@@ -5,6 +5,18 @@ import java.util.Date;
 import server.data.enums.Sport;
 
 public abstract class AbstractChallenge {
+	
+	public AbstractChallenge(String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
+			Sport sport) {
+		super();
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.distanceTarget = distanceTarget;
+		this.timeTarget = timeTarget;
+		this.sport = sport;
+	}
+	
 	public String getName() {
 		return name;
 	}

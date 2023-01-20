@@ -1,12 +1,14 @@
 package server.remote;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import server.ServerAppService;
 import server.data.CacheDatabase;
-import server.data.domain.DomainAssembler;
+import server.data.domain.Challenge;
+import server.data.domain.DataAssembler;
 import server.data.domain.Profile;
 import server.data.dto.ChallengeDTO;
 import server.data.dto.LoginDTO;
@@ -29,7 +31,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 	@Override
 	public String register(RegisterDTO profile) throws RemoteException {
 		 if (ServerAppService.getInstance().register(profile))
-			 return generateToken(DomainAssembler.profileFromRegisterDTO(profile));
+			 return generateToken(DataAssembler.getInstance().profileFromRegisterDTO(profile));
 		 else
 			 throw new RemoteException("Account already exists");
 	}
@@ -48,16 +50,28 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 		}
 	}
 	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
-		return ServerAppService.getInstance().createTrainingSession(token, tsDTO);
+		return DataAssembler.getInstance().trainingSessionDTOFromTrainingsession(ServerAppService.getInstance().createTrainingSession(serverState.get(token).getUser(), DataAssembler.getInstance().trainingSessionFromTrainingSessionDTO(tsDTO)));
 	}
 	public ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException{
-		return ServerAppService.getInstance().setUpChallenge(token, challengeDTO);
+		return DataAssembler.getInstance().challengeDTOFromChallenge(ServerAppService.getInstance().setUpChallenge(serverState.get(token).getUser(), DataAssembler.getInstance().challengeFromChallengeDTO(challengeDTO))); 
+	
 	}
 	public boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException{
-		return ServerAppService.getInstance().acceptChallenge(token, challenge);
+		return ServerAppService.getInstance().acceptChallenge(serverState.get(token).getUser(), DataAssembler.getInstance().challengeFromChallengeDTO(challenge));
 	}
 	public List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException{
-		return ServerAppService.getInstance().downloadActiveChallenges(token);
+		//return ServerAppService.getInstance().downloadActiveChallenges(token);
+		return null;
+		//TODO canal nose haz tu magia
+	}
+	
+	public List<ChallengeDTO> downloadChallenge(String token) throws RemoteException{
+		List<Challenge> liCha = serverState.get(token).getUser().downloadChallenge();
+		List<ChallengeDTO> liChaDTO = new ArrayList<ChallengeDTO>();
+		for(Challenge c : liCha) {
+			liChaDTO.add(DataAssembler.getInstance().challengeDTOFromChallenge(c));
+		}
+		return liChaDTO;
 	}
 	
 	public String generateToken(Profile profile) {

@@ -11,4 +11,8 @@ public class Session {
 	}
 	public final Profile user;
 	public final String token;
+	
+	public Profile getUser() {
+		return user;
+	}
 }
