@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import server.data.enums.ProfileType;
+import javax.jdo.annotations.PersistenceCapable;
 
+import server.data.enums.ProfileType;
+@PersistenceCapable(detachable="true")
 public class EmailProfile extends Profile {
 	protected EmailProfile(String name, Date birthdate, double weight, double height, double maxHeartRate,
 			double restHeartRate, String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges) {
