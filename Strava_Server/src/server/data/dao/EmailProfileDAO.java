@@ -8,40 +8,40 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import server.data.domain.EmailProfile;
 import server.data.domain.Profile;
-import server.data.enums.ProfileType;
 
-public class ProfileDAO extends DataAccessObjectBase implements IDataAccessObject<Profile>{
-	private static final ProfileDAO INSTANCE = new ProfileDAO();
-	public static ProfileDAO getInstance() {
+public class EmailProfileDAO extends DataAccessObjectBase implements IDataAccessObject<EmailProfile>{
+	private static final EmailProfileDAO INSTANCE = new EmailProfileDAO();
+	public static EmailProfileDAO getInstance() {
 		return INSTANCE;
 	}
-	private ProfileDAO() {}
+	private EmailProfileDAO() {}
 	@Override
-	public void save(Profile object) {
+	public void save(EmailProfile object) {
 		saveObject(object);
 		
 	}
 
 	@Override
-	public void delete(Profile object) {
+	public void delete(EmailProfile object) {
 		deleteObject(object);
 		
 	}
 
 	@Override
-	public List<Profile> getAll() {				
+	public List<EmailProfile> getAll() {				
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 
-		List<Profile> articles = new ArrayList<>();
+		List<EmailProfile> articles = new ArrayList<>();
 		
 		try {
 			tx.begin();
 			
-			Extent<Profile> extent = pm.getExtent(Profile.class, true);
+			Extent<EmailProfile> extent = pm.getExtent(EmailProfile.class, true);
 
-			for (Profile category : extent) {
+			for (EmailProfile category : extent) {
 				articles.add(category);
 			}
 
@@ -58,18 +58,18 @@ public class ProfileDAO extends DataAccessObjectBase implements IDataAccessObjec
 
 		return articles;
 	}
-	public Profile find(String email, ProfileType type) {
+	public EmailProfile find(String email) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		
-		Profile result = null; 
+		EmailProfile result = null; 
 
 		try {
 			tx.begin();
 						
-			Query<?> query = pm.newQuery("SELECT FROM " + Profile.class.getName() + " WHERE email == '" + email.replace("'", "''")+"' AND profileType = '"+type.toString()+"'");
+			Query<?> query = pm.newQuery("SELECT FROM " + Profile.class.getName() + " WHERE email == '" + email.replace("'", "''")+"'");
 			query.setUnique(true);
-			result = (Profile) query.execute();
+			result = (EmailProfile) query.execute();
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -83,9 +83,5 @@ public class ProfileDAO extends DataAccessObjectBase implements IDataAccessObjec
 		}
 
 		return result;
-	}
-	@Override
-	public Profile find(String param) {
-		return find(param, ProfileType.EMAIL);
 	}
 }

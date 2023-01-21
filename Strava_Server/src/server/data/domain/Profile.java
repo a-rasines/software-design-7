@@ -69,9 +69,9 @@ public class Profile extends AbstractProfile{
 		this.sessions.add(e);
 		new HashMap<Challenge, Byte>(challenges).forEach((k, v)->{
 			if(k.getDistanceTarget() != 0) {
-				challenges.put(k, (byte) (v + e.getDistance()/k.getDistanceTarget()));
+				challenges.put(k, (byte) (v + 100*e.getDistance()/k.getDistanceTarget()));
 			}else if(k.getTimeTarget() != 0) {
-				challenges.put(k, (byte) (v + e.getDuration()/k.getTimeTarget()));
+				challenges.put(k, (byte) (v + 100*e.getDuration()/k.getTimeTarget()));
 			}
 		});
 		TrainingSessionDAO.getInstance().save(e);
@@ -85,10 +85,11 @@ public class Profile extends AbstractProfile{
 	public List<Challenge> downloadChallenge() {
 		return ChallengeDAO.getInstance().getSomeChallenges();
 	}
-	public List<Challenge> downloadAcceptedChallenges(){
+	public List<Challenge> downloadCompletedChallenges(){
 		List<Challenge> res = new ArrayList<>();
 		challenges.forEach((k, v) ->{
-			res.add(k);
+			if(v >= 100)
+				res.add(k);
 		});
 		return res;
 	}

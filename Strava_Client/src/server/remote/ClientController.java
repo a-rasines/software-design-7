@@ -77,16 +77,19 @@ public class ClientController{
 	public static void logout() throws RemoteException {
 		handler.getService().logout(token);
 	}
-	public TrainingSessionDTO createTrainingSession(TrainingSessionDTO tsDTO) throws RemoteException {
+	public static TrainingSessionDTO createTrainingSession(TrainingSessionDTO tsDTO) throws RemoteException {
 		return handler.getService().createTrainingSession(token, tsDTO);
 	}
-	public ChallengeDTO setUpChallenge(ChallengeDTO challengeDTO) throws RemoteException {
+	public static ChallengeDTO setUpChallenge(ChallengeDTO challengeDTO) throws RemoteException {
 		return handler.getService().setUpChallenge(token, challengeDTO);
 	}
-	public boolean acceptChallenge(ChallengeDTO challenge) throws RemoteException {
+	public static boolean acceptChallenge(ChallengeDTO challenge) throws RemoteException {
 		return handler.getService().acceptChallenge(token, challenge);
 	}
-	public List<ChallengeDTO> downloadActiveChallenges() throws RemoteException {
+	public static List<ChallengeDTO> downloadActiveChallenges() throws RemoteException {
 		return handler.getService().downloadActiveChallenges(token);
+	}
+	public static List<ChallengeDTO> downloadCompletedChallenges() throws RemoteException{
+		return handler.getService().downloadCompletedChallenges(token);
 	}
 }

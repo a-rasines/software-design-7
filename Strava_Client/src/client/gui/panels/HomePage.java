@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.ServiceLoader;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -89,6 +90,7 @@ public class HomePage extends ClientPanel{
 				
 				sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				JScrollPane sessionScroll = new JScrollPane(sessionList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+					//List<TrainingSessionDTO> sessions = ClientController.
 					//TODO Turn this into a for loop with info
 					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
 					sessionList.add(new SessionPanel(SportType.RUNNING, "Test", new Date(), 0, 1));

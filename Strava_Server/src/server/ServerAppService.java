@@ -2,12 +2,12 @@ package server;
 
 import java.rmi.RemoteException;
 import java.util.List;
-import server.data.CacheDatabase;
+import server.data.dao.ProfileDAO;
 import server.data.domain.Challenge;
 import server.data.domain.DataAssembler;
+import server.data.domain.Login;
 import server.data.domain.Profile;
 import server.data.domain.TrainingSession;
-import server.data.dto.LoginDTO;
 import server.data.dto.RegisterDTO;
 import server.data.enums.ProfileType;
 import server.factory.AuthFactory;
@@ -25,20 +25,28 @@ public class ServerAppService {
 	
 	public boolean register(RegisterDTO profile) throws RemoteException {
 		 System.out.println(profile.getType().toString()+" Register: "+profile.getEmail());
-			//TODO DataBase hacer cuando
-			//Perform login() using LoginAppService
-	//TODO TODO TODO implementar cuando se haga el Session
-			return !CacheDatabase.userMap.add(DataAssembler.getInstance().profileFromRegisterDTO(profile)) && AuthFactory.createGateway(DataAssembler.getInstance().loginFromRegisterDTO(profile)).authenticate();
+		 Profile p = ProfileDAO.getInstance().find(profile.getEmail(), profile.getType());
+		 if( p == null && (profile.getType() == ProfileType.EMAIL || AuthFactory.createGateway(DataAssembler.getInstance().loginFromRegisterDTO(profile)).authenticate())) {
+			 ProfileDAO.getInstance().save(DataAssembler.getInstance().profileFromRegisterDTO(profile));
+			 return true;
+		 }else return false;
 
 	}
-	public boolean login(LoginDTO profile) throws RemoteException {
+	public boolean login(Login profile) throws RemoteException {
 		System.out.println("Login: "+profile.toString());
-		
-		//Perform login() using LoginAppService
-//TODO TODO TODO implementar cuando se haga el Session
-		//Session user = LoginAppService.getInstance().login(email, password);
-		return((profile.profileType == ProfileType.EMAIL && new EmailVerifier(DataAssembler.getInstance().loginFromLoginDTO(profile)).authenticate()) || 
-				(AuthFactory.createGateway(DataAssembler.getInstance().loginFromLoginDTO(profile)).authenticate() && CacheDatabase.userMap.contains(profile.profileType, profile.getID())));
+		Profile p = ProfileDAO.getInstance().find(profile.email, profile.profileType);
+		return 
+				p != null
+				&& 
+				(
+					(
+						profile.profileType == ProfileType.EMAIL 
+						&& 
+						new EmailVerifier(profile).authenticate()
+					)
+					|| 
+					AuthFactory.createGateway(profile).authenticate() 
+				);
 			
 
 	}
@@ -55,9 +63,18 @@ public class ServerAppService {
 		return p.acceptChallenge(challenge);
 		
 	}
-	public List<Challenge> downloadActiveChallenges(String token) throws RemoteException{
+	public List<Challenge> downloadActiveChallenges(Profile p) throws RemoteException{
 		System.out.println("Downloading active challenges");
-		return null;
+		return p.downloadActiveChallenges();
+	}
+	
+	public List<Challenge> downloadCompletedChallenges(Profile p) throws RemoteException{
+		System.out.println("Downloading completed challenges");
+		return p.downloadCompletedChallenges();
+	}
+	@SuppressWarnings("unchecked")
+	public List<TrainingSession> downloadTrainingSessions(Profile p) throws RemoteException{
+		return (List<TrainingSession>) p.getSessions();
 	}
 	
 	public List<Challenge> downloadChallenges(Profile p){

@@ -1,9 +1,8 @@
 package server.factory;
 
-import server.data.CacheDatabase;
+import server.data.dao.EmailProfileDAO;
 import server.data.domain.EmailProfile;
 import server.data.domain.Login;
-import server.data.dto.LoginDTO;
 import server.data.enums.ProfileType;
 
 public class EmailVerifier implements AuthInterface{
@@ -16,6 +15,7 @@ public class EmailVerifier implements AuthInterface{
 
 	@Override
 	public boolean authenticate() {
-		return CacheDatabase.userMap.contains(ProfileType.EMAIL, profile.email) && ((EmailProfile)CacheDatabase.userMap.get(ProfileType.EMAIL, profile.email)).getPassword().equals(profile.password);
+		EmailProfile p = EmailProfileDAO.getInstance().find(profile.email);
+		return p.getPassword().equals(profile.password);
 	}
 }

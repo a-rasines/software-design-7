@@ -19,5 +19,7 @@ public interface IRemoteFacade extends Remote {
 	boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException;
 	List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException;
 	List<ChallengeDTO> downloadChallenge(String token) throws RemoteException;
+	List<ChallengeDTO> downloadCompletedChallenges(String token) throws RemoteException;
+	List<TrainingSessionDTO> downloadTrainingSessions(String token) throws RemoteException;
 	
 }
