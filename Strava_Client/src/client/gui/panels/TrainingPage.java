@@ -22,7 +22,8 @@ import client.gui.ClientWindow;
 import client.gui.panels.extras.DateKeyListener;
 import client.gui.panels.extras.LoginMouseListener;
 import client.gui.panels.extras.NumberFieldListener;
-import client.gui.panels.extras.SessionPanel;
+import server.data.dto.TrainingSessionDTO;
+import server.data.enums.Sport;
 
 public class TrainingPage extends FieldPage {
 
@@ -30,7 +31,7 @@ public class TrainingPage extends FieldPage {
 	
 	public TrainingPage() {
 		setLayout(new GridLayout(0, 1));
-		JComboBox<SportType> trainingType = new JComboBox<SportType>(SportType.values());
+		JComboBox<Sport> trainingType = new JComboBox<Sport>(Sport.values());
 		add(createField("Session type:", trainingType));
 		JTextField titleField = new JTextField(24);
 		add(createField("Title: ", titleField));
@@ -41,10 +42,10 @@ public class TrainingPage extends FieldPage {
 		startDateField.addKeyListener(new DateKeyListener());
 		add(createField("Start date:", startDateField));
 		JTextField distanceField = new JTextField(24);
-		distanceField.addKeyListener(new NumberFieldListener());
+		distanceField.addKeyListener(new NumberFieldListener(true));
 		add(createField("Distance(km): ", distanceField));
 		JTextField durationField = new JTextField(24);
-		durationField.addKeyListener(new NumberFieldListener());
+		durationField.addKeyListener(new NumberFieldListener(false));
 		add(createField("Duration(s): ", durationField));
 		JButton registerButton = new JButton("Register");
 		registerButton.addMouseListener(new LoginMouseListener(
@@ -53,15 +54,14 @@ public class TrainingPage extends FieldPage {
 					ClientPanel
 						.getInstanceOf(HomePage.class)
 						.addTrainingSession(
-							new SessionPanel(
-								(SportType)trainingType.getSelectedItem(),
+							new TrainingSessionDTO(
 								titleField.getText(),
+								(Sport)trainingType.getSelectedItem(),
 								df.parse(startDateField.getText()),
-								Float.parseFloat(distanceField.getText()),
-								Float.parseFloat(durationField.getText())
+								Double.parseDouble(distanceField.getText()),
+								Long.parseLong(durationField.getText())
 						)
 					);
-					//TODO Register in server the new training session
 					ClientWindow.getInstance().setPage(HomePage.class);
 				} catch (NumberFormatException | ParseException e1) {
 					JOptionPane.showMessageDialog(null, "Date format may be wrong");

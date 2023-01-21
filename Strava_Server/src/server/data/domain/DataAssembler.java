@@ -54,7 +54,7 @@ public class DataAssembler {
 	public Challenge challengeFromChallengeDTO(ChallengeDTO cdto) {
 		return new Challenge(cdto.getName(), cdto.getStartDate(), cdto.getEndDate(), cdto.getDistanceTarget(), cdto.getTimeTarget(), cdto.getSport());
 	}
-	public ChallengeDTO challengeDTOFromChallenge(Challenge cdto) {
-		return new ChallengeDTO(cdto.getName(), cdto.getStartDate(), cdto.getEndDate(), cdto.getDistanceTarget(), cdto.getTimeTarget(), cdto.getSport());
+	public ChallengeDTO challengeDTOFromChallenge(Challenge cdto, byte progress) {
+		return new ChallengeDTO(cdto.getName(), cdto.getStartDate(), cdto.getEndDate(), cdto.getDistanceTarget(), cdto.getTimeTarget(), cdto.getSport(), progress);
 	}
 }

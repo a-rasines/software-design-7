@@ -64,22 +64,22 @@ public class RegisterPage extends FieldPage{
 		componentMap.put(Field.BIRTHDATE, birthdateField);
 		
 		JTextField weightField = new JTextField(24);
-		weightField.addKeyListener(new NumberFieldListener());
+		weightField.addKeyListener(new NumberFieldListener(true));
 		add(createField("Weight(kg)(opt.):", weightField));
 		componentMap.put(Field.WEIGHT, weightField);
 
 		JTextField heightField = new JTextField(24);
-		heightField.addKeyListener(new NumberFieldListener());
+		heightField.addKeyListener(new NumberFieldListener(true));
 		add(createField("Height(cm)(opt.):", heightField));
 		componentMap.put(Field.HEIGHT, heightField);
 		
 		JTextField mhrField = new JTextField(16);
-		heightField.addKeyListener(new NumberFieldListener());
+		heightField.addKeyListener(new NumberFieldListener(true));
 		add(createField("Max. Hearth Rate(bpm)(opt.):", mhrField));
 		componentMap.put(Field.MAX_HEARTH_RATE, mhrField);
 		
 		JTextField rhrField = new JTextField(16);
-		heightField.addKeyListener(new NumberFieldListener());
+		heightField.addKeyListener(new NumberFieldListener(true));
 		add(createField("Hearth Rate in rest(bpm)(opt.):", rhrField));
 		componentMap.put(Field.REST_HEARTH_RATE, rhrField);
 		

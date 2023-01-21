@@ -2,6 +2,8 @@ package server;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
+
 import server.data.dao.ProfileDAO;
 import server.data.domain.Challenge;
 import server.data.domain.DataAssembler;
@@ -63,7 +65,7 @@ public class ServerAppService {
 		return p.acceptChallenge(challenge);
 		
 	}
-	public List<Challenge> downloadActiveChallenges(Profile p) throws RemoteException{
+	public Map<Challenge, Byte> downloadActiveChallenges(Profile p) throws RemoteException{
 		System.out.println("Downloading active challenges");
 		return p.downloadActiveChallenges();
 	}

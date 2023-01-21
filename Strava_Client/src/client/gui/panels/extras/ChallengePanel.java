@@ -23,6 +23,7 @@ import javax.swing.JSeparator;
 import client.gui.ClientPanel;
 import client.gui.panels.HomePage;
 import client.gui.panels.SportType;
+import server.data.dto.ChallengeDTO;
 
 public class ChallengePanel extends JPanel {
 	private static final long serialVersionUID = -329671660860291231L;
@@ -43,8 +44,8 @@ public class ChallengePanel extends JPanel {
 	 * @param isDistance if true, target is distance, else time
 	 * @param completed if true, the challenge is treated as completed
 	 */
-	public ChallengePanel(SportType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
-		update(type, title, startDate, endDate, target, isDistance, completed);
+	public ChallengePanel(ChallengeDTO c) {
+		update(SportType.of(c.getSport()), c.getName(), c.getStartDate(), c.getEndDate(), Math.max(c.getDistanceTarget(), c.getTimeTarget()), c.getTimeTarget() == 0, c.progress);
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -54,16 +55,11 @@ public class ChallengePanel extends JPanel {
 			}
 		});
 	}
-	private Consumer<ChallengePanel> onComplete;
 	/**
 	 * This function is called when challenge status it's set to completed
 	 * @param onComplete
 	 * @return
 	 */
-	public ChallengePanel onComplete(Consumer<ChallengePanel> onComplete) {
-		this.onComplete = onComplete;
-		return this;
-	}
 	private Consumer<ChallengePanel> onAccept;
 	/**
 	 * This function is called when a challenge is accepted
@@ -85,10 +81,10 @@ public class ChallengePanel extends JPanel {
 	 * @param isDistance
 	 * @param completed
 	 */
-	private void update(SportType type,  String title, Date startDate, Date endDate, float target, boolean isDistance, boolean completed) {
-		setBackground(completed? COMPLETED_COLOR : BACKGROUND_COLOR);
+	private void update(SportType type,  String title, Date startDate, Date endDate, double target, boolean isDistance, byte progress) {
+		setBackground(progress == 100? COMPLETED_COLOR : BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
-		front.setBackground(completed? COMPLETED_COLOR : BACKGROUND_COLOR);
+		front.setBackground(progress == 100? COMPLETED_COLOR : BACKGROUND_COLOR);
 		front.add(new JLabel(new ImageIcon(type.image.getScaledInstance(110, 110, Image.SCALE_SMOOTH))), BorderLayout.CENTER);
 		JLabel label = new JLabel(title);
 		label.setForeground(Color.WHITE);
@@ -98,7 +94,7 @@ public class ChallengePanel extends JPanel {
 		JLabel titleLabel = new JLabel(title);
 		titleLabel.setForeground(Color.WHITE);
 		back.add(titleLabel);
-		back.setBackground(completed? COMPLETED_COLOR : BACKGROUND_COLOR);
+		back.setBackground(progress == 100? COMPLETED_COLOR : BACKGROUND_COLOR);
 		back.add(new JSeparator());
 		JLabel dateLabel = new JLabel("Start: " + DATE_FORMAT.format(startDate));
 		dateLabel.setForeground(Color.WHITE);
@@ -109,31 +105,16 @@ public class ChallengePanel extends JPanel {
 		JLabel distanceLabel = new JLabel((isDistance ?"Distance: " : "Time: ")+target+(isDistance?"km":"s"));
 		distanceLabel.setForeground(Color.WHITE);
 		back.add(distanceLabel);
-		JLabel completedLabel = new JLabel((completed ?"COMPLETED!" : "Pending..."));
+		JLabel completedLabel = new JLabel((progress == 100 ?"COMPLETED!" : "Progress: "+progress +"%"));
 		completedLabel.setForeground(Color.WHITE);
 		back.add(completedLabel);
-		if(completed)
+		if(progress == 100)
 			back.add(new JLabel(new ImageIcon(new BufferedImage(110, 18, BufferedImage.TYPE_INT_ARGB))));
 		else {
 			JPanel clickPanel = new JPanel();
 			BoxLayout bl = new BoxLayout(clickPanel, BoxLayout.Y_AXIS);
 			clickPanel.setLayout(bl);
 			clickPanel.setBackground(BACKGROUND_COLOR);
-			JLabel completeLabel = new JLabel("Click to complete");
-			ChallengePanel instance = this;
-			completeLabel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					removeAll();
-					if(onComplete != null)
-						onComplete.accept(instance);
-					//TODO Update the server info
-					update(type, title, startDate, endDate, target, isDistance, true);
-					frontShowing = false;
-				}
-			});
-			completeLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			clickPanel.add(completeLabel);
 			clickPanel.add(new JLabel(new ImageIcon(new BufferedImage(110, 2, BufferedImage.TYPE_INT_ARGB))));
 			back.add(clickPanel);
 		}
@@ -146,31 +127,32 @@ public class ChallengePanel extends JPanel {
 	 * @param title Name of the challenge
 	 * @param startDate Date where the challenge starts
 	 * @param endDate Date where the challenge ends
-	 * @param target Targeted distance or time
+	 * @param d Targeted distance or time
 	 * @param isDistance if true, target is distance, else time
 	 */
-	public ChallengePanel(SportType type,  String title, Date startDate, Date endDate, float target, boolean isDistance) {
+	public ChallengePanel(ChallengeDTO c, boolean claimed) {
+		if(!claimed)
 		setBackground(BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
 		front.setBackground(BACKGROUND_COLOR);
-		front.add(new JLabel(new ImageIcon(type.image.getScaledInstance(110, 110, Image.SCALE_SMOOTH))), BorderLayout.CENTER);
-		JLabel label = new JLabel(title);
+		front.add(new JLabel(new ImageIcon(SportType.of(c.getSport()).image.getScaledInstance(110, 110, Image.SCALE_SMOOTH))), BorderLayout.CENTER);
+		JLabel label = new JLabel(c.getName());
 		label.setForeground(Color.WHITE);
 		front.add(label, BorderLayout.SOUTH);
 		add(front);
 		back = new JPanel(new GridLayout(0, 1));
-		JLabel titleLabel = new JLabel(title);
+		JLabel titleLabel = new JLabel(c.getName());
 		titleLabel.setForeground(Color.WHITE);
 		back.add(titleLabel);
 		back.setBackground(BACKGROUND_COLOR);
 		back.add(new JSeparator());
-		JLabel dateLabel = new JLabel("Start: " + DATE_FORMAT.format(startDate));
+		JLabel dateLabel = new JLabel("Start: " + DATE_FORMAT.format(c.getStartDate()));
 		dateLabel.setForeground(Color.WHITE);
 		back.add(dateLabel);
-		dateLabel = new JLabel("End: " + DATE_FORMAT.format(endDate));
+		dateLabel = new JLabel("End: " + DATE_FORMAT.format(c.getEndDate()));
 		dateLabel.setForeground(Color.WHITE);
 		back.add(dateLabel);
-		JLabel distanceLabel = new JLabel((isDistance ?"Distance: " : "Time: ")+target+(isDistance?"km":"s"));
+		JLabel distanceLabel = new JLabel((c.getTimeTarget() == 0 ?"Distance: " : "Time: ")+(c.getTimeTarget() == 0?c.getDistanceTarget():c.getTimeTarget())+(c.getTimeTarget() == 0?"km":"s"));
 		distanceLabel.setForeground(Color.WHITE);
 		back.add(distanceLabel);
 		JPanel clickPanel = new JPanel();
@@ -186,11 +168,11 @@ public class ChallengePanel extends JPanel {
 				if(onAccept != null)
 					onAccept.accept(instance);
 				//TODO Update the server info
-				Container c = instance.getParent();
-				c.remove(instance);
-				c.repaint();
-				ClientPanel.getInstanceOf(HomePage.class).addChallenge(instance);
-				update(type, title, startDate, endDate, target, isDistance, false);
+				Container co = instance.getParent();
+				co.remove(instance);
+				co.repaint();
+				ClientPanel.getInstanceOf(HomePage.class).addChallenge(c);
+				update(SportType.of(c.getSport()), c.getName(), c.getStartDate(), c.getEndDate(), c.getTimeTarget() == 0?c.getDistanceTarget():c.getTimeTarget(), c.getTimeTarget() == 0, c.progress);
 				frontShowing = false;
 			}
 		});

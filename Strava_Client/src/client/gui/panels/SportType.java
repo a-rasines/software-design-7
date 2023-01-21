@@ -11,12 +11,12 @@ import server.data.enums.Sport;
 public enum SportType {
 	CYCLING("https://imgur.com/Pfwx0nA.png", Sport.CYCLING),
 	RUNNING("https://imgur.com/4xlBRWY.png", Sport.RUNNING),
-	BOTH("https://assets.ifttt.com/images/channels/1055884022/icons/monochrome_large.png", Sport.values());
+	BOTH("https://assets.ifttt.com/images/channels/1055884022/icons/monochrome_large.png", Sport.BOTH);
 	public final BufferedImage image;
-	public final Sport[] dtos;
-	SportType(String url, Sport... dtos){
+	public final Sport dto;
+	SportType(String url, Sport dtos){
 		image = javaIsSpecialSometimes(url);
-		this.dtos = dtos;
+		this.dto = dtos;
 	}
 	private BufferedImage javaIsSpecialSometimes(String url) {
 		try {
@@ -25,5 +25,11 @@ public enum SportType {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	public static SportType of(Sport s) {
+		return SportType.valueOf(s.toString());
+	}
+	public Sport toSport() {
+		return Sport.valueOf(toString());
 	}
 }

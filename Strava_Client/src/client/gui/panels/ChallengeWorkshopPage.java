@@ -10,7 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -23,6 +26,7 @@ import javax.swing.JScrollPane;
 import client.gui.ClientPanel;
 import client.gui.ClientWindow;
 import client.gui.panels.extras.ChallengePanel;
+import server.remote.ClientController;
 
 public class ChallengeWorkshopPage extends ClientPanel {
 	private static final long serialVersionUID = 6597743772330564564L;
@@ -53,54 +57,36 @@ public class ChallengeWorkshopPage extends ClientPanel {
 		JPanel allPanel = new JPanel();
 		BoxLayout bl = new BoxLayout(allPanel, BoxLayout.Y_AXIS);
 		allPanel.setLayout(bl);
-		//TODO Get available cycling challenges
-		allPanel.add(createSection("Cycling", 
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true),
-			new ChallengePanel(SportType.CYCLING, "Test", new Date(), new Date(), 0, true)
-			)
-		);
+		List<ChallengePanel> cyclingList = new ArrayList<>();
+		List<ChallengePanel> runingList = new ArrayList<>();
+		List<ChallengePanel> bothList = new ArrayList<>();
+		try {
+			ClientController.downloadRandomChallenges().forEach(v -> {
+				switch(v.getSport()) {
+					case CYCLING:
+						cyclingList.add(new ChallengePanel(v));
+						break;
+					case RUNNING:
+						runingList.add(new ChallengePanel(v));
+						break;
+					case BOTH:
+						bothList.add(new ChallengePanel(v));
+						break;
+				}
+			});
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		allPanel.add(createSection("Cycling",cyclingList));
 		allPanel.add(new JLabel("\n"));
-		//TODO Get available running challenges
-		allPanel.add(createSection("Running", 
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.RUNNING, "Test", new Date(), new Date(), 0, true)
-				)
-			);
+		allPanel.add(createSection("Running", runingList));
 		allPanel.add(new JLabel("\n"));
-		//TODO Get available running challenges
-		allPanel.add(createSection("Cycling & Running", 
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true),
-				new ChallengePanel(SportType.BOTH, "Test", new Date(), new Date(), 0, true)
-				)
-			);
+		allPanel.add(createSection("Cycling & Running", bothList));
 		add(allPanel, BorderLayout.CENTER);
 		
 	}
-	private JPanel createSection(String name, JPanel... values) {
+	private Component createSection(String name, List<ChallengePanel> values) {
 		JPanel end = new JPanel();
 		BoxLayout bl = new BoxLayout(end, BoxLayout.Y_AXIS);
 		end.setLayout(bl);

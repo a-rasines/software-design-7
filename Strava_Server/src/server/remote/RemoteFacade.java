@@ -53,7 +53,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 		return DataAssembler.getInstance().trainingSessionDTOFromTrainingsession(ServerAppService.getInstance().createTrainingSession(serverState.get(token), DataAssembler.getInstance().trainingSessionFromTrainingSessionDTO(tsDTO)));
 	}
 	public ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException{
-		return DataAssembler.getInstance().challengeDTOFromChallenge(ServerAppService.getInstance().setUpChallenge(serverState.get(token), DataAssembler.getInstance().challengeFromChallengeDTO(challengeDTO))); 
+		return DataAssembler.getInstance().challengeDTOFromChallenge(ServerAppService.getInstance().setUpChallenge(serverState.get(token), DataAssembler.getInstance().challengeFromChallengeDTO(challengeDTO)), (byte)0); 
 	
 	}
 	public boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException{
@@ -61,13 +61,13 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 	}
 	public List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException{
 		List<ChallengeDTO> challenges = new ArrayList<>();
-		ServerAppService.getInstance().downloadActiveChallenges(serverState.get(token)).forEach(v -> challenges.add(DataAssembler.getInstance().challengeDTOFromChallenge(v)));
+		ServerAppService.getInstance().downloadActiveChallenges(serverState.get(token)).forEach((k, v) -> challenges.add(DataAssembler.getInstance().challengeDTOFromChallenge(k, v)));
 		return challenges;
 		//TODO canal nose haz tu magia
 	}
 	public List<ChallengeDTO> downloadCompletedChallenges(String token) throws RemoteException{
 		List<ChallengeDTO> challenges = new ArrayList<>();
-		ServerAppService.getInstance().downloadCompletedChallenges(serverState.get(token)).forEach(v -> challenges.add(DataAssembler.getInstance().challengeDTOFromChallenge(v)));
+		ServerAppService.getInstance().downloadCompletedChallenges(serverState.get(token)).forEach(v -> challenges.add(DataAssembler.getInstance().challengeDTOFromChallenge(v, (byte)100)));
 		return challenges;
 	}
 	
@@ -75,7 +75,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 		List<Challenge> liCha = ServerAppService.getInstance().downloadChallenges(serverState.get(token));
 		List<ChallengeDTO> liChaDTO = new ArrayList<ChallengeDTO>();
 		for(Challenge c : liCha) {
-			liChaDTO.add(DataAssembler.getInstance().challengeDTOFromChallenge(c));
+			liChaDTO.add(DataAssembler.getInstance().challengeDTOFromChallenge(c, (byte)0));
 		}
 		return liChaDTO;
 	}

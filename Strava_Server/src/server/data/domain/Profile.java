@@ -94,11 +94,11 @@ public class Profile extends AbstractProfile{
 		return res;
 	}
 	
-	public List<Challenge> downloadActiveChallenges(){
-		List<Challenge> res = new ArrayList<>();
+	public Map<Challenge, Byte> downloadActiveChallenges(){
+		Map<Challenge, Byte> res = new HashMap<>();
 		challenges.forEach((k, v) ->{
 			if(v < 100)
-				res.add(k);
+				res.put(k, v);
 		});
 		return res;
 	}

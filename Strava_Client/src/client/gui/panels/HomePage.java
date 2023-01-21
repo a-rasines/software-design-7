@@ -10,9 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Date;
-import java.util.ServiceLoader;
-
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -26,14 +24,30 @@ import client.gui.ClientPanel;
 import client.gui.ClientWindow;
 import client.gui.panels.extras.ChallengePanel;
 import client.gui.panels.extras.SessionPanel;
+import server.data.dto.ChallengeDTO;
+import server.data.dto.TrainingSessionDTO;
 import server.remote.ClientController;
 
 public class HomePage extends ClientPanel{
 	private static final long serialVersionUID = 3192046128464182145L;
 	private JPanel sessionList;
 	private JPanel challengeList;
-	
+	private List<TrainingSessionDTO> sessions;
+	private List<ChallengeDTO> challenges;
 	public HomePage() {
+		try {
+			sessions = ClientController.downloadSessions();
+		} catch (RemoteException e2) {
+			JOptionPane.showMessageDialog(null, "Something went wrong retrieving the training sessions", "Error", JOptionPane.ERROR_MESSAGE);
+			e2.printStackTrace();
+		}
+		try {
+			challenges = ClientController.downloadActiveChallenges();
+			challenges.addAll(ClientController.downloadCompletedChallenges());
+		} catch (RemoteException e2) {
+			JOptionPane.showMessageDialog(null, "Something went wrong retrieving the training sessions", "Error", JOptionPane.ERROR_MESSAGE);
+			e2.printStackTrace();
+		}
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		JPanel logoPanel = new JPanel(new BorderLayout());
@@ -90,20 +104,7 @@ public class HomePage extends ClientPanel{
 				
 				sessionList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 				JScrollPane sessionScroll = new JScrollPane(sessionList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-					//List<TrainingSessionDTO> sessions = ClientController.
-					//TODO Turn this into a for loop with info
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.RUNNING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.RUNNING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
-					sessionList.add(new SessionPanel(SportType.CYCLING, "Test", new Date(), 0, 1));
+				sessions.forEach(v -> sessionList.add(new SessionPanel(SportType.of(v.getSport()), v.getName(), v.getStartDate(), v.getDistance(), v.getDuration())));
 				sessionPanel.add(sessionScroll, BorderLayout.CENTER);
 		totalPanel.add(sessionPanel);
 		totalPanel.add(new JLabel("\n"));//Little offset
@@ -139,29 +140,31 @@ public class HomePage extends ClientPanel{
 			
 			challengeList = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			JScrollPane challengeScroll = new JScrollPane(challengeList, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-				//TODO Turn this into a for loop with info
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SportType.RUNNING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Completed Challenge", new Date(), new Date(10000000000l), 1, true, true));
-				challengeList.add(new ChallengePanel(SportType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SportType.BOTH, "Challenge", new Date(), new Date(10000000000l), 1, true, true));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, false, false));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
-				challengeList.add(new ChallengePanel(SportType.CYCLING, "Challenge", new Date(), new Date(10000000000l), 1, true, false));
+			challenges.forEach(v -> challengeList.add(new ChallengePanel(v)));
 			challengePanel.add(challengeScroll, BorderLayout.CENTER);
 		totalPanel.add(challengePanel);
 		totalPanel.add(new JLabel("\n"));//Little offset
 		add(totalPanel, BorderLayout.CENTER);
 	}
-	public void addTrainingSession(SessionPanel panel) {
-		sessionList.add(panel);
+	public void addTrainingSession(TrainingSessionDTO ts) {
+		try {
+			ClientController.createTrainingSession(ts);
+			sessionList.add(new SessionPanel(SportType.of(ts.getSport()), ts.getName(), ts.getStartDate(), ts.getDistance(), ts.getDuration()));
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
-	public void addChallenge(ChallengePanel panel) {
-		challengeList.add(panel);
+	public void addChallenge(ChallengeDTO c) {
+		try {
+			ClientController.setUpChallenge(c);
+			challengeList.removeAll();
+			challenges.add(0, c);
+			challenges.forEach(v -> challengeList.add(new ChallengePanel(v)));
+			challengeList.repaint();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	private static final Dimension PREFERRED_SIZE = new Dimension(700, 530);
 	@Override

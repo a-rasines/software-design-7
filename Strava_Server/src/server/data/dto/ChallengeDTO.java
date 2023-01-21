@@ -8,11 +8,11 @@ import server.data.enums.Sport;
 
 public class ChallengeDTO extends AbstractChallenge implements Serializable{
 	private static final long serialVersionUID = -3065560988452699384L;
-
+	public final byte progress;
 	public ChallengeDTO(String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
-			Sport sport) {
+			Sport sport, byte progress) {
 		super(name, startDate, endDate, distanceTarget, timeTarget, sport);
-		// TODO Auto-generated constructor stub
+		this.progress = progress;
 	}
 	
 	

@@ -28,7 +28,7 @@ public class SessionPanel extends JPanel {
 	boolean frontShowing = false;
 	private static final Color BACKGROUND_COLOR = ClientPanel.STRAVA_COLOR;//new Color(50, 50, 50);
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-	public SessionPanel(SportType type,  String title, Date startDate, float distance, float duration) {
+	public SessionPanel(SportType type,  String title, Date startDate, double d, float duration) {
 		setMinimumSize(new Dimension(100, 150));
 		setBackground(BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
@@ -47,7 +47,7 @@ public class SessionPanel extends JPanel {
 		dateLabel.setForeground(Color.WHITE);
 		back.add(dateLabel);
 		back.add(new JSeparator());
-		JLabel distanceLabel = new JLabel("Distance: "+distance+"km");
+		JLabel distanceLabel = new JLabel("Distance: "+d+"km");
 		distanceLabel.setForeground(Color.WHITE);
 		back.add(distanceLabel);
 		JLabel durationLabel = new JLabel("Duration: "+ duration/1000 + "s");

@@ -92,4 +92,10 @@ public class ClientController{
 	public static List<ChallengeDTO> downloadCompletedChallenges() throws RemoteException{
 		return handler.getService().downloadCompletedChallenges(token);
 	}
+	public static List<TrainingSessionDTO> downloadSessions() throws RemoteException{
+		return handler.getService().downloadTrainingSessions(token);
+	}
+	public static List<ChallengeDTO> downloadRandomChallenges() throws RemoteException {
+		return handler.getService().downloadChallenge(token);
+	}
 }
