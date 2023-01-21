@@ -4,9 +4,11 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+import server.data.dao.EmailProfileDAO;
 import server.data.dao.ProfileDAO;
 import server.data.domain.Challenge;
 import server.data.domain.DataAssembler;
+import server.data.domain.EmailProfile;
 import server.data.domain.Login;
 import server.data.domain.Profile;
 import server.data.domain.TrainingSession;
@@ -28,10 +30,15 @@ public class ServerAppService {
 	public boolean register(RegisterDTO profile) throws RemoteException {
 		 System.out.println(profile.getType().toString()+" Register: "+profile.getEmail());
 		 Profile p = ProfileDAO.getInstance().find(profile.getEmail(), profile.getType());
-		 if( p == null && (profile.getType() == ProfileType.EMAIL || AuthFactory.createGateway(DataAssembler.getInstance().loginFromRegisterDTO(profile)).authenticate())) {
-			 ProfileDAO.getInstance().save(DataAssembler.getInstance().profileFromRegisterDTO(profile));
-			 return true;
-		 }else return false;
+		 if( p == null)
+			 if(profile.getType() == ProfileType.EMAIL) {
+				EmailProfileDAO.getInstance().save((EmailProfile)DataAssembler.getInstance().profileFromRegisterDTO(profile));
+				return true;
+			 }else if(AuthFactory.createGateway(DataAssembler.getInstance().loginFromRegisterDTO(profile)).authenticate()) {
+				 ProfileDAO.getInstance().save(DataAssembler.getInstance().profileFromRegisterDTO(profile));
+				 return true;
+			 }else return false;
+		 else return false;
 
 	}
 	public boolean login(Login profile) throws RemoteException {

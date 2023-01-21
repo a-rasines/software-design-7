@@ -7,8 +7,6 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-import javax.jdo.annotations.PersistenceCapable;
-
 import server.data.domain.EmailProfile;
 import server.data.domain.Profile;
 
@@ -68,7 +66,7 @@ public class EmailProfileDAO extends DataAccessObjectBase implements IDataAccess
 		try {
 			tx.begin();
 						
-			Query<?> query = pm.newQuery("SELECT FROM " + Profile.class.getName() + " WHERE email == '" + email.replace("'", "''")+"'");
+			Query<?> query = pm.newQuery("SELECT FROM " + EmailProfile.class.getName() + " WHERE email == '" + email.replace("'", "''")+"'");
 			query.setUnique(true);
 			result = (EmailProfile) query.execute();
 			
