@@ -50,7 +50,7 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 		}
 	}
 	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
-		return DataAssembler.getInstance().trainingSessionDTOFromTrainingsession(ServerAppService.getInstance().createTrainingSession(serverState.get(token), DataAssembler.getInstance().trainingSessionFromTrainingSessionDTO(tsDTO)));
+		return DataAssembler.getInstance().trainingSessionDTOFromTrainingsession(ServerAppService.getInstance().createTrainingSession(serverState.get(token), DataAssembler.getInstance().trainingSessionFromTrainingSessionDTO(tsDTO, serverState.get(token))));
 	}
 	public ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException{
 		return DataAssembler.getInstance().challengeDTOFromChallenge(ServerAppService.getInstance().setUpChallenge(serverState.get(token), DataAssembler.getInstance().challengeFromChallengeDTO(challengeDTO)), (byte)0); 

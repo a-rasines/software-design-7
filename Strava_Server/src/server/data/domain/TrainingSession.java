@@ -12,12 +12,12 @@ import server.data.enums.Sport;
 @PersistenceCapable(detachable="true")
 public class TrainingSession extends AbstractTrainingSession{
 
-	public TrainingSession(String name, Sport sport, Date startDate, double distance, long duration) {
+	public TrainingSession(String name, Sport sport, Date startDate, double distance, long duration, Profile owner) {
 		super(name, sport, startDate, distance, duration);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public TrainingSession(long id, String name, Sport sport, Date startDate, double distance, long duration) {
+	public TrainingSession(long id, String name, Sport sport, Date startDate, double distance, long duration, Profile owner) {
 		super(name, sport, startDate, distance, duration);
 		// TODO Auto-generated constructor stub
 		this.id = id;
@@ -26,6 +26,12 @@ public class TrainingSession extends AbstractTrainingSession{
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
+	
+	private Profile owner;
+	
+	public Profile getOwner() {
+		return owner;
+	}
 
 	public long getId() {
 		return id;

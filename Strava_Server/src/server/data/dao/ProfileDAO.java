@@ -67,13 +67,13 @@ public class ProfileDAO extends DataAccessObjectBase implements IDataAccessObjec
 		try {
 			tx.begin();
 						
-			Query<?> query = pm.newQuery("SELECT FROM " + Profile.class.getName() + " WHERE email == '" + email.replace("'", "''")+"' AND profileType = '"+type.toString()+"'");
+			Query<?> query = pm.newQuery("SELECT FROM " + Profile.class.getName() + " WHERE email == '" + email.replace("'", "''")+"' && profileType == '"+type.toString()+"'");
 			query.setUnique(true);
 			result = (Profile) query.execute();
 			
 			tx.commit();
 		} catch (Exception ex) {
-			System.out.println("  $ Error querying a profile: " + ex.getMessage());
+			System.out.println("  $ Error querying a profile: " + ex.getMessage()+"\nQuery: "+"SELECT FROM " + Profile.class.getName() + " WHERE email == '" + email.replace("'", "''")+"' && profileType == '"+type.toString()+"'");
 		} finally {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();

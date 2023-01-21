@@ -93,6 +93,7 @@ public class RegisterPage extends FieldPage{
 						ClientWindow.getInstance().setPage(HomePage.class);
 					} catch (RemoteException e) {
 						JOptionPane.showMessageDialog(null, "Something went wrong in registration: "+e.getMessage());
+						e.printStackTrace();
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}

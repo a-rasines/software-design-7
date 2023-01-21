@@ -27,7 +27,6 @@ public class FacebookGateway implements AuthInterface {
 			DataOutputStream dout = new DataOutputStream(s.getOutputStream());
 			dout.writeUTF(profile.email + "\t" + profile.password);
 			dout.flush();
-			dout.close();
 			DataInputStream din = new DataInputStream(s.getInputStream());
 			return Boolean.parseBoolean(din.readUTF());
 		} catch(Exception e) {

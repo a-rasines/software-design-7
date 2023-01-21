@@ -7,10 +7,11 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.jdo.annotations.PersistenceCapable;
 
 import server.data.domain.EmailProfile;
 import server.data.domain.Profile;
-
+@PersistenceCapable(detachable = "true")
 public class EmailProfileDAO extends DataAccessObjectBase implements IDataAccessObject<EmailProfile>{
 	private static final EmailProfileDAO INSTANCE = new EmailProfileDAO();
 	public static EmailProfileDAO getInstance() {

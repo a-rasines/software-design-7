@@ -43,8 +43,8 @@ public class DataAssembler {
 		return new Login(login.getEmail(), login.getPassword(), login.getType());
 	}
 	
-	public TrainingSession trainingSessionFromTrainingSessionDTO(TrainingSessionDTO dto) {
-		return new TrainingSession(dto.getName(), dto.getSport(), dto.getStartDate(), dto.getDistance(), dto.getDuration());
+	public TrainingSession trainingSessionFromTrainingSessionDTO(TrainingSessionDTO dto, Profile owner) {
+		return new TrainingSession(dto.getName(), dto.getSport(), dto.getStartDate(), dto.getDistance(), dto.getDuration(), owner);
 	}
 	
 	public TrainingSessionDTO trainingSessionDTOFromTrainingsession(TrainingSession ts) {
