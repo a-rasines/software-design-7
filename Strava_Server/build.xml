@@ -15,12 +15,14 @@
 	<property name="google.name" value="Google_Server"/>
 	<property name="facebook.IP" value="127.0.0.1"/> 
 	<property name="facebook.port" value="1101"/> 
+	<property name="resources.dir" location="resources"/>
 	
 	<path id="classpath">
         <fileset dir="${lib.dir}">
             <include name="**/*.jar"/>
         </fileset>
-        <pathelement location="${build.dir}"/>    	
+        <pathelement location="${build.dir}"/>   
+		<pathelement location="${resources.dir}"/>
     </path>
 	
 	<target name="help">
@@ -33,7 +35,37 @@
 		<javac srcdir="${source.dir}" destdir="${build.dir}" classpathref="classpath" deprecation="true" fork="true" includeantruntime="false"/>
 	 </target>
 	 
-	 <target name="run" depends="build" description="Runs the Java Mail Sender">
+	<target name="enhance" depends="build" description="Adds JDO code to the persisten compiled classes">
+		<taskdef name="enhancer" classpathref="classpath" classname="org.datanucleus.enhancer.EnhancerTask"/>
+		<enhancer classpathref="classpath" failonerror="true">
+			<sysproperty key="log4j.configuration" value="file:${resources.dir}/log4j.properties"/>
+		    <fileset dir="${build.dir}">
+		        <include name="**/domain/*.class"/>
+		    </fileset>
+		</enhancer>
+	</target>
+	
+	<target name="create-db-schema" depends="enhance" description="Creates DB Schema on the DB Server">
+   		<taskdef name="schematool" classpathref="classpath" classname="org.datanucleus.store.schema.SchemaToolTask"/>
+		<schematool mode="create" classpathref="classpath" props="${resources.dir}/datanucleus.properties" failonerror="true">
+		   	<sysproperty key="log4j.configuration" value="file:${resources.dir}/log4j.properties"/>
+		    <fileset dir="${build.dir}">
+		    	<include name="**/*.class"/>
+			</fileset>
+		</schematool>
+	</target>
+			
+	<target name="delete-db-schema" depends="enhance" description="Drops DB sechema from the DB Server">
+		<taskdef name="schematool" classpathref="classpath" classname="org.datanucleus.store.schema.SchemaToolTask"/>
+		<schematool mode="delete" classpathref="classpath" props="${resources.dir}/datanucleus.properties" failonerror="true">
+		   	<sysproperty key="log4j.configuration" value="file:${resources.dir}/log4j.properties"/>
+		    <fileset dir="${build.dir}">
+		   		<include name="**/*.class"/>
+			</fileset>
+		</schematool>
+	</target>
+	
+	 <target name="run" depends="enhance" description="Runs the Java Mail Sender">
 		<java classname="server.Main" classpathref="classpath" fork="true">
 			<jvmarg value="-Djava.rmi.server.codebase=file:${build.dir}/"/>
 			<jvmarg value="-Djava.security.policy=${policy.file}"/>
@@ -48,7 +80,7 @@
         </java>
     </target>
 	
-	<target name="export" depends="build" description="Export classes into a .jar file">
+	<target name="export" depends="enhance" description="Export classes into a .jar file">
 			<delete dir="${dist.dir}"/>
 			<mkdir dir="${dist.dir}"/>
 			<jar destfile="${dist.dir}/${jar.file}" basedir="${build.dir}"/>
