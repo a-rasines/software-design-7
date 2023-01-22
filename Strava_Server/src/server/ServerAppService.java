@@ -43,7 +43,7 @@ public class ServerAppService {
 	}
 	public boolean login(Login profile) throws RemoteException {
 		System.out.println("Login: "+profile.toString());
-		Profile p = ProfileDAO.getInstance().find(profile.email, profile.profileType);
+		Profile p = profile.profileType==ProfileType.EMAIL?EmailProfileDAO.getInstance().find(profile.email) :ProfileDAO.getInstance().find(profile.email, profile.profileType);
 		return 
 				p != null
 				&& 
