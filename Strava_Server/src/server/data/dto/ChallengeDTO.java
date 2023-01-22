@@ -9,7 +9,7 @@ public class ChallengeDTO implements Serializable{
 	
 	private long id;
 	String name;
-	long startlong;
+	long startDate;
 	long endDate;
 	double distanceTarget;
 	long timeTarget;
@@ -20,7 +20,7 @@ public class ChallengeDTO implements Serializable{
 			Sport sport, byte progress) {
 		this.id = id;
 		this.name = name;
-		this.startlong = startlong;
+		this.startDate = startlong;
 		this.endDate = endDate;
 		this.distanceTarget = distanceTarget;
 		this.timeTarget = timeTarget;
@@ -31,7 +31,7 @@ public class ChallengeDTO implements Serializable{
 	public ChallengeDTO(String name, long startlong, long endDate, double distanceTarget, long timeTarget,
 			Sport sport, byte progress) {
 		this.name = name;
-		this.startlong = startlong;
+		this.startDate = startlong;
 		this.endDate = endDate;
 		this.distanceTarget = distanceTarget;
 		this.timeTarget = timeTarget;
@@ -52,11 +52,11 @@ public class ChallengeDTO implements Serializable{
 	}
 
 	public long getStartDate() {
-		return startlong;
+		return startDate;
 	}
 
 	public void setStartDate(long startlong) {
-		this.startlong = startlong;
+		this.startDate = startlong;
 	}
 
 	public long getEndDate() {
