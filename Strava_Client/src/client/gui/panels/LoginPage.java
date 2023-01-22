@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -29,6 +30,7 @@ public class LoginPage extends FieldPage{
 		temp.setTitleColor(Color.white);
 		WRONG_CREDENTIALS = temp;
 	}
+	@SuppressWarnings("deprecation")
 	public LoginPage() {
 		setLayout(new GridLayout(4, 1));
 		add(new JLabel());
@@ -46,8 +48,13 @@ public class LoginPage extends FieldPage{
 			new LoginMouseListener(
 				p->{
 					try {
+						ClientController.loginByEmail(username.getText(), pass.getText());
 						ClientWindow.getInstance().setPage(HomePage.class);	
-					} catch(Exception e) {
+					} catch(RemoteException e){
+						JOptionPane.showMessageDialog(null, "Something went wrong "+e.getCause().getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}catch(Exception e) {
+						
 						username.setBorder(WRONG_CREDENTIALS);
 						pass.setBorder(WRONG_CREDENTIALS);
 					}

@@ -83,7 +83,7 @@
 	<target name="export" depends="enhance" description="Export classes into a .jar file">
 			<delete dir="${dist.dir}"/>
 			<mkdir dir="${dist.dir}"/>
-			<jar destfile="${dist.dir}/${jar.file}" basedir="${build.dir}"/>
+			<jar destfile="${dist.dir}/${jar.file}" basedir="${build.dir}" includes="server/remote/IRemoteFacade.class, server/data/dto/**.class, server/data/abstracts/**.class, server/data/enums/**.class"/>
 	</target>
 	
 </project>

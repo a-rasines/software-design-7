@@ -60,7 +60,18 @@ public class Profile{
 	@Persistent(defaultFetchGroup="true")//@Persistent(mappedBy="profile", dependentElement="true", defaultFetchGroup="true")
 	Map<Challenge, Byte> challenges;
 	
-	protected Profile() {}
+	protected Profile() {
+		profileType = null;
+		name = "";
+		birthdate = null;
+		weight = 0;
+		height = 0;
+		maxHeartRate = 0;
+		restHeartRate = 0;
+		email = "";
+		sessions = new ArrayList<>();
+		challenges = new HashMap<>();
+	}
 	
 	protected Profile(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
 			String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges, ProfileType profileType) {

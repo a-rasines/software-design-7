@@ -50,28 +50,40 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 		}
 	}
 	public TrainingSessionDTO createTrainingSession(String token, TrainingSessionDTO tsDTO ) throws RemoteException{
+		if(!serverState.containsKey(token))
+			throw new RemoteException("User not found");
 		return DataAssembler.getInstance().trainingSessionDTOFromTrainingsession(ServerAppService.getInstance().createTrainingSession(serverState.get(token), DataAssembler.getInstance().trainingSessionFromTrainingSessionDTO(tsDTO, serverState.get(token))));
 	}
 	public ChallengeDTO setUpChallenge(String token, ChallengeDTO challengeDTO) throws RemoteException{
+		if(!serverState.containsKey(token))
+			throw new RemoteException("User not found");
 		return DataAssembler.getInstance().challengeDTOFromChallenge(ServerAppService.getInstance().setUpChallenge(serverState.get(token), DataAssembler.getInstance().challengeFromChallengeDTO(challengeDTO)), (byte)0); 
 	
 	}
 	public boolean acceptChallenge(String token,ChallengeDTO challenge) throws RemoteException{
+		if(!serverState.containsKey(token))
+			throw new RemoteException("User not found");
 		return ServerAppService.getInstance().acceptChallenge(serverState.get(token), DataAssembler.getInstance().challengeFromChallengeDTO(challenge));
 	}
 	public List<ChallengeDTO> downloadActiveChallenges(String token) throws RemoteException{
+		if(!serverState.containsKey(token))
+			throw new RemoteException("User not found");
 		List<ChallengeDTO> challenges = new ArrayList<>();
 		ServerAppService.getInstance().downloadActiveChallenges(serverState.get(token)).forEach((k, v) -> challenges.add(DataAssembler.getInstance().challengeDTOFromChallenge(k, v)));
 		return challenges;
 		//TODO canal nose haz tu magia
 	}
 	public List<ChallengeDTO> downloadCompletedChallenges(String token) throws RemoteException{
+		if(!serverState.containsKey(token))
+			throw new RemoteException("User not found");
 		List<ChallengeDTO> challenges = new ArrayList<>();
 		ServerAppService.getInstance().downloadCompletedChallenges(serverState.get(token)).forEach(v -> challenges.add(DataAssembler.getInstance().challengeDTOFromChallenge(v, (byte)100)));
 		return challenges;
 	}
 	
 	public List<ChallengeDTO> downloadChallenge(String token) throws RemoteException{
+		if(!serverState.containsKey(token))
+			throw new RemoteException("User not found");
 		List<Challenge> liCha = ServerAppService.getInstance().downloadChallenges(serverState.get(token));
 		List<ChallengeDTO> liChaDTO = new ArrayList<ChallengeDTO>();
 		for(Challenge c : liCha) {
@@ -80,12 +92,15 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 		return liChaDTO;
 	}
 	public List<TrainingSessionDTO> downloadTrainingSessions(String token) throws RemoteException{
+		if(!serverState.containsKey(token))
+			throw new RemoteException("User not found");
 		List<TrainingSessionDTO> end = new ArrayList<>();
 		ServerAppService.getInstance().downloadTrainingSessions(serverState.get(token)).forEach(v -> end.add(DataAssembler.getInstance().trainingSessionDTOFromTrainingsession(v)));
 		return end;
 	}
 	public String generateToken(Profile profile) {
 		String token = System.currentTimeMillis() + "";
+		System.out.println("Login accepted");
 		serverState.put(token, profile);
 		return token;
 	}
