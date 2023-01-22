@@ -23,16 +23,16 @@ public class FacebookGateway implements AuthInterface {
 		this.profile = profile2;
 	}
 	public boolean authenticate() {
-		try {
-			DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-			dout.writeUTF(profile.email + "\t" + profile.password);
+		try(DataOutputStream dout = new DataOutputStream(s.getOutputStream()); DataInputStream din = new DataInputStream(s.getInputStream())) {
+			System.out.println(profile.email + "\t" + profile.password);
+			dout.writeUTF(profile.email + "\t" + profile.password + "\0");
 			dout.flush();
-			dout.close();
-			DataInputStream din = new DataInputStream(s.getInputStream());
-			return Boolean.parseBoolean(din.readUTF());
+			String ans = din.readUTF();
+			System.out.println(ans);
+			return Boolean.parseBoolean(ans);
 		} catch(Exception e) {
 			System.out.println("No good");
-			System.out.println(e);
+			e.printStackTrace();
 			return false;
 		}
 		
