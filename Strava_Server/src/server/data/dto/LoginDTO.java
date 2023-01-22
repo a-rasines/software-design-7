@@ -14,7 +14,6 @@ public class LoginDTO implements Serializable {
 		this.password = password;
 		this.profileType = profileType;
 	}
-
 	private static final long serialVersionUID = 8349364869312846347L;
 	
 }
