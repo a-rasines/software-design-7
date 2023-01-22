@@ -71,7 +71,7 @@ public class ServerAppService {
 	public Challenge setUpChallenge(Profile profile, Challenge challenge) throws RemoteException{
 		System.out.println("Create Challenge");
 		profile.setupChallenge(challenge);
-		new MailSender("aimar.jimenez@opendeusto.es").sendMessage("uwu");
+		new MailSender("aimar.jimenez@opendeusto.es").sendMessage("Challenge made");
 		return challenge;
 	}
 	public boolean acceptChallenge(Profile p,Challenge challenge) throws RemoteException{
