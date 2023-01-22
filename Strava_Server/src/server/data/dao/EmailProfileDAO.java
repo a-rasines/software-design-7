@@ -8,7 +8,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import server.data.domain.EmailProfile;
-import server.data.domain.Profile;
 
 public class EmailProfileDAO extends DataAccessObjectBase implements IDataAccessObject<EmailProfile>{
 	private static final EmailProfileDAO INSTANCE = new EmailProfileDAO();

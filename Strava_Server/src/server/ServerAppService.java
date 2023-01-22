@@ -81,7 +81,6 @@ public class ServerAppService {
 		System.out.println("Downloading completed challenges");
 		return p.downloadCompletedChallenges();
 	}
-	@SuppressWarnings("unchecked")
 	public List<TrainingSession> downloadTrainingSessions(Profile p) throws RemoteException{
 		return (List<TrainingSession>) p.getSessions();
 	}
