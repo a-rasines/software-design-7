@@ -63,13 +63,13 @@ public class ChallengeWorkshopPage extends ClientPanel {
 			ClientController.downloadRandomChallenges().forEach(v -> {
 				switch(v.getSport()) {
 					case CYCLING:
-						cyclingList.add(new ChallengePanel(v));
+						cyclingList.add(new ChallengePanel(v, false));
 						break;
 					case RUNNING:
-						runingList.add(new ChallengePanel(v));
+						runingList.add(new ChallengePanel(v, false));
 						break;
 					case BOTH:
-						bothList.add(new ChallengePanel(v));
+						bothList.add(new ChallengePanel(v, false));
 						break;
 				}
 			});

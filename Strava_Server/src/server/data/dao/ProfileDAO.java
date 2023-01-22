@@ -17,19 +17,16 @@ public class ProfileDAO extends DataAccessObjectBase implements IDataAccessObjec
 		return INSTANCE;
 	}
 	private ProfileDAO() {}
-	@Override
 	public void save(Profile object) {
 		saveObject(object);
 		
 	}
 
-	@Override
 	public void delete(Profile object) {
 		deleteObject(object);
 		
 	}
 
-	@Override
 	public List<Profile> getAll() {				
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -84,7 +81,6 @@ public class ProfileDAO extends DataAccessObjectBase implements IDataAccessObjec
 
 		return result;
 	}
-	@Override
 	public Profile find(String param) {
 		return find(param, ProfileType.EMAIL);
 	}

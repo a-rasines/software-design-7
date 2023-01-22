@@ -1,7 +1,6 @@
 package server.data.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import server.data.enums.Sport;
 
@@ -10,18 +9,18 @@ public class ChallengeDTO implements Serializable{
 	
 	private long id;
 	String name;
-	Date startDate;
-	Date endDate;
+	long startlong;
+	long endDate;
 	double distanceTarget;
 	long timeTarget;
 	Sport sport;
 	public final byte progress;
 	
-	public ChallengeDTO(long id, String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
+	public ChallengeDTO(long id, String name, long startlong, long endDate, double distanceTarget, long timeTarget,
 			Sport sport, byte progress) {
 		this.id = id;
 		this.name = name;
-		this.startDate = startDate;
+		this.startlong = startlong;
 		this.endDate = endDate;
 		this.distanceTarget = distanceTarget;
 		this.timeTarget = timeTarget;
@@ -29,10 +28,10 @@ public class ChallengeDTO implements Serializable{
 		this.progress = progress;
 	}
 	
-	public ChallengeDTO(String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
+	public ChallengeDTO(String name, long startlong, long endDate, double distanceTarget, long timeTarget,
 			Sport sport, byte progress) {
 		this.name = name;
-		this.startDate = startDate;
+		this.startlong = startlong;
 		this.endDate = endDate;
 		this.distanceTarget = distanceTarget;
 		this.timeTarget = timeTarget;
@@ -52,19 +51,19 @@ public class ChallengeDTO implements Serializable{
 		this.name = name;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public long getStartDate() {
+		return startlong;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStartDate(long startlong) {
+		this.startlong = startlong;
 	}
 
-	public Date getEndDate() {
+	public long getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(long endDate) {
 		this.endDate = endDate;
 	}
 

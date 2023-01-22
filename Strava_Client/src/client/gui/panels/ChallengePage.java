@@ -40,11 +40,12 @@ public class ChallengePage extends FieldPage {
 		startDateField.setColumns(24);
 		startDateField.setText(df.format(new Date()));
 		startDateField.addKeyListener(new DateKeyListener());
+		add(createField("Start date:", startDateField));
 		JFormattedTextField endDateField = new JFormattedTextField(df);
 		endDateField.setColumns(24);
 		endDateField.setText(df.format(new Date()));
 		endDateField.addKeyListener(new DateKeyListener());
-		add(createField("Start date:", startDateField));
+		add(createField("End date:", endDateField));
 		JComboBox<String> objectiveCombo = new JComboBox<>(new String[] {"DISTANCE", "DURATION"});
 		add(createField("Target: ", objectiveCombo, Color.BLACK));
 		JTextField targetField = new JTextField(24);
@@ -60,8 +61,8 @@ public class ChallengePage extends FieldPage {
 							.addChallenge(
 								new ChallengeDTO(
 									titleField.getText(),
-									df.parse(startDateField.getText()),
-									df.parse(endDateField.getText()),
+									df.parse(startDateField.getText()).toInstant().getEpochSecond()*1000,
+									df.parse(endDateField.getText()).toInstant().getEpochSecond()*1000,
 									Float.parseFloat(targetField.getText()),
 									0,
 									(Sport)trainingType.getSelectedItem(),
@@ -74,8 +75,8 @@ public class ChallengePage extends FieldPage {
 						.addChallenge(
 							new ChallengeDTO(
 								titleField.getText(),
-								df.parse(startDateField.getText()),
-								df.parse(endDateField.getText()),
+								df.parse(startDateField.getText()).toInstant().getEpochSecond()*1000,
+								df.parse(endDateField.getText()).toInstant().getEpochSecond()*1000,
 								0,
 								(long)Float.parseFloat(targetField.getText()),
 								(Sport)trainingType.getSelectedItem(),
@@ -119,7 +120,7 @@ public class ChallengePage extends FieldPage {
 	void callAcceptChallenge() {
 		
 	}
-	private static final Dimension PREFERRED_SIZE = new Dimension(400, 300);
+	private static final Dimension PREFERRED_SIZE = new Dimension(400, 320);
 	@Override
 	public Dimension getPreferredSize() {
 		return PREFERRED_SIZE;

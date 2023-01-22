@@ -1,8 +1,6 @@
 package server.data.dao;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,10 +98,10 @@ public class ChallengeDAO extends DataAccessObjectBase implements IDataAccessObj
 
 		try {
 			tx.begin();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss.SSS");
 			for(Sport st: Sport.values()){
-				Query<?> query = pm.newQuery("SELECT FROM " + Challenge.class.getName() + "WHERE startDate > "+sdf.format(Date.valueOf(LocalDate.now()))+" AND sport = "+st.toString()+" Limit 10");
-				query.setUnique(true);
+				Query<?> query = pm.newQuery("SELECT FROM " + Challenge.class.getName() + " WHERE endDate > "+System.currentTimeMillis()+" && sport == '"+st.toString()+"'");
+				query.range(0, 10);
 				result.addAll((List<Challenge>) query.execute());
 			}
 			

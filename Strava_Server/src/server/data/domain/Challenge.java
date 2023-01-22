@@ -1,7 +1,5 @@
 package server.data.domain;
 
-import java.util.Date;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -14,14 +12,15 @@ public class Challenge{
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
+	
 	String name;
-	Date startDate;
-	Date endDate;
+	long startDate;
+	long endDate;
 	double distanceTarget;
 	long timeTarget;
 	Sport sport;
 	
-	public Challenge(long id, String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
+	public Challenge(long id, String name, long startDate, long endDate, double distanceTarget, long timeTarget,
 			Sport sport) {
 		super();
 		this.id = id;
@@ -33,7 +32,7 @@ public class Challenge{
 		this.sport = sport;
 	}
 	
-	public Challenge(String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
+	public Challenge(String name, long startDate, long endDate, double distanceTarget, long timeTarget,
 			Sport sport) {
 		super();
 		this.name = name;
@@ -56,19 +55,19 @@ public class Challenge{
 		this.name = name;
 	}
 
-	public Date getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public long getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(long endDate) {
 		this.endDate = endDate;
 	}
 

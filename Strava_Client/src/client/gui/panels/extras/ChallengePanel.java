@@ -81,7 +81,7 @@ public class ChallengePanel extends JPanel {
 	 * @param isDistance
 	 * @param completed
 	 */
-	private void update(SportType type,  String title, Date startDate, Date endDate, double target, boolean isDistance, byte progress) {
+	private void update(SportType type,  String title, long startDate, long endDate, double target, boolean isDistance, byte progress) {
 		setBackground(progress == 100? COMPLETED_COLOR : BACKGROUND_COLOR);
 		front = new JPanel(new BorderLayout());
 		front.setBackground(progress == 100? COMPLETED_COLOR : BACKGROUND_COLOR);
@@ -96,10 +96,10 @@ public class ChallengePanel extends JPanel {
 		back.add(titleLabel);
 		back.setBackground(progress == 100? COMPLETED_COLOR : BACKGROUND_COLOR);
 		back.add(new JSeparator());
-		JLabel dateLabel = new JLabel("Start: " + DATE_FORMAT.format(startDate));
+		JLabel dateLabel = new JLabel("Start: " + DATE_FORMAT.format(new Date(startDate)));
 		dateLabel.setForeground(Color.WHITE);
 		back.add(dateLabel);
-		dateLabel = new JLabel("End: " + DATE_FORMAT.format(endDate));
+		dateLabel = new JLabel("End: " + DATE_FORMAT.format(new Date(endDate)));
 		dateLabel.setForeground(Color.WHITE);
 		back.add(dateLabel);
 		JLabel distanceLabel = new JLabel((isDistance ?"Distance: " : "Time: ")+target+(isDistance?"km":"s"));
@@ -115,7 +115,7 @@ public class ChallengePanel extends JPanel {
 			BoxLayout bl = new BoxLayout(clickPanel, BoxLayout.Y_AXIS);
 			clickPanel.setLayout(bl);
 			clickPanel.setBackground(BACKGROUND_COLOR);
-			clickPanel.add(new JLabel(new ImageIcon(new BufferedImage(110, 2, BufferedImage.TYPE_INT_ARGB))));
+			clickPanel.add(new JLabel(new ImageIcon(new BufferedImage(110, 18, BufferedImage.TYPE_INT_ARGB))));
 			back.add(clickPanel);
 		}
 		back.setVisible(false);

@@ -16,6 +16,7 @@ import server.data.dto.RegisterDTO;
 import server.data.enums.ProfileType;
 import server.factory.AuthFactory;
 import server.factory.EmailVerifier;
+import server.gateway.MailSender;
 
 public class ServerAppService {
 	private static final ServerAppService instance = new ServerAppService();
@@ -30,8 +31,10 @@ public class ServerAppService {
 	public boolean register(RegisterDTO profile) throws RemoteException {
 		 System.out.println(profile.getType().toString()+" Register: "+profile.getEmail());
 		 Profile p = ProfileDAO.getInstance().find(profile.getEmail(), profile.getType());
-		 if( p == null)
+		 System.out.println(p);
+		 if(p == null)
 			 if(profile.getType() == ProfileType.EMAIL) {
+				 System.out.println("Saving new email");
 				EmailProfileDAO.getInstance().save((EmailProfile)DataAssembler.getInstance().profileFromRegisterDTO(profile));
 				return true;
 			 }else if(AuthFactory.createGateway(DataAssembler.getInstance().loginFromRegisterDTO(profile)).authenticate()) {
@@ -60,15 +63,19 @@ public class ServerAppService {
 
 	}
 	public TrainingSession createTrainingSession(Profile profile, TrainingSession ts ) throws RemoteException{
+		System.out.println("Create Training Session");
 		profile.createTrainingSession(ts);		
 		return ts;
 		
 	}
 	public Challenge setUpChallenge(Profile profile, Challenge challenge) throws RemoteException{
+		System.out.println("Create Challenge");
 		profile.setupChallenge(challenge);
+		new MailSender("aimar.jimenez@opendeusto.es").sendMessage("uwu");
 		return challenge;
 	}
 	public boolean acceptChallenge(Profile p,Challenge challenge) throws RemoteException{
+		System.out.println("Accept Challenge");
 		return p.acceptChallenge(challenge);
 		
 	}
@@ -82,10 +89,12 @@ public class ServerAppService {
 		return p.downloadCompletedChallenges();
 	}
 	public List<TrainingSession> downloadTrainingSessions(Profile p) throws RemoteException{
+		System.out.println("Download Training Sessions");
 		return (List<TrainingSession>) p.getSessions();
 	}
 	
 	public List<Challenge> downloadChallenges(Profile p){
+		System.out.println("Downloading workshop challenges");
 		return p.downloadChallenge();
 	}
 }

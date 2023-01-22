@@ -15,19 +15,16 @@ public class EmailProfileDAO extends DataAccessObjectBase implements IDataAccess
 		return INSTANCE;
 	}
 	private EmailProfileDAO() {}
-	@Override
 	public void save(EmailProfile object) {
 		saveObject(object);
 		
 	}
 
-	@Override
 	public void delete(EmailProfile object) {
 		deleteObject(object);
 		
 	}
 
-	@Override
 	public List<EmailProfile> getAll() {				
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -71,6 +68,7 @@ public class EmailProfileDAO extends DataAccessObjectBase implements IDataAccess
 			
 			tx.commit();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			System.out.println("  $ Error querying a profile: " + ex.getMessage());
 		} finally {
 			if (tx != null && tx.isActive()) {

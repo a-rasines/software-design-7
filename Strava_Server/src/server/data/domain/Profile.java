@@ -13,12 +13,14 @@ import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Unique;
 
 import server.data.dao.ChallengeDAO;
 import server.data.dao.TrainingSessionDAO;
 import server.data.enums.ProfileType;
 @PersistenceCapable(detachable="true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
+@Unique(members = {"email", "profileType"})
 public class Profile{
 	public static Profile of(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
 			String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges,
@@ -43,7 +45,6 @@ public class Profile{
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
-	
 	protected ProfileType profileType;
 	protected String name;
 	protected Date birthdate;
@@ -57,7 +58,7 @@ public class Profile{
 	@Persistent(mappedBy="owner", dependentElement="true", defaultFetchGroup="true")
 	List<TrainingSession> sessions;
 	@Join
-	@Persistent(defaultFetchGroup="true")//@Persistent(mappedBy="profile", dependentElement="true", defaultFetchGroup="true")
+	@Persistent(defaultFetchGroup="true")
 	Map<Challenge, Byte> challenges;
 	
 	protected Profile() {
@@ -118,6 +119,7 @@ public class Profile{
 	}
 	public void setupChallenge(Challenge e) {
 		ChallengeDAO.getInstance().save(e);
+		challenges.put(e, (byte)0);
 	}
 	public boolean acceptChallenge(Challenge e) {
 		return this.challenges.putIfAbsent(e, (byte)0) == null;
