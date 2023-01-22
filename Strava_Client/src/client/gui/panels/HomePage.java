@@ -150,6 +150,11 @@ public class HomePage extends ClientPanel{
 		try {
 			ClientController.createTrainingSession(ts);
 			sessionList.add(new SessionPanel(SportType.of(ts.getSport()), ts.getName(), ts.getStartDate(), ts.getDistance(), ts.getDuration()));
+			challenges = ClientController.downloadActiveChallenges();
+			challenges.addAll(ClientController.downloadCompletedChallenges());
+			challengeList.removeAll();
+			challenges.forEach(v -> challengeList.add(new ChallengePanel(v)));
+			challengeList.repaint();			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
