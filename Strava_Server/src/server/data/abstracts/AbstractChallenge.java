@@ -2,13 +2,28 @@ package server.data.abstracts;
 
 import java.util.Date;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
 import server.data.enums.Sport;
 
+@PersistenceCapable
 public abstract class AbstractChallenge {
 	
 	public AbstractChallenge(String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
 			Sport sport) {
-		super();
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.distanceTarget = distanceTarget;
+		this.timeTarget = timeTarget;
+		this.sport = sport;
+	}
+	public AbstractChallenge(long id, String name, Date startDate, Date endDate, double distanceTarget, long timeTarget,
+			Sport sport) {
+		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -17,6 +32,19 @@ public abstract class AbstractChallenge {
 		this.sport = sport;
 	}
 	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private long id;
+	String name;
+	Date startDate;
+	Date endDate;
+	double distanceTarget;
+	long timeTarget;
+	Sport sport;
+	
+	public long getId() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -53,11 +81,5 @@ public abstract class AbstractChallenge {
 	public void setSport(Sport sport) {
 		this.sport = sport;
 	}
-	String name;
-	Date startDate;
-	Date endDate;
-	double distanceTarget;
-	long timeTarget;
-	Sport sport;
 	
 }

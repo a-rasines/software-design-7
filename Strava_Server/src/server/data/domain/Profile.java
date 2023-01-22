@@ -5,7 +5,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -15,6 +18,7 @@ import server.data.dao.ChallengeDAO;
 import server.data.dao.TrainingSessionDAO;
 import server.data.enums.ProfileType;
 @PersistenceCapable(detachable="true")
+@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class Profile{
 	public static Profile of(String name, Date birthdate, double weight, double height, double maxHeartRate, double restHeartRate,
 			String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges,

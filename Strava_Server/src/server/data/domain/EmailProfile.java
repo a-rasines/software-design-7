@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 
 import server.data.enums.ProfileType;
 @PersistenceCapable(detachable="true")
+@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class EmailProfile extends Profile {
 	protected EmailProfile(String name, Date birthdate, double weight, double height, double maxHeartRate,
 			double restHeartRate, String email, List<TrainingSession> sessions, Map<Challenge, Byte> challenges) {

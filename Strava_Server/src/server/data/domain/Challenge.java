@@ -18,17 +18,7 @@ public class Challenge extends AbstractChallenge{
 	}
 	
 	public Challenge(long id, String name, Date startDate, Date endDate, double distanceTarget, long timeTarget, Sport sport) {
-		super(name, startDate, endDate, distanceTarget, timeTarget, sport);
-		this.id = id;
-		
-	}
-	
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private long id;
-
-	public long getId() {
-		return id;
+		super(id, name, startDate, endDate, distanceTarget, timeTarget, sport);		
 	}
 
 
