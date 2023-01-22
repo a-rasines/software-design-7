@@ -66,6 +66,10 @@ public class HomePage extends ClientPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					sessionList.removeAll();
+					challengeList.removeAll();
+					challenges.clear();
+					sessions.clear();
 					ClientController.logout();
 					ClientWindow.getInstance().setPage(LoginPage.class);
 				} catch (RemoteException e1) {
@@ -174,6 +178,20 @@ public class HomePage extends ClientPanel{
 	private static final Dimension PREFERRED_SIZE = new Dimension(700, 530);
 	@Override
 	public Dimension getPreferredSize() {
+		if(challenges.size() == 0 && sessions.size() == 0) {
+			try {
+				challenges = ClientController.downloadActiveChallenges();
+				challenges.addAll(ClientController.downloadCompletedChallenges());
+				sessions = ClientController.downloadSessions();
+				sessions.forEach(v -> sessionList.add(new SessionPanel(SportType.of(v.getSport()), v.getName(), v.getStartDate(), v.getDistance(), v.getDuration())));
+				challenges.forEach(v -> challengeList.add(new ChallengePanel(v)));
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 		return PREFERRED_SIZE;
 	}
 }
