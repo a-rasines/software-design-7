@@ -17,8 +17,29 @@ public class DataAssembler {
 		return instance;
 	}
 	
+	public Register registerFromRegisterDTO(RegisterDTO dto) {
+		return new Register(dto.getPassword(), dto.getType(), dto.getName(), dto.getBirthdate(), dto.getWeight(), dto.getHeight(), dto.getMaxHeartRate(), dto.getRestHeartRate(), dto.getEmail());
+	}
 	
 	public Profile profileFromRegisterDTO(RegisterDTO dto) {
+		Profile p = Profile.of(
+			dto.getName(), 
+			dto.getBirthdate(), 
+			dto.getWeight(), 
+			dto.getHeight(), 
+			dto.getMaxHeartRate(), 
+			dto.getRestHeartRate(), 
+			dto.getEmail(), 
+			new ArrayList<>(), 
+			new HashMap<Challenge, Byte>(), 
+			dto.getType()
+		);
+		if(dto.getType() == ProfileType.EMAIL)
+			((EmailProfile)p).setPassword(dto.getPassword());
+		return p;
+		
+	}
+	public Profile profileFromRegister(Register dto) {
 		Profile p = Profile.of(
 			dto.getName(), 
 			dto.getBirthdate(), 
@@ -39,7 +60,11 @@ public class DataAssembler {
 	public Login loginFromLoginDTO(LoginDTO login) {
 		return new Login(login.email, login.password, login.profileType);
 	}
+	
 	public Login loginFromRegisterDTO(RegisterDTO login) {
+		return new Login(login.getEmail(), login.getPassword(), login.getType());
+	}
+	public Login loginFromRegister(Register login) {
 		return new Login(login.getEmail(), login.getPassword(), login.getType());
 	}
 	

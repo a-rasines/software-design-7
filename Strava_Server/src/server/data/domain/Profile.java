@@ -15,8 +15,6 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.annotations.Unique;
 
-import server.data.dao.ChallengeDAO;
-import server.data.dao.TrainingSessionDAO;
 import server.data.enums.ProfileType;
 @PersistenceCapable(detachable="true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
@@ -115,18 +113,19 @@ public class Profile{
 				challenges.put(k, (byte) (v + 100*e.getDuration()/k.getTimeTarget()));
 			}
 		});
-		TrainingSessionDAO.getInstance().save(e);
+		//TrainingSessionDAO.getInstance().save(e);
 	}
 	public void setupChallenge(Challenge e) {
-		ChallengeDAO.getInstance().save(e);
+		//ChallengeDAO.getInstance().save(e);
 		challenges.put(e, (byte)0);
 	}
 	public boolean acceptChallenge(Challenge e) {
 		return this.challenges.putIfAbsent(e, (byte)0) == null;
 	}
+	/*
 	public List<Challenge> downloadChallenge() {
 		return ChallengeDAO.getInstance().getSomeChallenges();
-	}
+	}*/
 	public List<Challenge> downloadCompletedChallenges(){
 		List<Challenge> res = new ArrayList<>();
 		challenges.forEach((k, v) ->{

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import server.ServerAppService;
-import server.data.dao.ProfileDAO;
 import server.data.domain.Challenge;
 import server.data.domain.DataAssembler;
 import server.data.domain.Profile;
@@ -14,12 +13,10 @@ import server.data.dto.ChallengeDTO;
 import server.data.dto.LoginDTO;
 import server.data.dto.RegisterDTO;
 import server.data.dto.TrainingSessionDTO;
-
 import java.lang.String;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-//TODO moverlo a otra clase 
 public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 	private static final long serialVersionUID = 1L;
 	public Map<String, Profile> serverState = new HashMap<>();
@@ -30,14 +27,16 @@ public class RemoteFacade extends UnicastRemoteObject implements IRemoteFacade {
 	}
 	@Override
 	public String register(RegisterDTO profile) throws RemoteException {
-		 if (ServerAppService.getInstance().register(profile))
+		 if (ServerAppService.getInstance().register(DataAssembler.getInstance().registerFromRegisterDTO(profile)))
 			 return generateToken(DataAssembler.getInstance().profileFromRegisterDTO(profile));
 		 else
 			 throw new RemoteException("Account already exists");
 	}
 	public String login(LoginDTO profile) throws RemoteException {
-		if(ServerAppService.getInstance().login(DataAssembler.getInstance().loginFromLoginDTO(profile)))
-			return generateToken(ProfileDAO.getInstance().find(profile.email, profile.profileType));
+		Profile p = ServerAppService.getInstance().login(DataAssembler.getInstance().loginFromLoginDTO(profile));
+		if(p != null)
+			 
+			return generateToken(p);
 		else
 			throw new RemoteException("Authentification error");
 	}
